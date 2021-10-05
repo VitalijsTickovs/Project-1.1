@@ -63,7 +63,7 @@ public class BranchSearch {
 		boolean isFull = true;
 		for(int i=0;i<field.length;i++){
 			for(int j=0;j<field[0].length;j++){
-				if(field[i][j] == -1) isFull = false;
+				if(field[i][j] != 1) isFull = false;
 			}
 		}
 		return isFull;
@@ -95,7 +95,7 @@ public class BranchSearch {
 
     public static boolean searchBranching(int[][] field, char[] userInput, int mutation){
 		if(isFull(field)){									//base case 1, where the shapes are in our matrix
-			ui.setState(field);
+			ui.setState(field); 
 			System.out.println("The solution is found");
 			return true;
 		}else if(userInput.length ==0){						//base case 2, where the there is no characters left
@@ -107,21 +107,22 @@ public class BranchSearch {
 			//find userInput[0] char from database
 			int pieceID = characterToID(userInput[0]);
 			int[][] pieceToPlace = PentominoDatabase.data[pieceID][mutation];
+			ui.setState(field); 
 			//check if the shape with current mutation is fitting the matrix
 			for(int i=0; i< (newField.length-pieceToPlace.length)+1;i++){
-				for(int j=0;j<(newField[i].length-pieceToPlace[i].length)+1;j++){
+				for(int j=0;j<(newField[0].length-pieceToPlace[i].length)+1;j++){
 					boolean placeFound = true;
 					//seeing if the matrix is filled with something else
+                    printTable(field);
 					for(int k=0; k<pieceToPlace.length; k++){
 						for(int n=0;n<pieceToPlace[k].length;n++){
-							if(newField[k+i][n+j]>-1 && pieceToPlace[k][n]!=0 && placeFound){
+							if(newField[k+i][n+j]>-1  && placeFound){
 								placeFound = false;
 							}
 						}
 					}
 					if(placeFound){
 						addPiece(newField, pieceToPlace, pieceID, i,j);
-						ui.setState(field);
 						return searchBranching(newField, Arrays.copyOfRange(userInput, 1, userInput.length), 0);
 					}
 				}
