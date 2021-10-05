@@ -11,10 +11,10 @@ import java.util.Random;
  */
 public class Search
 {
-    public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 3;
+    public static final int horizontalGridSize = 3;
+    public static final int verticalGridSize = 5;
     
-    public static final char[] input = { 'L','P','V'};
+    public static final char[] input = { 'L','N','V'};
     
     //Static UI class to display the board
     public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
@@ -37,7 +37,8 @@ public class Search
             }
         }
         //Start the basic search
-        basicSearch(field);
+        //basicSearch(field);
+		searchBranching(field, input, 0);
     }
 	
 	/**
@@ -159,6 +160,52 @@ public class Search
     		}
     	}
     }
+
+	public static boolean isFull(int[][] field){
+		boolean isFull = true;
+		for(int i=0;i<field.length;i++){
+			for(int j=0;j<field[0].length;j++){
+				if(field[i][j] != 1) isFull = false;
+			}
+		}
+		return isFull;
+	}
+	
+	public static boolean searchBranching(int[][] field, char[] userInput, int mutation){
+		if(isFull(field)){
+			ui.setState(field); 
+			System.out.println("The solution is found");
+			return true;
+		}else if(userInput.length ==0){
+			System.out.println("The solution is not found");
+			return false;
+		}else{
+			int[][] newField = Arrays.copyOfRange(field, 0, field.length);
+			int[][] pieceToPlace = PentominoDatabase.data[characterToID(userInput[0])][mutation];
+			for(int i=0; i< newField.length-pieceToPlace.length+1;i++){
+				for(int j=0;j<newField[0].length-pieceToPlace[0].length+1;j++){
+					boolean placeFound = true;
+
+					for(int x=0; x<pieceToPlace.length; x++){
+						for(int y=0;y<pieceToPlace[0].length;y++){
+							if(newField[x][y]!=-1  && placeFound){
+								placeFound = false;
+							}
+						}
+					}
+					if(placeFound){
+						return searchBranching(newField, Arrays.copyOfRange(userInput, 1, userInput.length), 0);
+					}
+				}
+			}
+			if(mutation<7){
+				return searchBranching(field, userInput, mutation++);
+			}else{
+				return false;
+			}
+		}
+	}
+
     
 	/**
 	 * Adds a pentomino to the position on the field (overriding current board at that position)
