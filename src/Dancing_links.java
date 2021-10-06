@@ -61,7 +61,7 @@ public class Dancing_links{
                     }
                 }
                 if(Solution2.length == 1&& Solution2[0].length>0){
-                    System.out.println("end branch");
+                    if(printStuff)System.out.println("end branch");
                     return false;
                 }
                 if(Solution2.length==1&& Solution2[0].length==0){

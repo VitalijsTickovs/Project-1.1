@@ -2,9 +2,9 @@ public class test {
 
 
     public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 4;
+    public static final int verticalGridSize = 10;
     
-    public static final char[] input = { 'F','L','X','T'};
+    public static final char[] input = { 'L','F','I','X','U','V','N','T','W','P'};
    public static void main(String[] args) {
 
 
@@ -38,7 +38,7 @@ public class test {
 
                             Dancing_links test = new Dancing_links();
                             System.out.println(test.Solving(testTable));
-                            System.out.println(System.currentTimeMillis()-firsttime);
+                            System.out.println("time taken in ms: " + (System.currentTimeMillis()-firsttime));
                             
    }
 
