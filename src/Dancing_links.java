@@ -1,7 +1,15 @@
+import java.security.Principal;
+
 import javax.lang.model.type.NullType;
 
 public class Dancing_links{
+
+    private static boolean printStuff = false;
     public boolean Solving(boolean[][] A){
+
+
+        
+
         
         if(A == null){
             System.out.println("Problem solved! Nothing to do");
@@ -17,7 +25,7 @@ public class Dancing_links{
             for(int ii=0;ii<A.length;ii++){
                 if(A[ii][c]){
                     r=ii;
-                    System.out.println("r = " + r);
+                    if(printStuff) System.out.println("r = " + r);
                     //continue;
                 
 
@@ -26,9 +34,9 @@ public class Dancing_links{
                 //}
                 //make a copy and delete first the column then the rows
                 boolean[][] Solution2 = copyArray(A);
-                System.out.println(A.length +" * "+A[0].length);
+                if(printStuff)System.out.println(A.length +" * "+A[0].length);
                 for(int j=Solution2[0].length-1;j>=0;j--){
-                    System.out.println("j = " + j);
+                    if(printStuff) System.out.println("j = " + j);
                     if(Solution2.length!=0&&Solution2[r][j]){
                         
                         for(int i=Solution2.length-1;i>=0;i--){
@@ -47,7 +55,7 @@ public class Dancing_links{
                         Solution2=deleteColumn(Solution2, j);
                         
                         }else{
-                            System.out.println("small");
+                            if(printStuff)System.out.println("small");
                         }
                         
                     }
@@ -76,7 +84,7 @@ public class Dancing_links{
     } 
 
     public boolean[][] deleteColumn(boolean[][] Ao,int c){
-        System.out.println("deleting column " + c + " for matrix of proportions: " + Ao.length + "*" + Ao[0].length);
+        if(printStuff)System.out.println("deleting column " + c + " for matrix of proportions: " + Ao.length + "*" + Ao[0].length);
 
         boolean[][] A= copyArray(Ao);
         boolean[][] B= new boolean[A.length][A[0].length-1];
@@ -93,7 +101,7 @@ public class Dancing_links{
             return B;
     }
     public boolean[][] deleteRow(boolean[][] A,int r){
-        System.out.println("deleting row " + r + "for matrix of proportions: " + A.length + "*" + A[0].length);
+        if(printStuff)System.out.println("deleting row " + r + "for matrix of proportions: " + A.length + "*" + A[0].length);
         boolean[][] B= new boolean[A.length-1][A[0].length];
             for(int j=0;j<A[0].length;j++){
                 for(int i=0;i<r;i++){

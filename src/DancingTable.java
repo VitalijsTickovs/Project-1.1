@@ -8,12 +8,13 @@ public class DancingTable {
         boolean[][] bigTable;
         int height = emptyField.length;
         int width = emptyField[0].length;
-        int n = PentominoDatabase.data.length;
+        int n = input.length;
 
 
         ArrayList<boolean[]> tempTable = new ArrayList<boolean[]>();
         
-        for(char shape : input){
+        for(int s = 0;s<input.length;s++){
+            char shape = input[s]; 
             int shapeid = characterToID(shape);
             for (int[][] shapeLayout : PentominoDatabase.data[shapeid]) {
                 for(int i = 0;i <height-shapeLayout.length+1;i++){
@@ -21,7 +22,7 @@ public class DancingTable {
 
                     boolean[] newrow = new boolean[n+height*width];
 
-                    newrow[shapeid]=true;
+                    newrow[s]=true;
 
                     for(int ii=0;ii<shapeLayout.length;ii++){
                         for(int jj=0;jj<shapeLayout[0].length;jj++){
