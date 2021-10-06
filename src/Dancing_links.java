@@ -3,11 +3,12 @@ import javax.lang.model.type.NullType;
 public class Dancing_links{
     public boolean Solving(boolean[][] A){
         
-        if(A == null||A.length == 0){
+        if(A == null){
             System.out.println("Problem solved! Nothing to do");
             return true;
         }
         else{
+
             //boolean[][] solution = new int[A.length][A[0].length];
             int c = A[0].length-1;
             int r = 0;
@@ -16,38 +17,56 @@ public class Dancing_links{
             for(int ii=0;ii<A.length;ii++){
                 if(A[ii][c]){
                     r=ii;
+                    System.out.println("r = " + r);
                     //continue;
-                }
+                
 
                 //for(int i=0;i<A[0].length;i++){
                   //  solution[r][i]=A[r][i];
                 //}
                 //make a copy and delete first the column then the rows
                 boolean[][] Solution2 = copyArray(A);
+                System.out.println(A.length +" * "+A[0].length);
                 for(int j=Solution2[0].length-1;j>=0;j--){
+                    System.out.println("j = " + j);
                     if(Solution2.length!=0&&Solution2[r][j]){
                         
                         for(int i=Solution2.length-1;i>=0;i--){
                             
-                            if(A[i][j]){
+                            if(Solution2[i][j]&&i!=r){
+                                
                               Solution2= deleteRow(Solution2, i);
+                              if(r>i){
+                                r--;
+                            }
                               
                             }
                            
                         }
                         if(Solution2.length!=0){
                         Solution2=deleteColumn(Solution2, j);
+                        
                         }else{
                             System.out.println("small");
                         }
                         
                     }
                 }
+                if(Solution2.length == 1&& Solution2[0].length>0){
+                    System.out.println("end branch");
+                    return false;
+                }
+                if(Solution2.length==1&& Solution2[0].length==0){
+                    return true;
+                }
+
+                Solution2=deleteRow(Solution2, r);
                 if(Solving(Solution2)){
                     return true;
                 }
 
 
+                }
             }
             return false;
             // assign to partial solution  the row r
@@ -74,7 +93,7 @@ public class Dancing_links{
             return B;
     }
     public boolean[][] deleteRow(boolean[][] A,int r){
-        //System.out.println("deleting row " + r + "for matrix of proportions: " + A.length + "*" + A[0].length);
+        System.out.println("deleting row " + r + "for matrix of proportions: " + A.length + "*" + A[0].length);
         boolean[][] B= new boolean[A.length-1][A[0].length];
             for(int j=0;j<A[0].length;j++){
                 for(int i=0;i<r;i++){
