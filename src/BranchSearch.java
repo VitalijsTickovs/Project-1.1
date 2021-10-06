@@ -1,32 +1,24 @@
 import java.util.Arrays;
 public class BranchSearch {
     public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 3;
+    public static final int verticalGridSize = 8;
     
-    public static final char[] input = { 'L','P','V'};
+    public static final char[] input = { 'F','Y','T','N','L','P','I','V'};
+    
     
     //Static UI class to display the board
     public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
 
 	/**
-	 * Helper function which starts a basic search algorithm
+	 * Helper function which starts a recursive search algorithm
 	 */
     public static void search(){
         // Initialize an empty board
         int[][] field = new int[horizontalGridSize][verticalGridSize];
-
-        for(int i = 0; i < field.length; i++)
-        {
-            for(int j = 0; j < field[i].length; j++)
-            {
-                // -1 in the state matrix corresponds to empty square
-                // Any positive number identifies the ID of the pentomino
-            	field[i][j] = -1;
-            }
-        }
-        //Start the basic search
-        //basicSearch(field);
-		searchBranching(field, input, 0);
+		initTable(field,'i');
+		if(!searchBranching(field, input, 0)){
+			System.out.println("The solution is not found");
+		}
     }
 
     public static int characterToID(char character) {
@@ -93,13 +85,26 @@ public class BranchSearch {
         }
     }
 
+	public static int[][] initTable(int[][] field, char user){
+		for(int i = 0; i < field.length; i++)
+        {
+            for(int j = 0; j < field[i].length; j++)
+            {
+                // -1 in the state matrix corresponds to empty square
+                // Any positive number identifies the ID of the pentomino
+            	if(field[i][j] == characterToID(user) || user == 'i') field[i][j] = -1;
+            }
+        }
+		return field;
+	}
+
     public static boolean searchBranching(int[][] field, char[] userInput, int mutation){
 		if(isFull(field)){									//base case 1, where the shapes are in our matrix
 			ui.setState(field);
+			printTable(field);
 			System.out.println("The solution is found");
 			return true;
 		}else if(userInput.length ==0){						//base case 2, where the there is no characters left
-			System.out.println("The solution is not found");
 			return false;
 		}else{
 			//make a copy of existing matrix
@@ -109,7 +114,7 @@ public class BranchSearch {
 			int[][] pieceToPlace = PentominoDatabase.data[pieceID][mutation];
 			//check if the shape with current mutation is fitting the matrix
 			for(int i=0; i< (newField.length-pieceToPlace.length)+1;i++){
-				for(int j=0;j<(newField[i].length-pieceToPlace[i].length)+1;j++){
+				for(int j=0;j<(newField[i].length-pieceToPlace[0].length)+1;j++){
 					boolean placeFound = true;
 					//seeing if the matrix is filled with something else
 					for(int k=0; k<pieceToPlace.length; k++){
@@ -121,20 +126,30 @@ public class BranchSearch {
 					}
 					if(placeFound){
 						addPiece(newField, pieceToPlace, pieceID, i,j);
-						ui.setState(field);
-						return searchBranching(newField, Arrays.copyOfRange(userInput, 1, userInput.length), 0);
+						if(searchBranching(newField, Arrays.copyOfRange(userInput, 1, userInput.length), 0)){
+							return true;
+						}
 					}
+					//newField = Arrays.copyOfRange(field, 0, field.length);
+					newField = initTable(field, userInput[0]);
+					ui.setState(field);
 				}
 			}
-			if((mutation<7) && (mutation <= PentominoDatabase.data[pieceID].length)){
+			//try the different mutation for the shape
+			if((mutation<7) && (mutation < PentominoDatabase.data[pieceID].length-1)){
 				return searchBranching(field, userInput, mutation+1);
 			}else{
+				//return searchBranching(initTable(field), Arrays.copyOfRange(userInput, 1, userInput.length), 0);
 				return false;
 			}
 		}
 	}
     public static void main(String[] args)
     {
+        long startTime = System.currentTimeMillis();
         search();
+		final long endTime = System.currentTimeMillis();
+
+		System.out.println("Total execution time: " + (endTime - startTime));
     }
 }
