@@ -1,49 +1,66 @@
 import javax.lang.model.type.NullType;
 
 public class Dancing_links{
-    public int[][] Solving(int[][] A){
+    public boolean Solving(boolean[][] A){
         
-        if(A == null){
+        if(A == null||A.length == 0){
             System.out.println("Problem solved! Nothing to do");
-            return A;
+            return true;
         }
         else{
-            int[][] solution = new int[A.length][A[0].length];
-            int c = 0;
-            int r = -1;
+            //boolean[][] solution = new int[A.length][A[0].length];
+            int c = A[0].length-1;
+            int r = 0;
             
             //choose R such that r is the first row with a "1"
-            for(int i=0;i<A.length;i++){
-                if(A[i][c]==1){
-                    r=i;
-                    continue;
+            for(int ii=0;ii<A.length;ii++){
+                if(A[ii][c]){
+                    r=ii;
+                    //continue;
                 }
-            }
-            // assign to partial solution  the row r
-            for(int i=0;i<A[0].length;i++){
-                solution[r][i]=A[r][i];
-            }
-            //make a copy and delete first the column then the rows
 
-            for(int j=0;j<A.length;j++){
-                if(A[r][j]==1){
-                    int[][] Solution2=deleteColumn(A, j);
-                    for(int i=0;i<Solution2.length;i++){
+                //for(int i=0;i<A[0].length;i++){
+                  //  solution[r][i]=A[r][i];
+                //}
+                //make a copy and delete first the column then the rows
+                boolean[][] Solution2 = copyArray(A);
+                for(int j=Solution2[0].length-1;j>=0;j--){
+                    if(Solution2.length!=0&&Solution2[r][j]){
                         
-                        if(Solution2[i][j]==1){
-                          Solution3= deleteRow(Solution2, i);
-                          
+                        for(int i=Solution2.length-1;i>=0;i--){
+                            
+                            if(A[i][j]){
+                              Solution2= deleteRow(Solution2, i);
+                              
+                            }
+                           
                         }
-                       
+                        if(Solution2.length!=0){
+                        Solution2=deleteColumn(Solution2, j);
+                        }else{
+                            System.out.println("small");
+                        }
+                        
                     }
-                    
                 }
+                if(Solving(Solution2)){
+                    return true;
+                }
+
+
             }
+            return false;
+            // assign to partial solution  the row r
+            
         }      
 
     } 
-    public int[][] deleteColumn(int[][] A,int c){
-        int[][] B= new int[A.length][A[0].length-1];
+
+    public boolean[][] deleteColumn(boolean[][] Ao,int c){
+        System.out.println("deleting column " + c + " for matrix of proportions: " + Ao.length + "*" + Ao[0].length);
+
+        boolean[][] A= copyArray(Ao);
+        boolean[][] B= new boolean[A.length][A[0].length-1];
             for(int i=0;i<A.length;i++){
                 for(int j=0;j<c;j++){
                     B[i][j]=A[i][j];
@@ -51,23 +68,35 @@ public class Dancing_links{
             }
             for(int i=0;i<A.length;i++){
                 for(int j=c+1;j<A[0].length;j++){
-                    B[i][j]=A[i][j];
+                    B[i][j-1]=A[i][j];
                 }
             }
             return B;
     }
-    public int[][] deleteRow(int[][] A,int r){
-        int[][] B= new int[A.length][A[0].length-1];
-            for(int j=0;j<r;j++){
-                for(int i=0;i<A.length;i++){
+    public boolean[][] deleteRow(boolean[][] A,int r){
+        //System.out.println("deleting row " + r + "for matrix of proportions: " + A.length + "*" + A[0].length);
+        boolean[][] B= new boolean[A.length-1][A[0].length];
+            for(int j=0;j<A[0].length;j++){
+                for(int i=0;i<r;i++){
                     B[i][j]=A[i][j];
                 }
             }
-            for(int j=r+1;j<A[0].length;j++){
-                for(int i=0;i<A.length;i++){
-                    B[i][j]=A[i][j];
+            for(int j=0;j<A[0].length;j++){
+                for(int i=r+1;i<A.length;i++){
+                    B[i-1][j]=A[i][j];
                 }
             }
             return B;
+    }
+
+    public boolean[][] copyArray(boolean[][] A){
+        boolean [][] result = new boolean[A.length][A[0].length];
+
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                result[i][j]=A[i][j];
+            }
+        }
+        return result;
     }
 }
