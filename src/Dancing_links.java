@@ -72,18 +72,18 @@ public class Dancing_links{
                 }
                 if(Solution2.length == 1&& Solution2[0].length>0){
                     if(printStuff)System.out.println("end branch");
-                    return false;
-                }
+                    //return false;
+                }else{
                 if(Solution2.length==1&& Solution2[0].length==0){
                     solution.add(potentialsolution);
                     return true;
                 }
-
                 Solution2=deleteRow(Solution2, r);
                 if(Solving(Solution2)){
                     solution.add(potentialsolution);
                     return true;
                 }
+            }
 
 
                 }

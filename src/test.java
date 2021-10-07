@@ -3,16 +3,16 @@ import java.util.ArrayList;
 public class test {
 
 
-    public static final int horizontalGridSize = 6;
+    public static final int horizontalGridSize = 5;
 
     //for efficiency make vertical grid size the large one:)
-    public static final int verticalGridSize = 10;
+    public static final int verticalGridSize = 13;
 
     public static UI ui = new UI(verticalGridSize,horizontalGridSize,50);
     
-    public static final char[] input = { 'L','F','I','X','U','V','N','T','W','P','Z','Y'};
+    public static final char[] input = { 'L','F','I','X','U','V','N','T','W','P','Z','Y','I'};
     //public static final char[] input = { 'I','X','L','Z','F','P','W','N','V'};
-    //public static final char[] input = {'L','P','V'};
+    //public static final char[] input = {'L','V','N'};
    public static void main(String[] args) {
 
 
@@ -43,15 +43,37 @@ public class test {
     //boolean[][] testTable = {{true, true,false},{false, true,true}};
 
     boolean[][] testTable = DancingTable.MakeTable(field, input);
+
+
+        /*for(int i = 0;i < testTable.length;i++){
+            for(int j = 0; j <testTable[0].length;j++){
+             if(testTable[i][j]){
+                 System.out.print("1 ");
+             }else{
+                    System.out.print("0 ");
+             }
+            
+            }
+            System.out.println();
+        }*/
     System.out.println("time taken for making of the table in ms: " + (System.currentTimeMillis()-firsttime));
 
                             Dancing_links test = new Dancing_links();
-                            System.out.println(test.Solving(testTable));
+                            boolean solved = false;
+                            if(test.Solving(testTable)){
+                                solved = true;
+                            }
+                            System.out.println(solved);
 
                             ArrayList<boolean[]> ourSolution = test.solution;
 
-                            Show(ourSolution);
-                            
+
+                            System.out.println();
+                            //System.out.println(ourSolution.size());
+
+                            if(solved){
+                                Show(ourSolution);
+                            }
 
                             System.out.println("time taken for algorithm in ms: " + (System.currentTimeMillis()-firsttime));
                             
@@ -71,6 +93,8 @@ public class test {
             field[i][j] = -1;
         }
     }
+
+    //System.out.println(solution.size());
     boolean[][] realSolution= new boolean[solution.size()][solution.get(solution.size()-1).length];
 
 
@@ -102,26 +126,28 @@ public class test {
             
         }
         System.out.println();
-    }*/
-
+    }
+    System.out.println("pasue");
+    */
 
     for (int i = 0; i < field.length; i++) {
         for (int j = 0; j < field[0].length; j++) {
             for (int k = 0; k < realSolution.length; k++) {
                 if(realSolution[k][realSolution.length+j+i*horizontalGridSize]){
-                    field[i][j]=k;
+                    field[i][j]=k%12;
                 }
             }
         }        
     }
-    for (int i = 0; i < field.length; i++) {
+
+    /*for (int i = 0; i < field.length; i++) {
         for (int j = 0; j < field[0].length; j++) {
             System.out.print(field[i][j]+ " ");
             
         }
         System.out.println();
         
-    }
+    }*/
 
 
     
