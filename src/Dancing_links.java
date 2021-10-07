@@ -1,13 +1,21 @@
 import java.security.Principal;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.lang.model.type.NullType;
 
 public class Dancing_links{
 
+    public ArrayList<boolean[]> solution = new ArrayList<boolean[]>();;
+
     private static boolean printStuff = false;
+
+
+
+
     public boolean Solving(boolean[][] A){
 
-
+        
         
 
         
@@ -25,6 +33,8 @@ public class Dancing_links{
             for(int ii=0;ii<A.length;ii++){
                 if(A[ii][c]){
                     r=ii;
+
+                    boolean[] potentialsolution = copyArray(A[r]);
                     if(printStuff) System.out.println("r = " + r);
                     //continue;
                 
@@ -65,11 +75,13 @@ public class Dancing_links{
                     return false;
                 }
                 if(Solution2.length==1&& Solution2[0].length==0){
+                    solution.add(potentialsolution);
                     return true;
                 }
 
                 Solution2=deleteRow(Solution2, r);
                 if(Solving(Solution2)){
+                    solution.add(potentialsolution);
                     return true;
                 }
 
@@ -123,6 +135,16 @@ public class Dancing_links{
             for (int j = 0; j < result[0].length; j++) {
                 result[i][j]=A[i][j];
             }
+        }
+        return result;
+    }
+
+    public boolean[] copyArray(boolean[] A){
+        boolean [] result = new boolean[A.length];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i]=A[i];
+            
         }
         return result;
     }
