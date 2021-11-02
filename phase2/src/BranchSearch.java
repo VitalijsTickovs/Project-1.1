@@ -162,6 +162,7 @@ public class BranchSearch {
 			if((mutation<7) && (mutation < PentominoDatabase.data[pieceID].length-1)){
 				return searchBranching(field, userInput, mutation+1);
 			}else{
+				ui.setState(field);
 				return false;	//if the mutations are finished it will return false
 			}
 		}
