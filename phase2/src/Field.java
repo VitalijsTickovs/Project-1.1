@@ -39,7 +39,7 @@ public class Field {
         //checking if can be added (can be made more lenient by trying to rotate/move piece left or right)
         for(int i=0;i<newPiece.length;i++){
             for(int j=0;j<newPiece[0].length;j++){
-                if(newPiece[i][j]==1&&field[i][j+w/2]!=-1){
+                if(newPiece[i][j]==1&&field[i][j+w/2-newPiece[0].length/2]!=-1){
                     return false;
                 }
             }
@@ -48,7 +48,7 @@ public class Field {
         pieceID = newPieceID;
         pieceMutation = 0;
         yPiece = 0;
-        xPiece = w/2;
+        xPiece = w/2-newPiece[0].length/2;
 
         return true;
     }
@@ -152,7 +152,7 @@ public class Field {
 
             //check if the rotated piece collides with an edge
 
-            if(xPiece+newLayout[0].length>=w||yPiece+newLayout.length>=h){
+            if(xPiece+newLayout[0].length>w||yPiece+newLayout.length>h){
                 possible=false;
             }
             //check if the rotated piece collides with any piece on the field 
@@ -192,7 +192,30 @@ public class Field {
 
     //TODO: finish this method
     public void checkRows(){
+        for (int i = h-1; i >=0; i--) {
+            boolean full = true;
+            for (int j = 0; j < w; j++) {
+                if(full&&field[i][j]==-1){
+                    full = false;
+                }
+            }
 
+            if(full){
+                for (int k = i-1; k>=0; k--) {
+                    for (int j = 0; j < w; j++) {
+                        field[k+1][j]=field[k][j];
+                    }
+                }
+
+                for (int j = 0; j < w; j++) {
+                    field[0][j] = -1;
+                }
+                i++;
+
+            }
+
+
+        }
     }
 
     public int[][] getField(){
