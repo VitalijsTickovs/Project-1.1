@@ -3,26 +3,27 @@ import javax.print.attribute.standard.Fidelity;
 /*public class fieldTest {
     public static void main(String[] args) {
 
-        int horizontalFieldSize = 3;
-        int verticalFieldSize = 20;
+        int horizontalFieldSize = 9;
+        int verticalFieldSize = 60;
 
-        UI ui = new UI(verticalFieldSize, horizontalFieldSize,30);
+        UI ui = new UI(verticalFieldSize, horizontalFieldSize,20);
 
 
         Field field = new Field( verticalFieldSize,horizontalFieldSize);
-        System.out.println(field.AddPiece('T'));
-        
-        field.rotate();
+        pieceBag bag = new pieceBag();
+
+
 
         for (int i = 0; i < 20; i++) {
+        field.AddPiece(bag.nextPiece());   
+        
+        for (int j = 0; j < 60; j++) {
             field.down();
-        }
-    
+        } 
+        
 
         field.setPiece();
-        field.checkRows();
-        
         ui.setState(field.getField());
-
+        }
     }
 }*/
