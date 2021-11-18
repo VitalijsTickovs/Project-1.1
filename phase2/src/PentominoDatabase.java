@@ -36,7 +36,7 @@ import java.util.Scanner;
 public class PentominoDatabase
 {
     //Stores and loads the data on program initialization
-    public static int[][][][] data = loadData("C:\\Users\\Vitalij\\IdeaProjects\\Project-1.1\\phase2\\src\\pentominos.csv");
+    public static int[][][][] data = loadData("pentominos.csv");
 
     
     /** 

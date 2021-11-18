@@ -19,7 +19,8 @@ public class RunGame extends Canvas implements Runnable{
 
     private final GameMenu gMenu = new GameMenu();          //objects for other scenes
     private final GameScreen gScreen = new GameScreen();
-    public static Field field = new Field(15,5);
+    public static Field field = new Field(17,12);
+    public static pieceBag bag = new pieceBag();
 
     private boolean running = false;                        //this is for thread methods
     public static Thread thread;
@@ -104,14 +105,29 @@ public class RunGame extends Canvas implements Runnable{
         final double ammount_of_ticks = 60.0;
         double ns = 1000000000/ammount_of_ticks;
         double delta = 0.0;
+        int counter=0;
         while(running){
             long now = System.nanoTime();
             delta += (now-x1)/ns;
             x1=now;
             if(delta>=1){
                 delta--;
-                //The game physics should be here
+                if(field.pieceID==-1){
+                    if(!field.AddPiece(bag.nextPiece())){
+                        //TODO: game over
+                    }
+                }
+
+                if(counter%50==0 && counter > 100){
+                    if(!field.down()){
+                        field.setPiece();
+                        field.checkRows();
+                    }
+                }
+
+
             }
+            counter++;
             render(); //this method will display everything
         }
         try {           //when the game finishes it will close all the threads
