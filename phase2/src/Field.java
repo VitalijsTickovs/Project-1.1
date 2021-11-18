@@ -1,3 +1,5 @@
+import javax.print.attribute.standard.RequestingUserName;
+
 public class Field {
 
 
@@ -137,6 +139,13 @@ public class Field {
         return false;
     }
 
+    //method to go down multiple times
+    public void down(int n){
+        for (int i = 0; i < n; i++) {
+            down();
+        }
+    }
+
 
     ////method for rotating piece, RETURNS FALSE IF PIECE CANT BE ROTATED ANY MORE
 
@@ -188,8 +197,10 @@ public class Field {
 
     }
 
-    
-    public void checkRows(){
+    //method that checks if there are any full rows, and removes them (and shifts everything above down)
+    //returns the number of removed rows, for scoring purposes
+    public int checkRows(){
+        int nOfClears = 0;
         for (int i = h-1; i >=0; i--) {
             boolean full = true;
             for (int j = 0; j < w; j++) {
@@ -199,6 +210,7 @@ public class Field {
             }
 
             if(full){
+                nOfClears++;
                 for (int k = i-1; k>=0; k--) {
                     for (int j = 0; j < w; j++) {
                         field[k+1][j]=field[k][j];
@@ -214,6 +226,7 @@ public class Field {
 
 
         }
+        return nOfClears;
     }
 
     public int[][] getField(){
