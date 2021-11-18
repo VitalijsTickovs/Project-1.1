@@ -9,26 +9,26 @@ import java.nio.Buffer;
 
 public class GameMenu{
 
-    Font Fnt = new Font("Arial", Font.BOLD, 30);
+    Font Fnt = new Font("Arial", Font.BOLD, 30);            //Init the font
     Font focusedFnt = new Font("Arial", Font.BOLD, 40);
-    public Rectangle playBut = new Rectangle((Menu.height*Menu.scale/2) +60,150,100,50);
-    public Rectangle helpBut = new Rectangle(Menu.height*Menu.scale/2 +60,250,100,50);
-    public Rectangle quitBut = new Rectangle(Menu.height*Menu.scale/2 +60,350,100,50);
+    public Rectangle playBut = new Rectangle((RunGame.height*RunGame.scale/2) +60,150,100,50);          //Areas of buttons
+    public Rectangle helpBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,250,100,50);
+    public Rectangle quitBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,350,100,50);
 
     public void render(Graphics g){
         g.setFont(Fnt);
-        if(Menu.playColor.equals(Color.ORANGE))g.setFont(focusedFnt);
-        g.setColor(Menu.playColor);
+        if(RunGame.playColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying playbutton by its color
+        g.setColor(RunGame.playColor);
         g.drawString("Play", playBut.x + 20, playBut.y + 30);
 
         g.setFont(Fnt);
-        if(Menu.helpColor.equals(Color.ORANGE))g.setFont(focusedFnt);
-        g.setColor(Menu.helpColor);
+        if(RunGame.helpColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying helpbutton by its color
+        g.setColor(RunGame.helpColor);
         g.drawString("Help", helpBut.x + 20, helpBut.y + 30);
 
         g.setFont(Fnt);
-        if(Menu.quitColor.equals(Color.ORANGE))g.setFont(focusedFnt);
-        g.setColor(Menu.quitColor);
+        if(RunGame.quitColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying quitbutton by its color
+        g.setColor(RunGame.quitColor);
         g.drawString("Quit", quitBut.x + 20, quitBut.y + 30);
 
     }

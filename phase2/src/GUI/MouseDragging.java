@@ -12,35 +12,35 @@ public class MouseDragging implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (Menu.state.equals(Menu.STATE.menu)) {
+        if (RunGame.state.equals(RunGame.STATE.menu)) {
             int px = e.getX();
             int py = e.getY();
             if (px >= 310 && px <= 410) {
                 if (py >= 150 && py <= 200) {
-                    Menu.playColor = Color.ORANGE;
+                    RunGame.playColor = Color.ORANGE;
                 } else {
-                    Menu.playColor = Color.WHITE;
+                    RunGame.playColor = Color.WHITE;
                 }
             } else {
-                Menu.playColor = Color.WHITE;
+                RunGame.playColor = Color.WHITE;
             }
             if (px >= 310 && px <= 410) {
                 if (py >= 250 && py <= 300) {
-                    Menu.helpColor = Color.ORANGE;
+                    RunGame.helpColor = Color.ORANGE;
                 } else {
-                    Menu.helpColor = Color.WHITE;
+                    RunGame.helpColor = Color.WHITE;
                 }
             } else {
-                Menu.helpColor = Color.WHITE;
+                RunGame.helpColor = Color.WHITE;
             }
             if (px >= 310 && px <= 410) {
                 if (py >= 350 && py <= 400) {
-                    Menu.quitColor = Color.ORANGE;
+                    RunGame.quitColor = Color.ORANGE;
                 } else {
-                    Menu.quitColor = Color.WHITE;
+                    RunGame.quitColor = Color.WHITE;
                 }
             } else {
-                Menu.quitColor = Color.WHITE;
+                RunGame.quitColor = Color.WHITE;
             }
         }
     }

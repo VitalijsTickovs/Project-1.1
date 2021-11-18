@@ -10,8 +10,8 @@ import java.io.IOException;
 
 
 public class GameScreen{
-    public Rectangle playArea = new Rectangle((Menu.height*4/2) +100,100,25,15*5);
-    public Dimension gameScreen = new Dimension(Menu.height * 4, Menu.width * Menu.scale);
+    public Rectangle playArea = new Rectangle((RunGame.height*4/2) +100,100,25,15*5);
+    public Dimension gameScreen = new Dimension(RunGame.height * 4, RunGame.width * RunGame.scale);
     int size = 30;
 
     public void render(Graphics g){
@@ -21,21 +21,21 @@ public class GameScreen{
         g2d.setColor(Color.WHITE);
 
 
-        for (int i = 0; i <= Menu.pentLoc[i].length; i++)
+        for (int i = 0; i <= RunGame.pentLoc[i].length; i++)
         {
-            g2d.drawLine((i * size) + 300, 100, (i * size) + 300, Menu.pentLoc.length * size +100);
+            g2d.drawLine((i * size) + 300, 100, (i * size) + 300, RunGame.pentLoc.length * size +100);
         }
-        for (int i = 0; i <= Menu.pentLoc.length; i++)
+        for (int i = 0; i <= RunGame.pentLoc.length; i++)
         {
-            g2d.drawLine(300, i * size +100, (Menu.pentLoc[0].length * size)+300, i * size +100);
+            g2d.drawLine(300, i * size +100, (RunGame.pentLoc[0].length * size)+300, i * size +100);
         }
 
         //draw blocks
-        for (int i = 0; i < Menu.pentLoc[i].length; i++)
+        for (int i = 0; i < RunGame.pentLoc[i].length; i++)
         {
-            for (int j = 0; j < Menu.pentLoc.length; j++)
+            for (int j = 0; j < RunGame.pentLoc.length; j++)
             {
-                g2d.setColor(GetColorOfID(Menu.pentLoc[j][i]));
+                g2d.setColor(GetColorOfID(RunGame.pentLoc[j][i]));
                 g2d.fill(new Rectangle2D.Double(i * size + 301, j * size + 101, size - 1, size - 1));
             }
         }
