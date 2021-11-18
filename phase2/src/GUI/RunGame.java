@@ -30,7 +30,7 @@ public class RunGame extends Canvas implements Runnable{
     public BufferedImage menuTitle = null;
 
 
-    public enum STATE{                               //this is made to keep at what states the user is on
+    public static enum STATE{                               //this is made to keep at what states the user is on
         menu, help, game
     }
     public static STATE state = STATE.menu;                 //start with menu scene
