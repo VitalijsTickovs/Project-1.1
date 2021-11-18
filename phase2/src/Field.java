@@ -3,7 +3,7 @@
 public class Field {
 
 
-    public int[][] field;
+    private int[][] field;
     public int h;
     public int w;
 
@@ -14,7 +14,7 @@ public class Field {
     public int[][] pieceLayout;
 
 
-
+    //constructor
     public Field(int height, int width){
         h = height;
         w = width;
@@ -190,7 +190,7 @@ public class Field {
 
     }
 
-    //TODO: finish this method
+    
     public void checkRows(){
         for (int i = h-1; i >=0; i--) {
             boolean full = true;
