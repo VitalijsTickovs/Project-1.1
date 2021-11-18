@@ -1,6 +1,6 @@
 import javax.print.attribute.standard.Fidelity;
 
-public class fieldTest {
+/*public class fieldTest {
     public static void main(String[] args) {
 
         int horizontalFieldSize = 3;
@@ -25,4 +25,4 @@ public class fieldTest {
         ui.setState(field.getField());
 
     }
-}
+}*/
