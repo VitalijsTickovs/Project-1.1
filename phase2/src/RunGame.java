@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class RunGame extends Canvas implements Runnable {
     public static Field field = new Field(17, 12);
     public static pieceBag bag = new pieceBag();
     public static SaveFile save;
+
+    public static boolean endGame = false;
 
     private boolean running = false;                        //this is for thread methods
     public static Thread thread;
@@ -73,16 +76,24 @@ public class RunGame extends Canvas implements Runnable {
             gScreen.render(g);
         } else if (scene == STATE.gameOver) {
             oScreen.render(g);
+            endGame = true;
             g.dispose();
             bs.show();
-            int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
-            String playerName = JOptionPane.showInputDialog(null, "Enter your name");
-            if(input == 0) {
-                save = new SaveFile(playerName ,playerScore, window);
-            }
+        }else if(scene == STATE.help){
+            //add Help menu
         }
         g.dispose();
         bs.show();
+        if(endGame){
+            int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
+            if(input == 0) {
+                String playerName = JOptionPane.showInputDialog(null, "Enter your name");
+                save = new SaveFile(playerName ,playerScore, window);
+            }else{
+                window.dispatchEvent(new WindowEvent(window,WindowEvent.WINDOW_CLOSING));
+            }
+        }
+
     }
 
     public synchronized void start() {

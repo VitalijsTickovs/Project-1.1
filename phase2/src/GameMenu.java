@@ -10,17 +10,17 @@ public class GameMenu{
 
     public void render(Graphics g){
         g.setFont(Fnt);
-        if(RunGame.playColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying playbutton by its color
+        if(RunGame.playColor.equals(Color.ORANGE)) g.setFont(focusedFnt);                    //displaying playbutton by its color
         g.setColor(RunGame.playColor);
         g.drawString("Play", playBut.x + 20, playBut.y + 30);
 
         g.setFont(Fnt);
-        if(RunGame.helpColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying helpbutton by its color
+        if(RunGame.helpColor.equals(Color.ORANGE)) g.setFont(focusedFnt);                    //displaying helpbutton by its color
         g.setColor(RunGame.helpColor);
         g.drawString("Help", helpBut.x + 20, helpBut.y + 30);
 
         g.setFont(Fnt);
-        if(RunGame.quitColor.equals(Color.ORANGE))g.setFont(focusedFnt);                    //displaying quitbutton by its color
+        if(RunGame.quitColor.equals(Color.ORANGE)) g.setFont(focusedFnt);                    //displaying quitbutton by its color
         g.setColor(RunGame.quitColor);
         g.drawString("Quit", quitBut.x + 20, quitBut.y + 30);
 
