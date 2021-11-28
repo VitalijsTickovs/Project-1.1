@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -12,7 +10,7 @@ public class MouseDragging implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (RunGame.state.equals(RunGame.STATE.menu)) {
+        if (RunGame.scene.equals(RunGame.STATE.menu)) {
             int px = e.getX();
             int py = e.getY();
             if (px >= 310 && px <= 410) {

@@ -1,14 +1,9 @@
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 public class GameScreen{
+    Font scoreFnt = new Font("Arial", Font.BOLD, 30);
     public Rectangle playArea = new Rectangle((RunGame.height*4/2) +100,100,25,15*5);
     public Dimension gameScreen = new Dimension(RunGame.height * 4, RunGame.width * RunGame.scale);
     int size = 30;
@@ -16,9 +11,6 @@ public class GameScreen{
     public void render(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
-        //g2d.draw(playArea);
-        g2d.setColor(Color.WHITE);
-
 
         for (int i = 0; i <= RunGame.field.getField()[i].length; i++)
         {
@@ -38,6 +30,12 @@ public class GameScreen{
                 g2d.fill(new Rectangle2D.Double(i * size + 301, j * size + 101, size - 1, size - 1));
             }
         }
+
+        //displaying score of the user
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(scoreFnt);
+        g2d.drawString("Score: " + RunGame.playerScore, 20, 100);
+
     }
     private Color GetColorOfID(int i)
     {
