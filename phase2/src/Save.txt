@@ -1,1 +1,4 @@
 Vitaly: 4
+Harry: 3
+Lilly: 10
+Ruby: 7

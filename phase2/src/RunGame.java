@@ -88,7 +88,7 @@ public class RunGame extends Canvas implements Runnable {
             int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
             if(input == 0) {
                 String playerName = JOptionPane.showInputDialog(null, "Enter your name");
-                save = new SaveFile(playerName ,playerScore, window);
+                save = new SaveFile(playerName ,playerScore);
             }else{
                 window.dispatchEvent(new WindowEvent(window,WindowEvent.WINDOW_CLOSING));
             }
