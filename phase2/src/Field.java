@@ -1,3 +1,5 @@
+
+
 public class Field {
 
 
@@ -251,6 +253,13 @@ public class Field {
         return result;
 
 
+        
+    }
+    public void ResetPiece(){
+        pieceLayout = PentominoDatabase.data[pieceID][0];
+        pieceMutation = 0;
+        yPiece = 0;
+        xPiece = w/2-pieceLayout[0].length/2;
     }
 
 
