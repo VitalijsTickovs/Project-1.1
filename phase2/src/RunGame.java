@@ -19,6 +19,7 @@ public class RunGame extends Canvas implements Runnable {
     public static Color playColor = Color.white;
     public static Color helpColor = Color.white;
     public static Color quitColor = Color.white;
+    public static char nextpiece;
 
     private final GameMenu gMenu = new GameMenu();          //objects for other scenes
     private final GameScreen gScreen = new GameScreen();
@@ -88,10 +89,9 @@ public class RunGame extends Canvas implements Runnable {
             int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
             if(input == 0) {
                 String playerName = JOptionPane.showInputDialog(null, "Enter your name");
-                save = new SaveFile(playerName ,playerScore);
-            }else{
-                window.dispatchEvent(new WindowEvent(window,WindowEvent.WINDOW_CLOSING));
+                save = new SaveFile(playerName, playerScore);
             }
+                window.dispatchEvent(new WindowEvent(window,WindowEvent.WINDOW_CLOSING));
         }
 
     }
@@ -113,6 +113,7 @@ public class RunGame extends Canvas implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        nextpiece = bag.nextPiece();
         addKeyListener(new KeyInput(this));
         addMouseListener(new MouseInput());
         addMouseMotionListener(new MouseDragging());
@@ -132,6 +133,7 @@ public class RunGame extends Canvas implements Runnable {
         double ms = 1000 / ammount_of_ticks;
         double delta = 0.0;
         int counter = 0;
+        boolean nextPieceAdded = false;
         while (running) {
             long now = System.nanoTime();
             delta += (now - x1) / ms;
@@ -139,7 +141,7 @@ public class RunGame extends Canvas implements Runnable {
             if (delta >= 1 && scene == STATE.game) {
                 delta--;
                 if (field.pieceID == -1) {
-                    if (!field.AddPiece(bag.nextPiece())) {
+                    if (!field.AddPiece(nextpiece)) {
                         scene = STATE.gameOver;
                         render();
                         try {
@@ -149,11 +151,15 @@ public class RunGame extends Canvas implements Runnable {
                         }
                     }
                 }
-
+                if(!nextPieceAdded) {
+                    nextpiece = bag.nextPiece();
+                    nextPieceAdded = true;
+                }
                 if (counter % 300 == 0) {
                     if (!field.down()) {
                         field.setPiece();
                         playerScore += field.checkRows();
+                        nextPieceAdded = false;
                     }
                 }
 

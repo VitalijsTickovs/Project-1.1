@@ -18,9 +18,9 @@ public class PentominoBuilder {
     private static int[][][] basicDatabase = {
             {
             	// pentomino representation X
-                    {0,1,0},
+                    {-1,1,-1},
                     {1,1,1},
-                    {0,1,0}
+                    {-1,1,-1}
             },
             {
             	// pentomino representation I
@@ -32,46 +32,46 @@ public class PentominoBuilder {
             },
             {
             	// pentomino representation Z
-                    {0,1,1},
-                    {0,1,0},
-                    {1,1,0}
+                    {-1,1,1},
+                    {-1,1,-1},
+                    {1,1,-1}
             },
             {
             	// pentomino representation T
                     {1,1,1},
-                    {0,1,0},
-                    {0,1,0}
+                    {-1,1,-1},
+                    {-1,1,-1}
             },
             {
             	// pentomino representation U
                     {1,1},
-                    {1,0},
+                    {1,-1},
                     {1,1}
             },
             {
             	// pentomino representation V
                     {1,1,1},
-                    {1,0,0},
-                    {1,0,0}
+                    {1,-1,-1},
+                    {1,-1,-1}
             },
             {
             	// pentomino representation W
-                    {0,0,1},
-                    {0,1,1},
-                    {1,1,0}
+                    {-1,-1,1},
+                    {-1,1,1},
+                    {1,1,-1}
             },
             {
             	// pentomino representation Y
-                    {1,0},
+                    {1,-1},
                     {1,1},
-                    {1,0},
-                    {1,0}
+                    {1,-1},
+                    {1,-1}
             },
             {
             	// pentomino representation L
-                    {1,0},
-                    {1,0},
-                    {1,0},
+                    {1,-1},
+                    {1,-1},
+                    {1,-1},
                     {1,1}
             },
             {
@@ -79,24 +79,24 @@ public class PentominoBuilder {
 
                     {1,1},
                     {1,1},
-                    {1,0}
+                    {1,-1}
 
         		//
             },
             {
             	// pentomino representation N
-                    {0,1},
+                    {-1,1},
                     {1,1},
-                    {1,0},
-                    {1,0}
+                    {1,-1},
+                    {1,-1}
         		
         		//
             },
             {
             	//pentomino representation F
-                    {0,1,1},
-                    {1,1,0},
-                    {0,1,0}
+                    {-1,1,1},
+                    {1,1,-1},
+                    {-1,1,-1}
         		//
             }
     };

@@ -6,11 +6,11 @@ public class Dancing_Run {
     public static final int horizontalGridSize = 6;
 
     //for efficiency make vertical grid size the large one:)
-    public static final int verticalGridSize = 10;
+    public static final int verticalGridSize = 5;
 
     public static UI ui = new UI(verticalGridSize,horizontalGridSize,50);
     
-    public static final char[] input = { 'L','F','X','U','V','N','T','W','P','Z','Y','I'};
+    public static final char[] input = { 'U','V','N','T','W','P','Z','Y','I'};
     //public static final char[] input = { 'I','X','L','Z','F','P','W','N','V'};
     //public static final char[] input = {'L','V','N'};
    public static void main(String[] args) {

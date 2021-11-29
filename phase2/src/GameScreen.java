@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
 
 
 public class GameScreen{
@@ -30,21 +31,19 @@ public class GameScreen{
         g2d.setFont(scoreFnt);
         g2d.drawString("Score: " + RunGame.playerScore, 20, 100);
 
-        int[][] newPiece = PentominoDatabase.data[CharToID.characterToID(RunGame.bag.nextPiece())][0];
-
-        for (int i = 0; i < newPiece[0].length; i++){
-            g2d.drawLine((i * size) + 150, 50, (i * size) + 150, newPiece.length * size +50);
+        int[][] newPiece = PentominoDatabase.data[CharToID.characterToID(RunGame.nextpiece)][0];
+        for (int i = 0; i <= newPiece[0].length; i++){
+            g2d.drawLine((i * size) + 150, 150, (i * size) + 150, newPiece.length * size +150);
         }
 
-        for (int i = 0; i < newPiece.length; i++){
-            g2d.drawLine(150, i * size +50, (newPiece[0].length * size)+150, i * size +50);
+        for (int i = 0; i <= newPiece.length; i++){
+            g2d.drawLine(150, i * size +150, (newPiece[0].length * size)+150, i * size +150);
         }
-        System.out.println(RunGame.bag.nextPiece());
         //draw blocks
         for (int i = 0; i < newPiece[0].length; i++) {
             for (int j = 0; j < newPiece.length; j++) {
                 g2d.setColor(GetColorOfID(newPiece[j][i]));
-                g2d.fill(new Rectangle2D.Double(i * size + 101, j * size + 51, size - 1, size - 1));
+                g2d.fill(new Rectangle2D.Double(i * size + 151, j * size + 151, size - 1, size - 1));
             }
         }
 

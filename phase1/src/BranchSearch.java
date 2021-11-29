@@ -1,9 +1,9 @@
 import java.util.Arrays;
 public class BranchSearch {
     public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 10;
+    public static final int verticalGridSize = 8;
     
-    public static final char[] input = { 'N','U','T','F','L','P','I','Y','Z','X', 'W', 'V'};
+    public static final char[] input = { 'L','F','X','U','V','N','T','W','P','Z','Y','I'};
     
     
     //Static UI class to display the board
@@ -156,13 +156,14 @@ public class BranchSearch {
 					}
 					//if it is returned false, then remove that shape, to try another position
 					newField = removeLetter(field, userInput[0]);
+
 				}
 			}
 			//try the different mutation for the shape
 			if((mutation<7) && (mutation < PentominoDatabase.data[pieceID].length-1)){
 				return searchBranching(field, userInput, mutation+1);
 			}else{
-				//ui.setState(field);
+				ui.setState(field);
 				return false;	//if the mutations are finished it will return false
 			}
 		}
