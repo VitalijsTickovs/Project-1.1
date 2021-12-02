@@ -13,6 +13,16 @@ public class Field {
     public int xPiece;
     public int[][] pieceLayout;
 
+    public Field(int height, int width,int[][] fieldd){
+        h = height;
+        w = width;
+        field=fieldd;
+        pieceID = -1;
+        pieceMutation = 0;
+        yPiece = 0;
+        xPiece = 0;
+    }
+
 
     //constructor
     public Field(int height, int width){
@@ -29,7 +39,6 @@ public class Field {
         yPiece = 0;
         xPiece = 0;
     }
-
     //returns false if piece cant be added (aka game over), otherwise, returns true and adds the piece
     //might have to split into 2 methods
     public boolean AddPiece(char piece){
