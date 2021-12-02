@@ -47,8 +47,8 @@ public class RunGame extends Canvas implements Runnable {
             field.left();
         } else if (key == KeyEvent.VK_DOWN) {
             field.rotate();
-        } else if (key == KeyEvent.VK_SPACE) {
-            field.down();
+        }else if(key == KeyEvent.VK_SPACE){
+            field.down(15);
         }
     }
 
@@ -134,6 +134,7 @@ public class RunGame extends Canvas implements Runnable {
         double delta = 0.0;
         int counter = 0;
         boolean nextPieceAdded = false;
+        boolean piecemoved = false;
         while (running) {
             long now = System.nanoTime();
             delta += (now - x1) / ms;
@@ -155,12 +156,16 @@ public class RunGame extends Canvas implements Runnable {
                     nextpiece = bag.nextPiece();
                     nextPieceAdded = true;
                 }
-                if (counter % 300 == 0) {
+                if (System.currentTimeMillis()%1000 <= 50 && !piecemoved) {
+                    piecemoved=true;
                     if (!field.down()) {
                         field.setPiece();
                         playerScore += field.checkRows();
                         nextPieceAdded = false;
                     }
+                }
+                if(piecemoved && System.currentTimeMillis()%1000 > 50){
+                    piecemoved =  false;
                 }
 
 
