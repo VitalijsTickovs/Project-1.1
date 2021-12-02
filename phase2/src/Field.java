@@ -182,6 +182,30 @@ public class Field {
         }
         return false;
     }
+    //rotate method that tries several x positions so the rotation can be more "satisfying"
+    public boolean lenientRotate(){
+
+        int deltaX = 0;
+        if(rotate()){
+            return true;
+        }
+        for(int i = 1;i < pieceLayout.length;i++){
+        if(left()){
+            deltaX++;
+        }
+        if(rotate()){
+            return true;
+        }
+        }
+        for (int i = 0; i < deltaX; i++) {
+            right();
+        }
+          
+
+        return false;
+
+    }
+
     //method for "cementing" active piece on the board. we assume it is possible
     public void setPiece(){
         if(pieceID!=-1){    

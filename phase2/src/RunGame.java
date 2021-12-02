@@ -46,7 +46,7 @@ public class RunGame extends Canvas implements Runnable {
         } else if (key == KeyEvent.VK_LEFT) {
             field.left();
         } else if (key == KeyEvent.VK_DOWN) {
-            field.rotate();
+            field.lenientRotate();
         }else if(key == KeyEvent.VK_SPACE){
             field.down(15);
         }
