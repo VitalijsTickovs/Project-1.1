@@ -9,9 +9,8 @@ class all_position{
     public int yPiece;
     public int xPiece;
     public int[][] pieceLayout;
-     public static  int[][][] combination(int[][] field,char piece){
-        
-        Field c =new Field(7,5,field);
+     public static  int[][][] combination(int[][] field,char piece){     
+        Field c =new Field(25,8,field);
         int p=0;
         c.AddPiece(piece);
         int number=0;
@@ -24,7 +23,7 @@ class all_position{
 
        //2th rotation
 
-        Field d =new Field(7,5,field);
+        Field d =new Field(25,8,field);
         d.AddPiece(piece);
         int number2=0;
         while(d.left()){
@@ -35,7 +34,7 @@ class all_position{
         }
         //3th rotation
 
-        Field e =new Field(7,5,field);
+        Field e =new Field(25,8,field);
         e.AddPiece(piece);
         int number3=0;
         while(e.left()){
@@ -47,7 +46,7 @@ class all_position{
         }
         //4th rotation
         //
-        Field f =new Field(7,5,field);
+        Field f =new Field(25,8,field);
         f.AddPiece(piece);
         int number4=0;
         while(f.left()){
@@ -58,8 +57,64 @@ class all_position{
         while(f.right()){ 
            number4++;
         }
+        //5th rotation
+        Field g =new Field(25,8,field);
+        g.AddPiece(piece);
+        int number5=0;
+        while(g.left()){
+        }
+        g.rotate();
+        g.rotate();
+        g.rotate();
+        g.rotate();
+        while(g.right()){ 
+           number5++;
+        }
+         //6th rotation
+         Field h =new Field(25,8,field);
+         h.AddPiece(piece);
+         int number6=0;
+         while(h.left()){
+         }
+         h.rotate();
+         h.rotate();
+         h.rotate();
+         h.rotate();
+         h.rotate();
+         while(h.right()){ 
+            number6++;
+         }
+        
+         //7th rotation
+        Field l =new Field(25,8,field);
+        l.AddPiece(piece);
+        int number7=0;
+        while(l.left()){
+        }
+        l.rotate();
+        l.rotate();
+        l.rotate();
+        l.rotate();
+        l.rotate();
+        l.rotate();
+        while(l.right()){ 
+           number7++;
+        }
+         //8th rotation
+         Field x =new Field(25,8,field);
+         x.AddPiece(piece);
+         int number8=0;
+         while(x.left()){
+         }
+         x.rotate();
+         x.rotate();
+         x.rotate();
+         x.rotate();
+         while(x.right()){ 
+            number8++;
+         }
        
-        int tot_number=number+number2+number3+number4+4;
+        int tot_number=number+number2+number3+number4+number5+number6+number7+number8+8;
         int[][][] result=new int[tot_number][field.length][field[0].length];
         for(int i=0;i<=number;i++){
             Field b =new Field(field.length,field[0].length,field);
@@ -80,7 +135,7 @@ class all_position{
                     else
                     b.down();
                 }
-
+                
                 result[p]=b.getField();
                 p++;
      
@@ -103,12 +158,13 @@ class all_position{
                 else
                 b.down();
             }
-                result[p]=b.getField();
+                
+            result[p]=b.getField();
                 p++;
      
           
         }
-               
+            
         for(int i=0;i<=number3;i++){
             Field b =new Field(field.length,field[0].length,field);
             b.AddPiece(piece);
@@ -127,7 +183,7 @@ class all_position{
                 else
                 b.down();
             }
-               
+            
                 result[p]=b.getField();
                 p++;
      
@@ -153,13 +209,107 @@ class all_position{
                 }
                 else
                 b.down();
-            }
-                b.setPiece();
+            }        
                 result[p]=b.getField();
-                p++;
-     
-                
-          
+                p++;         
+        }
+        for(int i=0;i<=number5;i++){
+            Field b =new Field(field.length,field[0].length,field);
+            b.AddPiece(piece);
+            while(b.left()){
+            }
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            for(int j=0;j<i;j++){
+                b.right();
+            }
+            for(int k=0;k<field.length;k++){
+                if(field[k][i]!=-1){
+                    
+                break;
+                }
+                else
+                b.down();
+            }        
+                result[p]=b.getField();
+                p++;         
+        }
+        for(int i=0;i<=number6;i++){
+            Field b =new Field(field.length,field[0].length,field);
+            b.AddPiece(piece);
+            while(b.left()){
+            }
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            for(int j=0;j<i;j++){
+                b.right();
+            }
+            for(int k=0;k<field.length;k++){
+                if(field[k][i]!=-1){
+                    
+                break;
+                }
+                else
+                b.down();
+            }        
+                result[p]=b.getField();
+                p++;         
+        }
+        for(int i=0;i<=number7;i++){
+            Field b =new Field(field.length,field[0].length,field);
+            b.AddPiece(piece);
+            while(b.left()){
+            }
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            for(int j=0;j<i;j++){
+                b.right();
+            }
+            for(int k=0;k<field.length;k++){
+                if(field[k][i]!=-1){
+                    
+                break;
+                }
+                else
+                b.down();
+            }        
+                result[p]=b.getField();
+                p++;         
+        }
+        for(int i=0;i<=number8;i++){
+            Field b =new Field(field.length,field[0].length,field);
+            b.AddPiece(piece);
+            while(b.left()){
+            }
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            b.rotate();
+            for(int j=0;j<i;j++){
+                b.right();
+            }
+            for(int k=0;k<field.length;k++){
+                if(field[k][i]!=-1){
+                    
+                break;
+                }
+                else
+                b.down();
+            }        
+                result[p]=b.getField();
+                p++;         
         }
  
     return result;
@@ -169,7 +319,7 @@ class all_position{
     int height =0;
     for(int i=0;i<array.length;i++){
             if(array[i][column]!=0){
-                height = 4-i;
+                height = array.length-i;
                 return height;
         }
     }
@@ -185,8 +335,8 @@ class all_position{
     }
     return holes;
 }
- public static  int clearLines(){
-    int array[][]= new int[10][10];
+ public static  int clearLines(int[][] array){
+    
     int width=0;
     int lines=0;
     for(int i=1;i<array.length;i++){
@@ -216,31 +366,37 @@ class all_position{
     }
     return bump;
 }
- 
- public static  int score(int[][] array){
-     int score = 2000*Aggregate_Height(array) +15*clearLines()-50*getHoles(array)-5*Bumpiness(array);
+ /** 
+ public static  double score(int[][] array){
+     double score = 1*Aggregate_Height(array) + 1*clearLines(array)-0.2*getHoles(array)-0.164626498034284*Bumpiness(array);
      return score;
 }
-
-/** 
- public static  int score(int[][] array){
-    int score = Aggregate_Height(array) +clearLines()-getHoles(array)-Bumpiness(array);
+*/
+ 
+ public static  double score(int[][] array){
+    double score = 6*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.14921408023878*getHoles(array)-0.164626498034284*Bumpiness(array);
     return score;
 }
-*/
+public static double score2(int[][] array){
+double score = -30*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.164626498034284*Bumpiness(array);
+    return score;
+}
  public static  int bestscore(int[][][] array){
-    int best =0;
+    double best =0;
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
+        Field c =new Field(7,5,array[i]);
+        int[][] test = c.getField();
+        c.checkRows();
         no=true;
         for(int j=0;j<array[0][0].length;j++){
-            if(array[i][0][j]!=-1){
+            if(test[0][j]!=-1){
                 no=false;
             }
         }
         if(no){
-        int[][] arraycompare=array[i];
+        int[][] arraycompare=test;
         if(score(arraycompare)>best){
             best=score(arraycompare);
             best_position=i;
@@ -249,21 +405,43 @@ class all_position{
     }
     return best_position;
 }
+public static  int bestscore2(int[][][] array){
+    double best =0;
+    int best_position=0;
+    boolean no= true;
+    for(int i=0;i<array.length;i++){
+        Field c =new Field(7,5,array[i]);
+        int[][] test = c.getField();
+        c.checkRows();
+        no=true;
+        for(int j=0;j<array[0][0].length;j++){
+            if(test[0][j]!=-1){
+                no=false;
+            }
+        }
+        if(no){
+        int[][] arraycompare=test;
+        if(score2(arraycompare)>best){
+            best=score2(arraycompare);
+            best_position=i;
+        }
+        }
+    }
+    return best_position;
+}
  public static  int[][] best_field(int[][] field,char piece){
     int[][][] a =combination(field, piece);
-    System.out.print(bestscore(a)+ " ");
+    if(piece=='I'||piece=='L'||piece=='Z'){
+        int array[][]=a[bestscore2(a)];
+    }
+    else{
         int array[][]=a[bestscore(a)];
-        for(int i=0;i<array.length;i++){
-            for(int j=0;j<array[0].length;j++){
-                System.out.print(array[i][j]+" ");
-            }
-        System.out.println();
-        }
+    }
       return a[bestscore(a)]; 
 
 }
-
-     public static  void main(String[] args){
+  
+     public static void main (String[] args){
        int[][] field={{-1,-1,-1,-1,-1},
                       {-1,-1,-1,-1,-1},
                       {0,-1,-1,-1,0},
@@ -272,6 +450,7 @@ class all_position{
                       { 0, 0,-1,-1,0},
                       { 0, 0,-1,-1,-1}
                     };
+                    
                       /**             
        int[][][] a =combination(field, 'Y');
      /** 
@@ -295,9 +474,10 @@ class all_position{
             }
         System.out.println();
         }
-        */
+       
         int[][] b = best_field(field, 'Y');
     }
-    
+    **/
+}
 
 }
