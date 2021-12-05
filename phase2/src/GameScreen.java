@@ -38,17 +38,17 @@ public class GameScreen{
         g2d.drawString("Next Piece:", 20, 150);
         int[][] newPiece = PentominoDatabase.data[CharToID.characterToID(RunGame.nextpiece)][0];
         for (int i = 0; i <= newPiece[0].length; i++){
-            g2d.drawLine((i * size) + 150, 155, (i * size) + 150, newPiece.length * size +155);
+            g2d.drawLine((i * size) + 200, 135, (i * size) + 200, newPiece.length * size +135);
         }
 
         for (int i = 0; i <= newPiece.length; i++){
-            g2d.drawLine(150, i * size +155, (newPiece[0].length * size)+150, i * size +155);
+            g2d.drawLine(200, i * size +135, (newPiece[0].length * size)+200, i * size +135);
         }
         //draw blocks
         for (int i = 0; i < newPiece[0].length; i++) {
             for (int j = 0; j < newPiece.length; j++) {
                 g2d.setColor(GetColorOfID(newPiece[j][i]));
-                g2d.fill(new Rectangle2D.Double(i * size + 151, j * size + 155, size - 1, size - 1));
+                g2d.fill(new Rectangle2D.Double(i * size + 201, j * size + 136, size - 1, size - 1));
             }
         }
 
