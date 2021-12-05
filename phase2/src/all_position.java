@@ -374,11 +374,11 @@ class all_position{
 */
  
  public static  double score(int[][] array){
-    double score = 6*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.14921408023878*getHoles(array)-0.164626498034284*Bumpiness(array);
+    double score = 6*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-1.4921408023878*getHoles(array)-0.164626498034284*Bumpiness(array);
     return score;
 }
 public static double score2(int[][] array){
-double score = -30*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.164626498034284*Bumpiness(array);
+double score = -30.0*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.164626498034284*Bumpiness(array);
     return score;
 }
  public static  int bestscore(int[][][] array){
@@ -386,7 +386,7 @@ double score = -30*Aggregate_Height(array) +0.522287506868767*clearLines(array)+
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(7,5,array[i]);
+        Field c =new Field(25,8,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;
@@ -410,7 +410,7 @@ public static  int bestscore2(int[][][] array){
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(7,5,array[i]);
+        Field c =new Field(25,8,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;
@@ -431,7 +431,7 @@ public static  int bestscore2(int[][][] array){
 }
  public static  int[][] best_field(int[][] field,char piece){
     int[][][] a =combination(field, piece);
-    if(piece=='I'||piece=='L'||piece=='Z'){
+    if(piece=='I'||piece=='L'||piece=='V'||piece=='Y'){
         int array[][]=a[bestscore2(a)];
     }
     else{
@@ -442,15 +442,51 @@ public static  int bestscore2(int[][][] array){
 }
   
      public static void main (String[] args){
-       int[][] field={{-1,-1,-1,-1,-1},
-                      {-1,-1,-1,-1,-1},
-                      {0,-1,-1,-1,0},
-                      {0,-1,-1,-1,0},
-                      {0,0,-1,-1, 0},
-                      { 0, 0,-1,-1,0},
-                      { 0, 0,-1,-1,-1}
+         /** 
+       int[][] field={{-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+       {-1,-1,-1,-1,-1,-1,-1,-1},
+                      {0,-1,-1,-1,0,-1,-1,-1},
+                      {0,-1,-1,-1,0,0,0,0},
+                      {0,0,-1,-1, 0,0,0,0},
+                      { 0, 0,-1,-1,0,0,0,0},
+                      { 0, 0,-1,-1,0,0,0,0}
                     };
-                    
+                    Field a= new Field(7, 5,field);
+                    //System.out.println(a.checkRows());
+                    int[][] b =best_field(field, 'I');
+                    for(int i=0;i<b.length;i++){
+                        for(int j=0;j<b[0].length;j++){
+                            System.out.print(b[i][j]+" ");
+                        }
+                    System.out.println();
+                    }
+                    */
+                    int[] x ={1,2,3};
+                    int[] y ={1,2,3};
+                    boolean test =true;
+                    for(int i=0;i<x.length;i++){
+                        if(x[i]!=y[i])
+                            test=false;
+                    }
+                    System.out.println(test);
                       /**             
        int[][][] a =combination(field, 'Y');
      /** 
