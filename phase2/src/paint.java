@@ -24,7 +24,7 @@ class paint{
             field = d.getField();
             count++;
             b.setState(field);
-            pause(10);
+            pause(100);
             if(count==150){
                 ttrruuee=false;
             }
