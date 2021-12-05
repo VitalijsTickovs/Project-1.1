@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class GameScreen{
     Font scoreFnt = new Font("Arial", Font.BOLD, 30);   //Init font
     int size = 30;                                                  //Size of the fields for pentominoes
+    SaveFile leaderBoard= new SaveFile();
+    //HashMap<String, >
     public void render(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
@@ -52,7 +55,9 @@ public class GameScreen{
         g2d.setColor(RunGame.pauseColor);
         String pauseSelection;
         if(RunGame.pause) pauseSelection = "Start"; else pauseSelection = "Pause";
-        g2d.drawString(pauseSelection, 20,500);
+        g2d.drawString(pauseSelection, 350,80);
+
+
 
     }
     private Color GetColorOfID(int i)

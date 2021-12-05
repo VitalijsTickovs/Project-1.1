@@ -1,73 +1,81 @@
 import java.io.*;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import javax.swing.*;
 public class SaveFile {
     private final String savePath = "phase2/src/Save.txt";
-    private int toSave;
+    private final int toSave;
     private String playerName = "";
-    File file = new File(savePath);
-    File tempFile = new File(file.getAbsoluteFile() + ".tmp");
-    boolean replaced = false;
+    private final String tempSavePath = "phase2/src/Save.temp";
+    File origFile = new File(savePath);
+    File tempFile = new File(tempSavePath);
 
     public SaveFile(String playerName, int toSave) {
         this.toSave = toSave;
         this.playerName += playerName.substring(0, 1).toUpperCase() + playerName.substring(1);
-        SaveFile();
+        LoadToFile(ReadFromFile());
     }
 
-    public void SaveFile() {
+    public SaveFile(){
+        this.toSave = 0;
+    }
+
+    HashMap<String, Integer> ReadHash = new HashMap<String, Integer>();
+    Properties properties = new Properties();
+    Properties storeProperties = new Properties();
+    public HashMap<String, Integer> ReadFromFile() {
         try {
-            if (!file.exists()) {
-                file.createNewFile();
+            properties.load(new FileInputStream(savePath));
+
+            for (String key : properties.stringPropertyNames()) {
+                ReadHash.put(key, Integer.parseInt(properties.getProperty(key)));
             }
 
-            FileWriter fw = new FileWriter(tempFile);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            BufferedWriter bw = new BufferedWriter(fw);
+            return sortByValue(ReadHash);
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    public void LoadToFile(HashMap<String,Integer> LoadHash) {
+        try {
+            if(LoadHash.containsKey(playerName)){                                       //if the player is in the leaderboard
+                if(LoadHash.get(playerName)<toSave)LoadHash.put(playerName, toSave);    //his score is better from this game -> replace it
+            }else LoadHash.put(playerName, toSave);                                     //else, if there is no player in the leaderboard, add it to HashMap
 
-            String line = null;
-            int saveLimit = 1;
-            while ((line = br.readLine()) != null && saveLimit < 5) {
-                String subName = "";
-                String subScore = "";
-                int subScoreInt;
-                for (int i = 0; i < line.length(); i++) {
-                    if (line.charAt(i) == ':') {
-                        subName += line.substring(0, i);
-                        subScore += line.substring(i + 2);
-                    }
-                }
-                subScoreInt = Integer.parseInt(subScore);
-
-                if (subName.equals(playerName) &&  subScoreInt < toSave) {//player is found in save.txt but the score from current game is bigger
-                    bw.write(playerName + ": " + toSave + "\n");
-                    replaced = true;
-                }else if(subName.equals(playerName)){                       //player is found, but current save is bigger than scored in current session
-                    bw.write(line + "\n");
-                    replaced = true;
-                }else{                                                      //different player
-                    bw.write(line + "\n");
-                }
-                saveLimit++;
+            LoadHash = sortByValue(LoadHash);
+            for (Map.Entry<String, Integer> entry : LoadHash.entrySet()) {
+                storeProperties.put(entry.getKey(), entry.getValue().toString());
+                System.out.println(entry.getKey() + " " + entry.getValue());
             }
-            if (saveLimit <= 5 && !replaced) {                              //player was not found and the limit of the save file is smaller than 5
-                bw.write(playerName + ": " + toSave + "\n");
-            }
-
-            //add sorting
-
-            //if the current session score is bigger than in the save file, replace it
-
-            bw.close();
-            br.close();
-
-            file.delete();
-            tempFile.renameTo(file);
-        } catch (IOException e) {
+            storeProperties.store(new FileOutputStream(tempSavePath), null);
+            origFile.delete();
+            tempFile.renameTo(origFile);
+        } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> fileObj)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Integer> > list =
+                new LinkedList<>(fileObj.entrySet());
+
+        // Sort the list
+        list.sort(new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1,
+                               Map.Entry<String, Integer> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<String, Integer> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
     }
 }
