@@ -1,5 +1,4 @@
 Harry: 3
 Lilly: 12
 Boris: 20
-Vitaly: 6
-Lolly: 3
+Vitaly: 15

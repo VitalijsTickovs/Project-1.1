@@ -1,18 +1,19 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseDragging implements MouseMotionListener {
-
+public class MouseDragging implements MouseMotionListener, MouseListener {
+    public Rectangle pauseBut = new Rectangle(20,500,100,50);
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (RunGame.scene.equals(RunGame.STATE.menu)) {
-            int px = e.getX();
-            int py = e.getY();
+        int px = e.getX();
+        int py = e.getY();
+        if (RunGame.scene == RunGame.STATE.menu){
             if (px >= 310 && px <= 410) {
                 if (py >= 150 && py <= 200) {
                     RunGame.playColor = Color.ORANGE;
@@ -40,6 +41,74 @@ public class MouseDragging implements MouseMotionListener {
             } else {
                 RunGame.quitColor = Color.WHITE;
             }
+        }else if(RunGame.scene == RunGame.STATE.game){
+            if(px >= 20 && px<=120){
+                if(py>=460 && py<=520){
+                    RunGame.pauseColor = Color.ORANGE;
+                }else{
+                    RunGame.pauseColor = Color.WHITE;
+                }
+            }else{
+                RunGame.pauseColor = Color.WHITE;
+            }
+        }else if(RunGame.scene == RunGame.STATE.help){
+            if(px>=0 && px<=90){
+                if(py>=0 && py<=30){
+                    RunGame.backColor = Color.ORANGE;
+                }else{
+                    RunGame.backColor = Color.WHITE;
+                }
+            }else{
+                RunGame.backColor = Color.WHITE;
+            }
         }
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int mx = e.getX();
+        int my = e.getY();
+        if (RunGame.scene == (RunGame.STATE.menu)) {
+            if (mx >= 310 && mx <= 460) {
+                if (my >= 150 && my <= 200) {
+                    RunGame.scene = RunGame.STATE.game;
+                } else if (my >= 250 && my <= 300) {
+                    RunGame.scene = RunGame.STATE.help;
+                } else if (my >= 350 && my <= 400) {
+                    System.exit(0);
+                }
+            }
+        }else if(RunGame.scene == RunGame.STATE.game){
+            if(mx >=20 && mx<=120){
+                if(my >= 460 && my<=520){
+                    RunGame.pause = !RunGame.pause;
+                }
+            }
+        }else if(RunGame.scene == RunGame.STATE.help){
+            if(mx>=0 && mx<=90){
+                if(my>=0 && my<=30) {
+                    RunGame.scene = RunGame.STATE.menu;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

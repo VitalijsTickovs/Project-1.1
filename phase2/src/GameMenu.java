@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public class GameMenu{
-
     Font Fnt = new Font("Arial", Font.BOLD, 30);            //Init the font
     Font focusedFnt = new Font("Arial", Font.BOLD, 40);
+
     public Rectangle playBut = new Rectangle((RunGame.height*RunGame.scale/2) +60,150,100,50);          //Areas of buttons
     public Rectangle helpBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,250,100,50);
     public Rectangle quitBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,350,100,50);

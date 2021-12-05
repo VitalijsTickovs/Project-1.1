@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,22 +16,30 @@ public class RunGame extends Canvas implements Runnable {
     public static Color playColor = Color.white;
     public static Color helpColor = Color.white;
     public static Color quitColor = Color.white;
+    public static Color pauseColor = Color.white;
+    public static Color backColor = Color.white;
+
     public static char nextpiece;
 
     private final GameMenu gMenu = new GameMenu();          //objects for other scenes
     private final GameScreen gScreen = new GameScreen();
     private final GameOver oScreen = new GameOver();
+    private final HelpScreen hScreen = new HelpScreen();
     public static Field field = new Field(17, 12);
     public static pieceBag bag = new pieceBag();
     public static SaveFile save;
 
     public static boolean endGame = false;
+    public static boolean pause = false;
 
     private boolean running = false;                        //this is for thread methods
     public static Thread thread;
 
     public BufferedImage bckgrd = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);      //the background image
     public BufferedImage menuTitle = null;
+    public static BufferedImage rotate = null;
+    public static BufferedImage moving = null;
+    public static BufferedImage drop = null;
 
     public static int playerScore;
 
@@ -47,7 +52,7 @@ public class RunGame extends Canvas implements Runnable {
             field.left();
         } else if (key == KeyEvent.VK_DOWN) {
             field.lenientRotate();
-        }else if(key == KeyEvent.VK_SPACE){
+        }else if(key == KeyEvent.VK_SPACE && !pause){
             field.down(15);
         }
     }
@@ -71,17 +76,18 @@ public class RunGame extends Canvas implements Runnable {
         g.drawImage(bckgrd, 0, 0, getWidth(), getHeight(), this);
 
         if (scene == STATE.menu) {                                              //this is the menu output
-            g.drawImage(menuTitle, width * scale / 3, 0, this);
+            g.drawImage(menuTitle, 200, 0,300, 250, this);
             gMenu.render(g);
         } else if (scene == STATE.game){                                        //this is the game screen
             gScreen.render(g);
+        }else if(scene == STATE.help){
+
+            hScreen.render(g);                                                  //output necessary info
         } else if (scene == STATE.gameOver) {
             oScreen.render(g);
             endGame = true;
             g.dispose();
             bs.show();
-        }else if(scene == STATE.help){
-            //add Help menu
         }
         g.dispose();
         bs.show();
@@ -89,9 +95,9 @@ public class RunGame extends Canvas implements Runnable {
             int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
             if(input == 0) {
                 String playerName = JOptionPane.showInputDialog(null, "Enter your name");
-                save = new SaveFile(playerName, playerScore);
+                if(playerName != null) save = new SaveFile(playerName, playerScore);
             }
-                window.dispatchEvent(new WindowEvent(window,WindowEvent.WINDOW_CLOSING));
+                System.exit(0);
         }
 
     }
@@ -110,12 +116,15 @@ public class RunGame extends Canvas implements Runnable {
         try {
             bckgrd = loader.loadBufferedImage("GameBckrd.png");
             menuTitle = loader.loadBufferedImage("GameTitle.png");
+            rotate = loader.loadBufferedImage("Rotation.jpg");
+            moving = loader.loadBufferedImage("Moving.jpg");
+            drop = loader.loadBufferedImage("Drop.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
         nextpiece = bag.nextPiece();
         addKeyListener(new KeyInput(this));
-        addMouseListener(new MouseInput());
+        addMouseListener(new MouseDragging());
         addMouseMotionListener(new MouseDragging());
     }
 
@@ -128,18 +137,17 @@ public class RunGame extends Canvas implements Runnable {
 
     public void run() {
         init();
-        long x1 = System.nanoTime();                //the time is needed to keep the threads 'under control' and to update the game screen not as frequently
+        long x1 = System.currentTimeMillis();                //the time is needed to keep the threads 'under control' and to update the game screen not as frequently
         final double ammount_of_ticks = 60.0;
         double ms = 1000 / ammount_of_ticks;
         double delta = 0.0;
-        int counter = 0;
         boolean nextPieceAdded = false;
         boolean piecemoved = false;
         while (running) {
-            long now = System.nanoTime();
+            long now = System.currentTimeMillis();          //counting how much time passed
             delta += (now - x1) / ms;
             x1 = now;
-            if (delta >= 1 && scene == STATE.game) {
+            if (delta >= 1 && scene == STATE.game && !pause) {
                 delta--;
                 if (field.pieceID == -1) {
                     if (!field.AddPiece(nextpiece)) {
@@ -156,7 +164,7 @@ public class RunGame extends Canvas implements Runnable {
                     nextpiece = bag.nextPiece();
                     nextPieceAdded = true;
                 }
-                if (System.currentTimeMillis()%1000 <= 50 && !piecemoved) {
+                if (System.currentTimeMillis()% 1000 <= 40 && !piecemoved) {
                     piecemoved=true;
                     if (!field.down()) {
                         field.setPiece();
@@ -167,10 +175,7 @@ public class RunGame extends Canvas implements Runnable {
                 if(piecemoved && System.currentTimeMillis()%1000 > 50){
                     piecemoved =  false;
                 }
-
-
-                }
-                counter++;
+            }
                 render(); //this method will display everything
             }
         }
