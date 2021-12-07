@@ -3,8 +3,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseDragging implements MouseMotionListener, MouseListener {
+public class MouseDragging extends KeyInput implements MouseMotionListener, MouseListener {
     public Rectangle pauseBut = new Rectangle(20,500,100,50);
+
     @Override
     public void mouseDragged(MouseEvent e) {
     }

@@ -23,6 +23,7 @@ public class SaveFile {
     private HashMap<String,Integer> LoadHash = new HashMap<String, Integer>();
     private Properties loadProperties = new Properties();
     private Properties storeProperties = new Properties();
+
     public HashMap<String, Integer> ReadFromFile() {
         try {
             loadProperties.load(new FileInputStream(savePath));

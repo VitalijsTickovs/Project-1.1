@@ -6,16 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class GameScreen{
+public class GameScreen extends GameMenu{
     int size = 30;                                                                  //size of the fields for pentominoes
     Font scoreFnt = new Font("Arial", Font.BOLD, size);                      //init font
     Font namesScores = new Font("Arial", Font.PLAIN, size-10);
 
-    SaveFile readSaveFile= new SaveFile();
-    HashMap<String, Integer> leaderboard = readSaveFile.ReadFromFile();             //reading stored logs in Save.txt file
+    HashMap<String, Integer> leaderboard = new SaveFile().ReadFromFile();             //reading stored logs in Save.txt file
 
-
-    public void render(Graphics g){
+    public void renderGScreen(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
 
@@ -28,9 +26,9 @@ public class GameScreen{
         int offset = 0;                                                             //used to change the position of each line on y-axis
         g2d.drawString("Leaderboard", 20, 300);
         g2d.setFont(namesScores);
-        for(Map.Entry<String, Integer> entry : leaderboard.entrySet()){
-            g2d.drawString(entry.getKey() + ": " + entry.getValue(), 30, 350+offset );
-            offset+=50;
+        for (Map.Entry<String, Integer> entry : leaderboard.entrySet()) {
+            g2d.drawString(entry.getKey() + ": " + entry.getValue(), 30, 350 + offset);
+            offset += 50;
         }
 
         //displaying pause button
@@ -43,16 +41,16 @@ public class GameScreen{
         //Draw lines for field
         g2d.setColor(Color.white);
         for (int i = 0; i <= RunGame.field.getField()[i].length; i++){
-            g2d.drawLine((i * size) + 300, 100, (i * size) + 300, RunGame.field.getField().length * size +100);
+            g2d.drawLine((i * size) + 350, 100, (i * size) + 350, RunGame.field.getField().length * size +100);
         }
         for (int i = 0; i <= RunGame.field.getField().length; i++){
-            g2d.drawLine(300, i * size +100, (RunGame.field.getField()[0].length * size)+300, i * size +100);
+            g2d.drawLine(350, i * size +100, (RunGame.field.getField()[0].length * size)+350, i * size +100);
         }
         //draw blocks of dropping pentominoes
         for (int i = 0; i < RunGame.field.getField()[0].length; i++) {
             for (int j = 0; j < RunGame.field.getField().length; j++) {
                 g2d.setColor(GetColorOfID(RunGame.field.getField()[j][i]));
-                g2d.fill(new Rectangle2D.Double(i * size + 301, j * size + 101, size - 1, size - 1));
+                g2d.fill(new Rectangle2D.Double(i * size + 351, j * size + 101, size - 1, size - 1));
             }
         }
 

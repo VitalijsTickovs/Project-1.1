@@ -1,20 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class HelpScreen{                //this class will output the text for the help screen
-    Timer timer = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    });
+public class HelpScreen extends GameScreen{                //this class will output the text for the help screen
     Font fnt = new Font("Arial", Font.BOLD, 30);
-
-    Rectangle back = new Rectangle(0, 10, 40, 30);
-
-    public void render(Graphics g) {
+    public void renderHelp(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(RunGame.backColor);
         g2d.setFont(fnt);
@@ -29,9 +17,5 @@ public class HelpScreen{                //this class will output the text for th
 
         g.drawImage(RunGame.drop, 20, 550, 200, 250, null);
         g2d.drawString("To drop a piece press space bar", 320, 700);
-
-
-
-        //timer.start();
     }
 }

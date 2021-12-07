@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,52 +10,34 @@ public class RunGame extends Canvas implements Runnable {
     public static final int scale = 2;
     public static final String title = "Tetris game";
     public static JFrame window = new JFrame(title);
-    public static RunGame screen = new RunGame();
+    public static RunGame game = new RunGame();
 
-    public static Color playColor = Color.white;
+    public static Color playColor = Color.white;            //variables that will change the color of buttons
     public static Color helpColor = Color.white;
     public static Color quitColor = Color.white;
     public static Color pauseColor = Color.white;
     public static Color backColor = Color.white;
 
+    private final GameOver Screens = new GameOver();        //game scene object for rendering
+
+    public static Field field = new Field(15, 5);  //creating game field and its components
     public static char nextpiece;
 
-    private final GameMenu gMenu = new GameMenu();          //objects for other scenes
-    private final GameScreen gScreen = new GameScreen();
-    private final GameOver oScreen = new GameOver();
-    private final HelpScreen hScreen = new HelpScreen();
-    public static Field field = new Field(17, 12);
-    public static pieceBag bag = new pieceBag();
-    public static SaveFile save;
+    BufferedImageLoader loader = new BufferedImageLoader();
 
-    public static boolean endGame = false;
+    public static boolean endGame = false;                  //booleans
     public static boolean pause = false;
 
     private boolean running = false;                        //this is for thread methods
     public static Thread thread;
 
-    public BufferedImage bckgrd = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);      //the background image
+    public BufferedImage bckgrd = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);      //images that will be used
     public BufferedImage menuTitle = null;
     public static BufferedImage rotate = null;
     public static BufferedImage moving = null;
     public static BufferedImage drop = null;
 
     public static int playerScore;
-
-    public void KeyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_RIGHT) {
-            field.right();
-        } else if (key == KeyEvent.VK_LEFT) {
-            field.left();
-        } else if (key == KeyEvent.VK_DOWN) {
-            field.lenientRotate();
-        }else if(key == KeyEvent.VK_SPACE && !pause){
-            field.down(15);
-        }
-    }
-
 
     public static enum STATE {                               //this is made to keep at what states the user is on
         menu, help, game, gameOver
@@ -77,27 +58,30 @@ public class RunGame extends Canvas implements Runnable {
 
         if (scene == STATE.menu) {                                              //this is the menu output
             g.drawImage(menuTitle, 200, 0,300, 250, this);
-            gMenu.render(g);
+            Screens.renderMenu(g);
         } else if (scene == STATE.game){                                        //this is the game screen
-            gScreen.render(g);
-        }else if(scene == STATE.help){
-
-            hScreen.render(g);                                                  //output necessary info
-        } else if (scene == STATE.gameOver) {
-            oScreen.render(g);
+            Screens.renderGScreen(g);
+        }else if(scene == STATE.help){                                          //this is how to play the game
+            Screens.renderHelp(g);
+        } else if (scene == STATE.gameOver) {                                   //goes to endgame phase
+            Screens.renderOver(g);
             endGame = true;
-            g.dispose();
             bs.show();
         }
         g.dispose();
         bs.show();
+
+        //outputting a window for user to save his score and name
         if(endGame){
+            //storing user's decision
             int input = JOptionPane.showConfirmDialog(null, "Save score?", "Game Over",0,0);
+            //if user chose yes, to save his progress
             if(input == 0) {
                 String playerName = JOptionPane.showInputDialog(null, "Enter your name");
-                if(playerName != null) save = new SaveFile(playerName, playerScore);
+                //if user rethought his decision, so he left his playerName empty
+                if(playerName != null)  new SaveFile(playerName, playerScore);
             }
-                System.exit(0);
+                System.exit(0);         //quit on save
         }
 
     }
@@ -112,18 +96,17 @@ public class RunGame extends Canvas implements Runnable {
     }
 
     public void init() {                                                          //initializing the game background and adding mouse listeners
-        BufferedImageLoader loader = new BufferedImageLoader();
         try {
-            bckgrd = loader.loadBufferedImage("GameBckrd.png");
-            menuTitle = loader.loadBufferedImage("GameTitle.png");
-            rotate = loader.loadBufferedImage("Rotation.png");
-            moving = loader.loadBufferedImage("Moving.png");
-            drop = loader.loadBufferedImage("Drop.png");
+            bckgrd = loader.loadBufferedImage("/Images/GameBckrd.png");
+            menuTitle = loader.loadBufferedImage("/Images/GameTitle.png");
+            rotate = loader.loadBufferedImage("/Images/Rotation.png");
+            moving = loader.loadBufferedImage("/Images/Moving.png");
+            drop = loader.loadBufferedImage("/Images/Drop.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        nextpiece = bag.nextPiece();
-        addKeyListener(new KeyInput(this));
+        nextpiece = field.nextPiece();
+        addKeyListener(new MouseDragging());
         addMouseListener(new MouseDragging());
         addMouseMotionListener(new MouseDragging());
     }
@@ -161,7 +144,7 @@ public class RunGame extends Canvas implements Runnable {
                     }
                 }
                 if(!nextPieceAdded) {
-                    nextpiece = bag.nextPiece();
+                    nextpiece = field.nextPiece();
                     nextPieceAdded = true;
                 }
                 if (System.currentTimeMillis()% 1000 <= 40 && !piecemoved) {
@@ -182,15 +165,15 @@ public class RunGame extends Canvas implements Runnable {
 
 
         public static void main (String[]args){
-            screen.setPreferredSize(new Dimension(width * scale, width * scale));       //initializing game screen
-            window.add(screen);
+            game.setPreferredSize(new Dimension(width * scale, width * scale));       //initializing game screen
+            window.add(game);
             window.pack();
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             window.setResizable(false);
             window.setVisible(true);
 
-            screen.start();                                                                         //Starting thread, meaning the game
+            game.start();                                                                         //Starting thread, meaning the game
         }
 
 

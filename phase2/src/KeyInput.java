@@ -2,15 +2,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
-    RunGame game;
-
-    public KeyInput(RunGame game){
-        this.game = game;
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
-        game.KeyPressed(e);
+            int key = e.getKeyCode();
+
+            if (key == KeyEvent.VK_RIGHT) {
+                RunGame.field.right();
+            } else if (key == KeyEvent.VK_LEFT) {
+                RunGame.field.left();
+            } else if (key == KeyEvent.VK_DOWN) {
+                RunGame.field.lenientRotate();
+            }else if(key == KeyEvent.VK_SPACE && !RunGame.pause){
+                RunGame.field.down(15);
+            }
     }
 
 }
