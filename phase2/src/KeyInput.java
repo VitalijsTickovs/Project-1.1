@@ -7,13 +7,13 @@ public class KeyInput extends KeyAdapter {
             int key = e.getKeyCode();
 
             if (key == KeyEvent.VK_RIGHT) {
-                RunGame.field.right();
+                RunGame.right();
             } else if (key == KeyEvent.VK_LEFT) {
-                RunGame.field.left();
+                RunGame.left();
             } else if (key == KeyEvent.VK_DOWN) {
-                RunGame.field.lenientRotate();
+                RunGame.lenientRotate();
             }else if(key == KeyEvent.VK_SPACE && !RunGame.pause){
-                RunGame.field.down(15);
+                RunGame.down(15);
             }
     }
 

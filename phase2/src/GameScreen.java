@@ -40,16 +40,16 @@ public class GameScreen extends GameMenu{
 
         //Draw lines for field
         g2d.setColor(Color.white);
-        for (int i = 0; i <= RunGame.field.getField()[i].length; i++){
-            g2d.drawLine((i * size) + 350, 100, (i * size) + 350, RunGame.field.getField().length * size +100);
+        for (int i = 0; i <= RunGame.getField()[i].length; i++){
+            g2d.drawLine((i * size) + 350, 100, (i * size) + 350, RunGame.getField().length * size +100);
         }
-        for (int i = 0; i <= RunGame.field.getField().length; i++){
-            g2d.drawLine(350, i * size +100, (RunGame.field.getField()[0].length * size)+350, i * size +100);
+        for (int i = 0; i <= RunGame.getField().length; i++){
+            g2d.drawLine(350, i * size +100, (RunGame.getField()[0].length * size)+350, i * size +100);
         }
         //draw blocks of dropping pentominoes
-        for (int i = 0; i < RunGame.field.getField()[0].length; i++) {
-            for (int j = 0; j < RunGame.field.getField().length; j++) {
-                g2d.setColor(GetColorOfID(RunGame.field.getField()[j][i]));
+        for (int i = 0; i < RunGame.getField()[0].length; i++) {
+            for (int j = 0; j < RunGame.getField().length; j++) {
+                g2d.setColor(GetColorOfID(RunGame.getField()[j][i]));
                 g2d.fill(new Rectangle2D.Double(i * size + 351, j * size + 101, size - 1, size - 1));
             }
         }

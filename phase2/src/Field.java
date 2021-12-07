@@ -3,15 +3,15 @@
 public class Field extends pieceBag{
 
 
-    private int[][] field;
-    public int h;
-    public int w;
+    private static int[][] field;
+    public static int h;
+    public static int w;
 
-    public int pieceID;
-    public int pieceMutation;
-    public int yPiece;
-    public int xPiece;
-    public int[][] pieceLayout;
+    public static int pieceID;
+    public static int pieceMutation;
+    public static int yPiece;
+    public static int xPiece;
+    public static int[][] pieceLayout;
 
     public Field(int height, int width,int[][] fieldd){
         h = height;
@@ -39,6 +39,10 @@ public class Field extends pieceBag{
         yPiece = 0;
         xPiece = 0;
     }
+
+    //empty constructor for RunGame
+    public Field(){}
+
     //returns false if piece cant be added (aka game over), otherwise, returns true and adds the piece
     //might have to split into 2 methods
     public boolean AddPiece(char piece){
@@ -63,7 +67,7 @@ public class Field extends pieceBag{
     }
 
     //method for moving active piece left RETURNS FALSE IF PIECE CANT BE MOVED LEFT ANY MORE
-    public boolean left(){
+    public static boolean left(){
         if(pieceID>-1){
             //pieceLayout = PentominoDatabase.data[pieceID][pieceMutation];
 
@@ -93,7 +97,7 @@ public class Field extends pieceBag{
     }
 
     //method for moving active piece right RETURNS FALSE IF PIECE CANT BE MOVED RIGHT ANY MORE
-    public boolean right(){
+    public static boolean right(){
         if(pieceID>-1){
             //pieceLayout = PentominoDatabase.data[pieceID][pieceMutation];
 
@@ -122,14 +126,14 @@ public class Field extends pieceBag{
     }
 
     //method for moving piece down, RETURNS FALSE IF PIECE CANT BE MOVED DOWN ANY MORE
-    public boolean down(){
+    public static boolean down(){
         if(pieceID>-1){
             boolean possible = true;
 
             //if the piece is at the rightmost border
             if(yPiece+pieceLayout.length>=h){
                 possible = false;
-            } 
+            }
 
             //if a square that the piece would move to is occupied
             for(int i = 0;i<pieceLayout.length;i++){
@@ -149,7 +153,7 @@ public class Field extends pieceBag{
     }
 
     //method to go down multiple times
-    public void down(int n){
+    public static void down(int n){
         for (int i = 0; i < n; i++) {
             down();
         }
@@ -158,8 +162,7 @@ public class Field extends pieceBag{
 
     ////method for rotating piece, RETURNS FALSE IF PIECE CANT BE ROTATED ANY MORE
 
-    //TODO: decide on piece rotation rules (currently rotates through every piece mutation))
-    public boolean rotate(){
+    public static boolean rotate(){
         if(pieceID!=-1){
             boolean possible = true;
             int[][] newLayout = PentominoDatabase.data[pieceID][(pieceMutation+1)%PentominoDatabase.data[pieceID].length];
@@ -192,7 +195,7 @@ public class Field extends pieceBag{
         return false;
     }
     //rotate method that tries several x positions so the rotation can be more "satisfying"
-    public boolean lenientRotate(){
+    public static boolean lenientRotate(){
 
         int deltaX = 0;
         if(rotate()){
@@ -262,7 +265,7 @@ public class Field extends pieceBag{
         return nOfClears;
     }
 
-    public int[][] getField(){
+    public static int[][] getField(){
 
         if(pieceID==-1){
             return field;

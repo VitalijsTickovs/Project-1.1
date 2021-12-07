@@ -3,6 +3,7 @@
  * @version 2022.0
  */
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.Scanner;
  * X X X
  * 0 0 X
  */
-public class PentominoDatabase
+public class PentominoDatabase extends Canvas
 {
     //Stores and loads the data on program initialization
     public static int[][][][] data = loadData("pentominos.csv");

@@ -4,7 +4,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class RunGame extends Canvas implements Runnable {
+public class RunGame extends Field implements Runnable {
     public static final int height = 250;                   //game screen variables
     public static final int width = 400;
     public static final int scale = 2;
@@ -20,7 +20,7 @@ public class RunGame extends Canvas implements Runnable {
 
     private final GameOver Screens = new GameOver();        //game scene object for rendering
 
-    public static Field field = new Field(15, 5);  //creating game field and its components
+    //public static Field field = new Field(15, 5);  //creating game field and its components
     public static char nextpiece;
 
     BufferedImageLoader loader = new BufferedImageLoader();
@@ -105,7 +105,8 @@ public class RunGame extends Canvas implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        nextpiece = field.nextPiece();
+        new Field(15,5);
+        nextpiece = nextPiece();
         addKeyListener(new MouseDragging());
         addMouseListener(new MouseDragging());
         addMouseMotionListener(new MouseDragging());
@@ -132,8 +133,8 @@ public class RunGame extends Canvas implements Runnable {
             x1 = now;
             if (delta >= 1 && scene == STATE.game && !pause) {
                 delta--;
-                if (field.pieceID == -1) {
-                    if (!field.AddPiece(nextpiece)) {
+                if (pieceID == -1) {
+                    if (!AddPiece(nextpiece)) {
                         scene = STATE.gameOver;
                         render();
                         try {
@@ -144,14 +145,14 @@ public class RunGame extends Canvas implements Runnable {
                     }
                 }
                 if(!nextPieceAdded) {
-                    nextpiece = field.nextPiece();
+                    nextpiece = nextPiece();
                     nextPieceAdded = true;
                 }
                 if (System.currentTimeMillis()% 1000 <= 40 && !piecemoved) {
                     piecemoved=true;
-                    if (!field.down()) {
-                        field.setPiece();
-                        playerScore += field.checkRows();
+                    if (!down()) {
+                        setPiece();
+                        playerScore += checkRows();
                         nextPieceAdded = false;
                     }
                 }
