@@ -1,6 +1,6 @@
 //import java.io.ObjectInputStream.GetField;
 
-class all_position{
+class bot{
     public int h;
     public int w;
 
@@ -10,13 +10,13 @@ class all_position{
     public int xPiece;
     public int[][] pieceLayout;
     /**
-     * 
+     *  
      * @param field it is the current field in which we are going to look for or position of the piece
      * @param piece the piece that we are adding to our current field 
      * @return this method returns a 3D array,containing all the possible position(with all rotations) of the piece in the current field
      */
      public static  int[][][] combination(int[][] field,char piece){     
-        Field c =new Field(24,10,field);
+        Field c =new Field(15,5,field);
         int p=0;
         c.AddPiece(piece);
         int number=0;
@@ -29,7 +29,7 @@ class all_position{
 
        //2th rotation
 
-        Field d =new Field(24,10,field);
+        Field d =new Field(15,5,field);
         d.AddPiece(piece);
         int number2=0;
         while(d.left()){
@@ -40,7 +40,7 @@ class all_position{
         }
         //3th rotation
 
-        Field e =new Field(24,10,field);
+        Field e =new Field(15,5,field);
         e.AddPiece(piece);
         int number3=0;
         while(e.left()){
@@ -52,7 +52,7 @@ class all_position{
         }
         //4th rotation
         //
-        Field f =new Field(24,10,field);
+        Field f =new Field(15,5,field);
         f.AddPiece(piece);
         int number4=0;
         while(f.left()){
@@ -64,7 +64,7 @@ class all_position{
            number4++;
         }
         //5th rotation
-        Field g =new Field(24,10,field);
+        Field g =new Field(15,5,field);
         g.AddPiece(piece);
         int number5=0;
         while(g.left()){
@@ -77,7 +77,7 @@ class all_position{
            number5++;
         }
          //6th rotation
-         Field h =new Field(24,10,field);
+         Field h =new Field(15,5,field);
          h.AddPiece(piece);
          int number6=0;
          while(h.left()){
@@ -92,7 +92,7 @@ class all_position{
          }
         
          //7th rotation
-        Field l =new Field(24,10,field);
+        Field l =new Field(15,5,field);
         l.AddPiece(piece);
         int number7=0;
         while(l.left()){
@@ -107,7 +107,7 @@ class all_position{
            number7++;
         }
          //8th rotation
-         Field x =new Field(24,10,field);
+         Field x =new Field(15,5,field);
          x.AddPiece(piece);
          int number8=0;
          while(x.left()){
@@ -418,7 +418,7 @@ double score = -30.0*Aggregate_Height(array) +0.522287506868767*clearLines(array
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(24,10,array[i]);
+        Field c =new Field(15,5,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;
@@ -447,7 +447,7 @@ public static  int bestscore2(int[][][] array){
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(24,10,array[i]);
+        Field c =new Field(15,5,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;
@@ -466,6 +466,12 @@ public static  int bestscore2(int[][][] array){
     }
     return best_position;
 }
+/**
+ * 
+ * @param field current field
+ * @param piece piece that we are adding
+ * @return best move that the bot can 
+ */
  public static  int[][] best_field(int[][] field,char piece){
     int[][][] a =combination(field, piece);
     if(piece=='I'||piece=='L'||piece=='V'){
@@ -478,79 +484,6 @@ public static  int bestscore2(int[][][] array){
 
 }
   
-     public static void main (String[] args){
-         /** 
-       int[][] field={{-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-       {-1,-1,-1,-1,-1,-1,-1,-1},
-                      {0,-1,-1,-1,0,-1,-1,-1},
-                      {0,-1,-1,-1,0,0,0,0},
-                      {0,0,-1,-1, 0,0,0,0},
-                      { 0, 0,-1,-1,0,0,0,0},
-                      { 0, 0,-1,-1,0,0,0,0}
-                    };
-                    Field a= new Field(7, 5,field);
-                    //System.out.println(a.checkRows());
-                    int[][] b =best_field(field, 'I');
-                    for(int i=0;i<b.length;i++){
-                        for(int j=0;j<b[0].length;j++){
-                            System.out.print(b[i][j]+" ");
-                        }
-                    System.out.println();
-                    }
-                    */
-                    int[] x ={1,2,3};
-                    int[] y ={1,2,3};
-                    boolean test =true;
-                    for(int i=0;i<x.length;i++){
-                        if(x[i]!=y[i])
-                            test=false;
-                    }
-                    System.out.println(test);
-                      /**             
-       int[][][] a =combination(field, 'Y');
-     /** 
-        for(int k=0;k<a.length;k++){
-            System.out.println("matrix "+k);
-            for(int i=0;i<field.length;i++){
-                for(int j=0;j<field[0].length;j++){
-                    System.out.print(a[k][i][j]+" ");
-                }
-            System.out.println();
-            }
-            System.out.println();
-            System.out.println();
-        }
-      
-        System.out.print(bestscore(a)+ " ");
-        int array[][]=a[bestscore(a)];
-        for(int i=0;i<array.length;i++){
-            for(int j=0;j<array[0].length;j++){
-                System.out.print(array[i][j]+" ");
-            }
-        System.out.println();
-        }
-       
-        int[][] b = best_field(field, 'Y');
-    }
-    **/
-}
+     
 
 }

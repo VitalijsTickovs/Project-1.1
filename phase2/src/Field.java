@@ -3,7 +3,7 @@
 public class Field {
 
 
-    private int[][] field;
+    public int[][] field;
     public int h;
     public int w;
 
