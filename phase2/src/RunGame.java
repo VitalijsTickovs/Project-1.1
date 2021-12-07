@@ -116,9 +116,9 @@ public class RunGame extends Canvas implements Runnable {
         try {
             bckgrd = loader.loadBufferedImage("GameBckrd.png");
             menuTitle = loader.loadBufferedImage("GameTitle.png");
-            rotate = loader.loadBufferedImage("Rotation.jpg");
-            moving = loader.loadBufferedImage("Moving.jpg");
-            drop = loader.loadBufferedImage("Drop.jpg");
+            rotate = loader.loadBufferedImage("Rotation.png");
+            moving = loader.loadBufferedImage("Moving.png");
+            drop = loader.loadBufferedImage("Drop.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

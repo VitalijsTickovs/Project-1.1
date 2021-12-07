@@ -3,18 +3,45 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class GameScreen{
-    Font scoreFnt = new Font("Arial", Font.BOLD, 30);   //Init font
-    int size = 30;                                                  //Size of the fields for pentominoes
-    SaveFile leaderBoard= new SaveFile();
-    //HashMap<String, >
+    int size = 30;                                                                  //size of the fields for pentominoes
+    Font scoreFnt = new Font("Arial", Font.BOLD, size);                      //init font
+    Font namesScores = new Font("Arial", Font.PLAIN, size-10);
+
+    SaveFile readSaveFile= new SaveFile();
+    HashMap<String, Integer> leaderboard = readSaveFile.ReadFromFile();             //reading stored logs in Save.txt file
+
+
     public void render(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
 
+        //displaying score of the user
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(scoreFnt);
+        g2d.drawString("Score: " + RunGame.playerScore, 20, 100);
+
+        //displaying leaderboard
+        int offset = 0;                                                             //used to change the position of each line on y-axis
+        g2d.drawString("Leaderboard", 20, 300);
+        g2d.setFont(namesScores);
+        for(Map.Entry<String, Integer> entry : leaderboard.entrySet()){
+            g2d.drawString(entry.getKey() + ": " + entry.getValue(), 30, 350+offset );
+            offset+=50;
+        }
+
+        //displaying pause button
+        g2d.setColor(RunGame.pauseColor);
+        g2d.setFont(scoreFnt);
+        String pauseSelection;
+        if(RunGame.pause) pauseSelection = "Start"; else pauseSelection = "Pause";
+        g2d.drawString(pauseSelection, 350,80);
+
         //Draw lines for field
+        g2d.setColor(Color.white);
         for (int i = 0; i <= RunGame.field.getField()[i].length; i++){
             g2d.drawLine((i * size) + 300, 100, (i * size) + 300, RunGame.field.getField().length * size +100);
         }
@@ -29,13 +56,11 @@ public class GameScreen{
             }
         }
 
-        //displaying score of the user
-        g2d.setColor(Color.WHITE);
+        //displaying next piece
+        g2d.setColor(Color.white);
         g2d.setFont(scoreFnt);
-        g2d.drawString("Score: " + RunGame.playerScore, 20, 100);
-
-        //Displaying next piece
         g2d.drawString("Next Piece:", 20, 150);
+
         int[][] newPiece = PentominoDatabase.data[CharToID.characterToID(RunGame.nextpiece)][0];
         for (int i = 0; i <= newPiece[0].length; i++){
             g2d.drawLine((i * size) + 200, 135, (i * size) + 200, newPiece.length * size +135);
@@ -52,16 +77,12 @@ public class GameScreen{
             }
         }
 
-        g2d.setColor(RunGame.pauseColor);
-        String pauseSelection;
-        if(RunGame.pause) pauseSelection = "Start"; else pauseSelection = "Pause";
-        g2d.drawString(pauseSelection, 350,80);
-
 
 
     }
-    private Color GetColorOfID(int i)
-    {
+
+
+    private Color GetColorOfID(int i){
         if(i==0) {return Color.BLUE;}
         else if(i==1) {return Color.ORANGE;}
         else if(i==2) {return Color.CYAN;}
