@@ -46,7 +46,10 @@ public class RunGame extends Field implements Runnable {
     public static STATE scene = STATE.menu;                 //start with menu scene
 
 
-    public void render() {                                  //this will output graphics, firstly adding bufferStrategy, to have it load 3 images ahead
+    /**
+     * Method used to output graphics, depending on shich scene is currently user in
+     */
+    public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
@@ -56,14 +59,14 @@ public class RunGame extends Field implements Runnable {
 
         g.drawImage(bckgrd, 0, 0, getWidth(), getHeight(), this);
 
-        if (scene == STATE.menu) {                                              //this is the menu output
+        if (scene == STATE.menu) {                                              //menu output
             g.drawImage(menuTitle, 200, 0,300, 250, this);
             Screens.renderMenu(g);
-        } else if (scene == STATE.game){                                        //this is the game screen
+        } else if (scene == STATE.game){                                        //game screen
             Screens.renderGScreen(g);
-        }else if(scene == STATE.help){                                          //this is how to play the game
+        }else if(scene == STATE.help){                                          //help screen
             Screens.renderHelp(g);
-        } else if (scene == STATE.gameOver) {                                   //goes to endgame phase
+        } else if (scene == STATE.gameOver) {                                   //endgame phase
             Screens.renderOver(g);
             endGame = true;
             bs.show();
@@ -95,7 +98,10 @@ public class RunGame extends Field implements Runnable {
         thread.start();
     }
 
-    public void init() {                                                          //initializing the game background and adding mouse listeners
+    /**
+     * Method to initialize game images, keyboard and mouse listeners, game field
+     */
+    public void init(){
         try {
             bckgrd = loader.loadBufferedImage("/Images/GameBckrd.png");
             menuTitle = loader.loadBufferedImage("/Images/GameTitle.png");
@@ -105,6 +111,7 @@ public class RunGame extends Field implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         new Field(15,5);
         nextpiece = nextPiece();
         addKeyListener(new MouseDragging());
@@ -112,6 +119,10 @@ public class RunGame extends Field implements Runnable {
         addMouseMotionListener(new MouseDragging());
     }
 
+
+    /**
+     * Stops the thread, when game is finished
+     */
     public synchronized void stop() throws InterruptedException {
         if (!running) return;
         running = false;
@@ -119,6 +130,9 @@ public class RunGame extends Field implements Runnable {
         System.exit(0);
     }
 
+    /**
+     * Method in which game loop is made
+     */
     public void run() {
         init();
         long x1 = System.currentTimeMillis();                //the time is needed to keep the threads 'under control' and to update the game screen not as frequently
@@ -164,8 +178,10 @@ public class RunGame extends Field implements Runnable {
             }
         }
 
-
-        public static void main (String[]args){
+    /**
+     * Method used to launch the game
+     */
+    public static void main (String[]args){
             game.setPreferredSize(new Dimension(width * scale, width * scale));       //initializing game screen
             window.add(game);
             window.pack();

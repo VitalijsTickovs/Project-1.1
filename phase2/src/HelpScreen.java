@@ -2,6 +2,11 @@ import java.awt.*;
 
 public class HelpScreen extends GameScreen{                //this class will output the text for the help screen
     Font fnt = new Font("Arial", Font.BOLD, 30);
+
+    /**
+     * Constructs help screen
+     * @param g Graphics parameter used by RunGame instance
+     */
     public void renderHelp(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(RunGame.backColor);

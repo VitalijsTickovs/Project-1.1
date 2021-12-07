@@ -1,7 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +11,10 @@ public class GameScreen extends GameMenu{
 
     HashMap<String, Integer> leaderboard = new SaveFile().ReadFromFile();             //reading stored logs in Save.txt file
 
+    /**
+     * Constructs game scene
+     * @param g Graphics parameter used by RunGame instance
+     */
     public void renderGScreen(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
@@ -60,6 +62,7 @@ public class GameScreen extends GameMenu{
         g2d.drawString("Next Piece:", 20, 150);
 
         int[][] newPiece = PentominoDatabase.data[CharToID.characterToID(RunGame.nextpiece)][0];
+
         for (int i = 0; i <= newPiece[0].length; i++){
             g2d.drawLine((i * size) + 200, 135, (i * size) + 200, newPiece.length * size +135);
         }
@@ -79,7 +82,11 @@ public class GameScreen extends GameMenu{
 
     }
 
-
+    /**
+     * Used to determine what should piece be colored
+     * @param i ID of the character
+     * @return Color of the shape
+     */
     private Color GetColorOfID(int i){
         if(i==0) {return Color.BLUE;}
         else if(i==1) {return Color.ORANGE;}

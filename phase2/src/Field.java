@@ -13,6 +13,12 @@ public class Field extends pieceBag{
     public static int xPiece;
     public static int[][] pieceLayout;
 
+    /**
+     * Constructor for bot
+     * @param height of the field
+     * @param width of the field
+     * @param fieldd
+     */
     public Field(int height, int width,int[][] fieldd){
         h = height;
         w = width;
@@ -24,7 +30,11 @@ public class Field extends pieceBag{
     }
 
 
-    //constructor
+    /**
+     * Constructor for the game
+     * @param height of the field to be initiated
+     * @param width of the field to be initiated
+     */
     public Field(int height, int width){
         h = height;
         w = width;
@@ -40,11 +50,13 @@ public class Field extends pieceBag{
         xPiece = 0;
     }
 
-    //empty constructor for RunGame
     public Field(){}
 
-    //returns false if piece cant be added (aka game over), otherwise, returns true and adds the piece
-    //might have to split into 2 methods
+    /**
+     * Adds piece that is given to the field
+     * @param piece - piece that has to be added
+     * @return - returns false if piece can't be added (aka game over), otherwise, returns true and adds the piece
+     */
     public boolean AddPiece(char piece){
         int newPieceID = characterToID(piece);
         int[][] newPiece = data[newPieceID][0];
@@ -66,11 +78,12 @@ public class Field extends pieceBag{
         return true;
     }
 
-    //method for moving active piece left RETURNS FALSE IF PIECE CANT BE MOVED LEFT ANY MORE
+    /**
+     * Method for moving active piece left
+     * @return FALSE, if piece can't be moved left anymore
+     */
     public static boolean left(){
         if(pieceID>-1){
-            //pieceLayout = PentominoDatabase.data[pieceID][pieceMutation];
-
             boolean possible = true;
 
             //if the piece is at the leftmost border
@@ -96,7 +109,10 @@ public class Field extends pieceBag{
         return false;
     }
 
-    //method for moving active piece right RETURNS FALSE IF PIECE CANT BE MOVED RIGHT ANY MORE
+    /**
+     * Method for moving active piece right
+     * @return FALSE, if piece can't be moved right anymore
+     */
     public static boolean right(){
         if(pieceID>-1){
             //pieceLayout = PentominoDatabase.data[pieceID][pieceMutation];
@@ -125,7 +141,11 @@ public class Field extends pieceBag{
         return false;
     }
 
-    //method for moving piece down, RETURNS FALSE IF PIECE CANT BE MOVED DOWN ANY MORE
+
+    /**
+     * Method for moving piece down
+     * @return FALSE, if piece can't be moved down anymore
+     */
     public static boolean down(){
         if(pieceID>-1){
             boolean possible = true;
@@ -160,8 +180,10 @@ public class Field extends pieceBag{
     }
 
 
-    ////method for rotating piece, RETURNS FALSE IF PIECE CANT BE ROTATED ANY MORE
-
+    /**
+     * Method for rotating piece
+     * @return FALSE, if piece can't be rotated anymore
+     */
     public static boolean rotate(){
         if(pieceID!=-1){
             boolean possible = true;
@@ -194,7 +216,12 @@ public class Field extends pieceBag{
         }
         return false;
     }
-    //rotate method that tries several x positions so the rotation can be more "satisfying"
+
+
+    /**
+     * Rotate method that tries several x positions so the rotation can be more "satisfying"
+     * @return FALSE, if piece can't be rotated from any other position
+     */
     public static boolean lenientRotate(){
 
         int deltaX = 0;
@@ -218,7 +245,9 @@ public class Field extends pieceBag{
 
     }
 
-    //method for "cementing" active piece on the board. we assume it is possible
+    /**
+     * Method for "cementing" active piece on the board. we assume it is possible
+     */
     public void setPiece(){
         if(pieceID!=-1){    
             for (int i = 0; i < pieceLayout.length; i++) {
@@ -233,8 +262,11 @@ public class Field extends pieceBag{
 
     }
 
-    //method that checks if there are any full rows, and removes them (and shifts everything above down)
-    //returns the number of removed rows, for scoring purposes
+
+    /**
+     * Checks if there are any full rows, and removes them (and shifts everything above down)
+     * @return the number of removed rows, for scoring purposes
+     */
     public int checkRows(){
         int nOfClears = 0;
         for (int i = h-1; i >=0; i--) {
@@ -264,6 +296,7 @@ public class Field extends pieceBag{
         }
         return nOfClears;
     }
+
 
     public static int[][] getField(){
 

@@ -1,9 +1,12 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class GameOver extends HelpScreen {
     private Font fnt = new Font("Arial", Font.BOLD, 100);
 
+    /**
+     * Constructs game over scene
+     * @param g Graphics parameter used by RunGame instance
+     */
     public void renderOver(Graphics g){
         g.setFont(fnt);
         g.setColor(Color.WHITE);
