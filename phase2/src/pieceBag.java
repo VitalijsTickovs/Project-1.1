@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class pieceBag {
+public class pieceBag extends CharToID{
     //class that generates the next piece without replacement (once all pieces are chosen, it loops)
     private List<Character> Pieces;
 

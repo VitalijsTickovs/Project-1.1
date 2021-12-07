@@ -19,15 +19,18 @@ public class SaveFile {
         this.toSave = 0;
     }
 
-    HashMap<String, Integer> ReadHash = new HashMap<String, Integer>();
-    Properties properties = new Properties();
-    Properties storeProperties = new Properties();
+    private HashMap<String, Integer> ReadHash = new HashMap<String, Integer>();
+    private HashMap<String,Integer> LoadHash = new HashMap<String, Integer>();
+    private Properties loadProperties = new Properties();
+    private Properties storeProperties = new Properties();
+
     public HashMap<String, Integer> ReadFromFile() {
         try {
-            properties.load(new FileInputStream(savePath));
+            loadProperties.load(new FileInputStream(savePath));
+            LoadHash = sortByValue(LoadHash);
 
-            for (String key : properties.stringPropertyNames()) {
-                ReadHash.put(key, Integer.parseInt(properties.getProperty(key)));
+            for (String key : loadProperties.stringPropertyNames()) {
+                ReadHash.put(key, Integer.parseInt(loadProperties.getProperty(key)));
             }
 
             return sortByValue(ReadHash);
@@ -43,14 +46,12 @@ public class SaveFile {
                 if(LoadHash.get(playerName)<toSave)LoadHash.put(playerName, toSave);    //his score is better from this game -> replace it
             }else LoadHash.put(playerName, toSave);                                     //else, if there is no player in the leaderboard, add it to HashMap
 
-            LoadHash = sortByValue(LoadHash);
-            for (Map.Entry<String, Integer> entry : LoadHash.entrySet()) {
+            for (Map.Entry<String, Integer> entry : LoadHash.entrySet()) {              //putting all the data from hashmap to the Properties variable
                 storeProperties.put(entry.getKey(), entry.getValue().toString());
-                System.out.println(entry.getKey() + " " + entry.getValue());
             }
-            storeProperties.store(new FileOutputStream(tempSavePath), null);
-            origFile.delete();
-            tempFile.renameTo(origFile);
+            storeProperties.store(new FileOutputStream(tempSavePath), null);   //storing all data to the temp file
+            origFile.delete();                                                           //deleting the original file
+            tempFile.renameTo(origFile);                                                 //renaming temp file to the original
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -58,11 +59,11 @@ public class SaveFile {
 
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> fileObj)
     {
-        // Create a list from elements of HashMap
+        //create a list from elements of hashmap
         List<Map.Entry<String, Integer> > list =
                 new LinkedList<>(fileObj.entrySet());
 
-        // Sort the list
+        //sort the list
         list.sort(new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1,
                                Map.Entry<String, Integer> o2) {
@@ -71,7 +72,7 @@ public class SaveFile {
             }
         });
 
-        // put data from sorted list to hashmap
+        //put data from sorted list to hashmap
         HashMap<String, Integer> temp = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> aa : list) {
             temp.put(aa.getKey(), aa.getValue());

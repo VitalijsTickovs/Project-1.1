@@ -8,7 +8,7 @@ public class GameMenu{
     public Rectangle helpBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,250,100,50);
     public Rectangle quitBut = new Rectangle(RunGame.height*RunGame.scale/2 +60,350,100,50);
 
-    public void render(Graphics g){
+    public void renderMenu(Graphics g){
         g.setFont(Fnt);
         if(RunGame.playColor.equals(Color.ORANGE)) g.setFont(focusedFnt);                    //displaying playbutton by its color
         g.setColor(RunGame.playColor);

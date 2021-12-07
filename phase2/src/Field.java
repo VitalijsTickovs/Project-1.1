@@ -1,6 +1,6 @@
 
 
-public class Field {
+public class Field extends pieceBag{
 
 
     public int[][] field;
@@ -42,8 +42,8 @@ public class Field {
     //returns false if piece cant be added (aka game over), otherwise, returns true and adds the piece
     //might have to split into 2 methods
     public boolean AddPiece(char piece){
-        int newPieceID = CharToID.characterToID(piece);
-        int[][] newPiece = PentominoDatabase.data[newPieceID][0];
+        int newPieceID = characterToID(piece);
+        int[][] newPiece = data[newPieceID][0];
 
         //checking if can be added (can be made more lenient by trying to rotate/move piece left or right)
         for(int i=0;i<newPiece.length;i++){

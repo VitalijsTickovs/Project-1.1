@@ -100,7 +100,7 @@ public class PentominoDatabase
      * Main function used for visualizing and debugging reading the csv file with pieces
      * Should not be called while searching for a solution
      */
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         for(int i = 0; i < data.length; i++)
         {
@@ -119,5 +119,5 @@ public class PentominoDatabase
                 System.out.println();
             }
         }
-    }
+    }*/
 }

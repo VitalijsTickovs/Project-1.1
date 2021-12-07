@@ -3,8 +3,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseDragging implements MouseMotionListener, MouseListener {
+public class MouseDragging extends KeyInput implements MouseMotionListener, MouseListener {
     public Rectangle pauseBut = new Rectangle(20,500,100,50);
+
     @Override
     public void mouseDragged(MouseEvent e) {
     }
@@ -42,8 +43,8 @@ public class MouseDragging implements MouseMotionListener, MouseListener {
                 RunGame.quitColor = Color.WHITE;
             }
         }else if(RunGame.scene == RunGame.STATE.game){
-            if(px >= 20 && px<=120){
-                if(py>=460 && py<=520){
+            if(px >= 345 && px<=440){
+                if(py>=60 && py<=85){
                     RunGame.pauseColor = Color.ORANGE;
                 }else{
                     RunGame.pauseColor = Color.WHITE;
@@ -78,8 +79,8 @@ public class MouseDragging implements MouseMotionListener, MouseListener {
                 }
             }
         }else if(RunGame.scene == RunGame.STATE.game){
-            if(mx >=20 && mx<=120){
-                if(my >= 460 && my<=520){
+            if(mx >=345 && mx<=440){
+                if(my >= 60 && my<=85){
                     RunGame.pause = !RunGame.pause;
                 }
             }

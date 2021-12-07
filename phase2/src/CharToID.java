@@ -1,4 +1,4 @@
-public  class CharToID {
+public  class CharToID extends PentominoDatabase{
     public static int characterToID(char character) {
     	int pentID = -1; 
     	if (character == 'X') {
