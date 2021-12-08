@@ -398,7 +398,7 @@ public static  double score(int[][] array){
 
  */
 public static double score2(int[][] array){
-double score = -30.0*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.164626498034284*Bumpiness(array);
+double score = 25.0*Aggregate_Height(array) +0.522287506868767*clearLines(array)+-0.164626498034284*Bumpiness(array);
     return score;
 }
 /**
@@ -467,13 +467,14 @@ public static  int bestscore2(int[][][] array){
  */
  public static  int[][] best_field(int[][] field,char piece){
     int[][][] a =combination(field, piece);
-    if(piece=='I'||piece=='L'||piece=='V'){
-        int array[][]=a[bestscore2(a)];
+    int array[][] = new int[field.length][field[0].length];
+    if(piece=='I'||piece=='L'||piece=='W'){
+        array=a[bestscore2(a)];
     }
     else{
-        int array[][]=a[bestscore(a)];
+        array=a[bestscore(a)];
     }
-      return a[bestscore(a)]; 
+      return array; 
 
 }
   
