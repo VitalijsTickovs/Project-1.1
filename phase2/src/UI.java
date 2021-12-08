@@ -23,7 +23,7 @@ public class UI extends JPanel
      * @param y y position of the GUI
      * @param _size size of the GUI
      */
-    public UI(int x, int y, int _size)
+    public UI(int y, int x, int _size)
     {
         size = _size;
         setPreferredSize(new Dimension(x * size, y * size));
@@ -109,7 +109,7 @@ public class UI extends JPanel
         {
             for (int j = 0; j < state[i].length; j++)
             {
-                state[i][j] = _state[i][j];
+                state[i][j] = _state[j][i];
             }
         }
 

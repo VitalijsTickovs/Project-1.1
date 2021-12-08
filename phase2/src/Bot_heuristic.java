@@ -1,7 +1,6 @@
-import java.io.ObjectInputStream.GetField;
 import java.lang.*;
 
-class Bot_heuristic {
+class Bot_heuristic{
     public  int getHeight( int[][] array,int column){
     
         int height =0;
@@ -61,7 +60,7 @@ class Bot_heuristic {
          return score;
     }
     */
-    public int score(int[][] array){
+    public int scoreHeur(int[][] array){
         int score = Aggregate_Height(array) +clearLines()-getHoles(array)-Bumpiness(array);
         return score;
    }

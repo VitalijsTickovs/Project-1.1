@@ -1,14 +1,5 @@
-//import java.io.ObjectInputStream.GetField;
 
 class bot{
-    public int h;
-    public int w;
-
-    public int pieceID;
-    public int pieceMutation;
-    public int yPiece;
-    public int xPiece;
-    public int[][] pieceLayout;
     /**
      *  
      * @param field it is the current field in which we are going to look for or position of the piece
