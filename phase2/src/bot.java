@@ -1,5 +1,7 @@
 
 class bot{
+    static int height =15;
+    static int width = 5;
     /**
      *  
      * @param field it is the current field in which we are going to look for or position of the piece
@@ -7,7 +9,7 @@ class bot{
      * @return this method returns a 3D array,containing all the possible position(with all rotations) of the piece in the current field
      */
      public static  int[][][] combination(int[][] field,char piece){     
-        Field c =new Field(24,10,field);
+        Field c =new Field(height,width,field);
         int p=0;
         c.AddPiece(piece);
         int number=0;
@@ -20,7 +22,7 @@ class bot{
 
        //2th rotation
 
-        Field d =new Field(24,10,field);
+        Field d =new Field(height,width,field);
         d.AddPiece(piece);
         int number2=0;
         while(d.left()){
@@ -31,7 +33,7 @@ class bot{
         }
         //3th rotation
 
-        Field e =new Field(24,10,field);
+        Field e =new Field(height,width,field);
         e.AddPiece(piece);
         int number3=0;
         while(e.left()){
@@ -43,7 +45,7 @@ class bot{
         }
         //4th rotation
         //
-        Field f =new Field(24,10,field);
+        Field f =new Field(height,width,field);
         f.AddPiece(piece);
         int number4=0;
         while(f.left()){
@@ -55,7 +57,7 @@ class bot{
            number4++;
         }
         //10th rotation
-        Field g =new Field(24,10,field);
+        Field g =new Field(height,width,field);
         g.AddPiece(piece);
         int number5=0;
         while(g.left()){
@@ -68,7 +70,7 @@ class bot{
            number5++;
         }
          //6th rotation
-         Field h =new Field(24,10,field);
+         Field h =new Field(height,width,field);
          h.AddPiece(piece);
          int number6=0;
          while(h.left()){
@@ -83,7 +85,7 @@ class bot{
          }
         
          //7th rotation
-        Field l =new Field(24,10,field);
+        Field l =new Field(height,width,field);
         l.AddPiece(piece);
         int number7=0;
         while(l.left()){
@@ -98,7 +100,7 @@ class bot{
            number7++;
         }
          //8th rotation
-         Field x =new Field(24,10,field);
+         Field x =new Field(height,width,field);
          x.AddPiece(piece);
          int number8=0;
          while(x.left()){
@@ -409,7 +411,7 @@ double score = -30.0*Aggregate_Height(array) +0.522287506868767*clearLines(array
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(24,10,array[i]);
+        Field c =new Field(height,width,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;
@@ -438,7 +440,7 @@ public static  int bestscore2(int[][][] array){
     int best_position=0;
     boolean no= true;
     for(int i=0;i<array.length;i++){
-        Field c =new Field(24,10,array[i]);
+        Field c =new Field(height,width,array[i]);
         int[][] test = c.getField();
         c.checkRows();
         no=true;

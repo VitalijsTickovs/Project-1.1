@@ -1,7 +1,7 @@
 import static javax.swing.JOptionPane.showMessageDialog;
 class paint extends bot{
     public static void main(String[] args){
-        int[][] field = new int[15][5];
+        int[][] field = new int[height][width];
         for(int i= 0;i<field.length;i++){
             for(int j=0;j<field[0].length;j++){
                 field[i][j]=-1;
@@ -9,7 +9,7 @@ class paint extends bot{
         }
         pieceBag u = new pieceBag();
 
-        UI b = new UI(15,5,60);
+        UI b = new UI(height,width,60);
         boolean ttrruuee=true;
         int count=0;
         /**
