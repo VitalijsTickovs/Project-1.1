@@ -25,6 +25,7 @@ class paint{
             Field d = new Field(24, 10,field);
             count+=d.checkRows();
             //pause(1000);
+            
             field = d.getField();
             count++;
             b.setState(field);
