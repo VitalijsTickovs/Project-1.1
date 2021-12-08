@@ -9,7 +9,7 @@ class paint extends bot{
         }
         pieceBag u = new pieceBag();
 
-        UI b = new UI(24,10,60);
+        UI b = new UI(24,10,30);
         boolean ttrruuee=true;
         int count=0;
         /**
