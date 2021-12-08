@@ -1,9 +1,6 @@
-import java.util.concurrent.TimeUnit;
-import java.util.Random;
 import static javax.swing.JOptionPane.showMessageDialog;
-class paint{
+class paint extends bot{
     public static void main(String[] args){
-        bot a = new bot();
         int[][] field = new int[24][10];
         for(int i= 0;i<field.length;i++){
             for(int j=0;j<field[0].length;j++){
@@ -20,7 +17,7 @@ class paint{
          */
         while(ttrruuee){
            
-            field=a.best_field(field,u.nextPiece());
+            field=best_field(field,u.nextPiece());
             b.setState(field);
             Field d = new Field(24, 10,field);
             count+=d.checkRows();
@@ -51,7 +48,7 @@ System.out.println("Final score: "+count);
     }
     
     /**
-     * method to pause the program for ms milliseconde
+     * method to pause the program for ms milliseconds
      * @param ms time we want to pause
      */
     public static void pause(int ms) {

@@ -20,7 +20,6 @@ public class RunGame extends Field implements Runnable {
 
     private final GameOver Screens = new GameOver();        //game scene object for rendering
 
-    //public static Field field = new Field(15, 5);  //creating game field and its components
     public static char nextpiece;
 
     BufferedImageLoader loader = new BufferedImageLoader();
@@ -39,7 +38,7 @@ public class RunGame extends Field implements Runnable {
 
     public static int playerScore;
 
-    public static enum STATE {                               //this is made to keep at what states the user is on
+    public enum STATE {                               //this is made to keep at what states the user is on
         menu, help, game, gameOver
     }
 
@@ -47,7 +46,7 @@ public class RunGame extends Field implements Runnable {
 
 
     /**
-     * Method used to output graphics, depending on shich scene is currently user in
+     * Method used to output graphics, depending on switch scene is currently user in
      */
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
@@ -136,11 +135,11 @@ public class RunGame extends Field implements Runnable {
     public void run() {
         init();
         long x1 = System.currentTimeMillis();                //the time is needed to keep the threads 'under control' and to update the game screen not as frequently
-        final double ammount_of_ticks = 60.0;
-        double ms = 1000 / ammount_of_ticks;
+        final double amount_of_ticks = 60.0;
+        double ms = 1000 / amount_of_ticks;
         double delta = 0.0;
         boolean nextPieceAdded = false;
-        boolean piecemoved = false;
+        boolean pieceMoved = false;
         while (running) {
             long now = System.currentTimeMillis();          //counting how much time passed
             delta += (now - x1) / ms;
@@ -162,16 +161,16 @@ public class RunGame extends Field implements Runnable {
                     nextpiece = nextPiece();
                     nextPieceAdded = true;
                 }
-                if (System.currentTimeMillis()% 1000 <= 40 && !piecemoved) {
-                    piecemoved=true;
+                if (System.currentTimeMillis()% 1000 <= 40 && !pieceMoved) {
+                    pieceMoved=true;
                     if (!down()) {
                         setPiece();
                         playerScore += checkRows();
                         nextPieceAdded = false;
                     }
                 }
-                if(piecemoved && System.currentTimeMillis()%1000 > 50){
-                    piecemoved =  false;
+                if(pieceMoved && System.currentTimeMillis()%1000 > 50){
+                    pieceMoved =  false;
                 }
             }
                 render(); //this method will display everything
