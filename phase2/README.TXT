@@ -16,4 +16,4 @@ To run the game:
 
 To launch a bot game:
 1. Open paint.java file in Project1.1/phase2/src folder.
-1. Compile and run paint.java
+2. Compile and run paint.java
