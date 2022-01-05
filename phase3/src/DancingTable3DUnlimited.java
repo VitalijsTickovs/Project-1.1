@@ -1,11 +1,9 @@
 
 import java.util.ArrayList;
 
-import javax.swing.plaf.BorderUIResource.EmptyBorderUIResource;
 
 
-
-public class DancingTable3D {
+public class DancingTable3DUnlimited {
     //boolean[][] bigTable;
 
 
@@ -16,6 +14,7 @@ public class DancingTable3D {
      * @return table that represents each possible placement of each box, that, when solved with dancing links returns a solution
      */
     public static boolean[][] MakeTable(int[][][] emptyField, int[] input){
+        
 
 
         int[] Adims = {2,2,4}; //16
@@ -27,44 +26,49 @@ public class DancingTable3D {
         //55*B
         	
         //making a 1 unit large box to fill all the empty spaces
-        //int[] Ddims = {1,1,1};  
+        int[] Ddims = {1,1,1};  
 
         int Amutations = 3;
         int Bmutations = 6;
         int Cmutations = 1;
 
-        //int Dmutations = 1;
+        int Dmutations = 1;
 
 
         //making a new input that adds the D boxes
         //int emptySpace = emptyField.length*emptyField[0].length*emptyField[0][0].length-(firstInput[0]*16+firstInput[1]*24+firstInput[2]*27);
 
 
-        //int[] input = {firstInput[0],firstInput[0],firstInput[2],emptySpace};
+        //int[] input = {firstInput[0],firstInput[1],firstInput[2],emptySpace};
 
         boolean[][] bigTable;
         int height = emptyField.length;
         int width = emptyField[0].length;
         int length = emptyField[0][0].length;
-        int n = 3;
+        int n = input[0]+input[1]+input[2];
 
 
         ArrayList<boolean[]> tempTable = new ArrayList<boolean[]>();
         
-        for(int s = 0;s<3;s++){
+        for(int s = 0;s<n;s++){
             
             int[] Shape;
             int ShapeMutations;
-            if(s==0){
+            if(s<input[0]){
                 Shape = Adims;
                 ShapeMutations = Amutations;
             }else{
-                if(s==1) {
+                if(s<input[1]+input[0]) {
                     Shape = Bdims;
                     ShapeMutations = Bmutations;
                 }else{
-                    Shape = Cdims;
-                    ShapeMutations = Cmutations;
+                    if (s<input[2]+input[1]+input[0]) {
+                        Shape = Cdims;
+                        ShapeMutations = Cmutations;
+                    } else {
+                        Shape = Ddims;
+                        ShapeMutations = Dmutations;
+                    }
                 }
             }
 
@@ -101,12 +105,6 @@ public class DancingTable3D {
 
         }
 
-
-        for (int i = 0; i < height*length*width; i++) {
-            boolean[] newrow = new boolean[n+height*width*length];
-            newrow[i]= true;
-            tempTable.add(newrow);
-        }
 
 
 
