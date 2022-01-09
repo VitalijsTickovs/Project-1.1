@@ -75,7 +75,7 @@ public class Visualisor extends Canvas implements Runnable{
         double delta = 0;
         int frames = 0;
 
-        int[][][] arr = new int[8][5][33];                  //Just wrote it for an example
+        int[][][] arr = DancingRun3D.getSolution(300, 5000, true);          //Just wrote it for an example
         this.entityManager.init(arr);                       //Pass 3d array through here
 
         while(running){

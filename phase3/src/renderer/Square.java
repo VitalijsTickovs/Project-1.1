@@ -1,3 +1,5 @@
+package renderer;
+
 public class Square {
     public Square L = this;
     public Square R = this;
