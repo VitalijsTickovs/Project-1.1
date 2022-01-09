@@ -16,8 +16,8 @@ public class EntityManager {
         this.entity = new ArrayList<Entity>();
     }
 
-    public void init(){
-        this.entity.add(PentominoBuilder.createPentominos(10, 0, 0, 0));
+    public void init(int[][][] arr){
+        this.entity.add(PentominoBuilder.createPentominos(10, 0, 0, 0, arr));
     }
 
 

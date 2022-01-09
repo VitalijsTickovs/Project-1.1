@@ -12,8 +12,6 @@ import java.util.List;
 public class PentominoBuilder {
     static int[][][] pentominoLayout = new int[5][8][33];
 
-    static int[][][] arr = new int[7][8][10];
-
     public static Color findColor(int pentValue){
         switch(pentValue){
             case 1:{
@@ -29,7 +27,7 @@ public class PentominoBuilder {
         }
     }
 
-    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ){
+    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ, int[][][] arr){
         List<TetraHedron> tetras = new ArrayList<TetraHedron>();
 
         int colorCount = 0;
