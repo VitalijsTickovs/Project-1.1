@@ -12,6 +12,8 @@ import java.util.List;
 public class PentominoBuilder {
     static int[][][] pentominoLayout = new int[5][8][33];
 
+    static int[][][] arr = new int[7][8][10];
+
     public static Color findColor(int pentValue){
         switch(pentValue){
             case 1:{
@@ -27,31 +29,32 @@ public class PentominoBuilder {
         }
     }
 
-    //arr is the 3d array you should pass
-
-    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ, int[][][] arr){
+    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ){
         List<TetraHedron> tetras = new ArrayList<TetraHedron>();
 
         int colorCount = 0;
-        for(int pentominoPiece=0; pentominoPiece< arr.length; pentominoPiece++){
-            if(pentominoPiece % 5 ==0){
+        for(int pentPiece=0; pentPiece < arr.length; pentPiece++){
+            if(pentPiece % 5 ==0){
                 if(colorCount<3) colorCount++;
                 else colorCount = 1;
             }
-            for(int cube=0; cube < arr[pentominoPiece].length; cube++){
-                pentominoLayout[arr[pentominoPiece][cube][0]][arr[pentominoPiece][cube][1]][arr[pentominoPiece][cube][2]] = colorCount;
+            for(int cube=0; cube < arr[pentPiece].length; cube++) {
+                pentominoLayout[arr[pentPiece][cube][0]][arr[pentPiece][cube][1]][arr[pentPiece][cube][2]] = colorCount;
             }
+
+
         }
 
         int cubeSpacing = 2;
 
-        for(int i=-2; i < 2; i++){
+        for(int i=-2; i < 3; i++){
             double cubeCenterX = i * (size + cubeSpacing) + centerX;
 
-            for(int j=-4; j < 3; j++){
+            for(int j=-4; j < 4; j++){
                 double cubeCenterY = j * (size + cubeSpacing) + centerY;
 
                 for(int k=-16; k < 17; k++){
+                    System.out.println(k);
                     Color squareColor = findColor(pentominoLayout[i+2][j+4][k+16]);
 
                     double cubeCenterZ = k * (size + cubeSpacing) + centerZ;

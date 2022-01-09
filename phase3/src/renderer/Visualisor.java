@@ -76,7 +76,7 @@ public class Visualisor extends Canvas implements Runnable{
         int frames = 0;
 
         int[][][] arr = new int[8][5][33];                  //Just wrote it for an example
-        this.entityManager.init(arr);                       //Pass 3d array through here
+        this.entityManager.init();                       //Pass 3d array through here
 
         while(running){
             long now = System.nanoTime();
