@@ -75,7 +75,9 @@ public class Visualisor extends Canvas implements Runnable{
         double delta = 0;
         int frames = 0;
 
-        int[][][] arr = DancingRun3D.getSolution(300, 5000, true);          //Just wrote it for an example
+        int[][][] arr = DancingRun3D.getSolution(300, 1000, true);         
+        // first parameter is number of milliseconds per search, second parameter is number of tries to search
+        //third parameter is true if boxes, false if pentominoes.
         this.entityManager.init(arr);                       //Pass 3d array through here
 
         while(running){
