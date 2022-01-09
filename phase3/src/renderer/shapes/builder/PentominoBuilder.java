@@ -54,7 +54,6 @@ public class PentominoBuilder {
                 double cubeCenterY = j * (size + cubeSpacing) + centerY;
 
                 for(int k=-16; k < 17; k++){
-                    System.out.println(k);
                     Color squareColor = findColor(pentominoLayout[i+2][j+4][k+16]);
 
                     double cubeCenterZ = k * (size + cubeSpacing) + centerZ;
