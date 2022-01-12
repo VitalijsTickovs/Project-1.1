@@ -1,11 +1,7 @@
 package renderer;
 
 import renderer.mouseInput.Mouse;
-import renderer.point.Converter;
-import renderer.point.Points;
 import renderer.shapes.EntityManager;
-import renderer.shapes.MyPolygon;
-import renderer.shapes.TetraHedron;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +16,19 @@ public class Visualisor extends Canvas implements Runnable{
     public static final int HEIGTH = 600;
     private static boolean running = false;
 
+    private int timeToTake;
+    private int triesToTake;
+    private boolean isBoxes;
+
     private EntityManager entityManager;
 
     private Mouse mouse;
 
-    public Visualisor(){
+    public Visualisor(int timeToTake, int triesToTake, boolean isBoxes){
+        this.timeToTake = timeToTake;
+        this.triesToTake = triesToTake;
+        this.isBoxes = isBoxes;
+
         this.frame = new JFrame(title);
 
         Dimension size = new Dimension(WIDTH, HEIGTH);
@@ -39,8 +43,8 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
-    public static void main(String[] args){
-        Visualisor visualise = new Visualisor();
+    public static void init(int timeToTake, int triesToTake, boolean isBoxes){
+        Visualisor visualise = new Visualisor(timeToTake, triesToTake, isBoxes);
 
         visualise.frame.add(visualise);
         visualise.frame.pack();
@@ -75,10 +79,10 @@ public class Visualisor extends Canvas implements Runnable{
         double delta = 0;
         int frames = 0;
 
-        int[][][] arr = DancingRun3D.getSolution(300, 1000, true);         
+        int[][][] arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
-        this.entityManager.init(arr);                       //Pass 3d array through here
+        this.entityManager.init(arr);
 
         while(running){
             long now = System.nanoTime();
@@ -89,12 +93,6 @@ public class Visualisor extends Canvas implements Runnable{
                 render();
                 frames++;
                 delta--;
-            }
-
-            if(System.currentTimeMillis() - timer >1000){
-                timer+=1000;
-                this.frame.setTitle(title + " | " + frames + " fps");
-                frames = 0;
             }
         }
     }
