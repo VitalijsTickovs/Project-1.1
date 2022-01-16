@@ -2,6 +2,7 @@ package renderer.shapes;
 
 import renderer.mouseInput.Mouse;
 import renderer.point.Converter;
+import renderer.shapes.AlgorithmType.AlgorithmsTypes;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ public class EntityManager {
         this.entity = new ArrayList<Entity>();
     }
 
-    public void init(int[][][] arr){
-        this.entity.add(PentominoBuilder.createPentominos(10, 0, 0, 0, arr));
+    public void init(int[][][] arr, AlgorithmsTypes algorithm){
+        this.entity.add(PentominoBuilder.createPentominos(10, 0, 0, 0, arr, algorithm));
     }
 
 
