@@ -25,7 +25,7 @@ class paint extends bot{
             field = d.getField();
             count++;
             b.setState(field);
-            pause(20);
+            pause(300);
             if(count==240){
                 ttrruuee=false;
             }
