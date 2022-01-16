@@ -8,33 +8,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-import static renderer.heuristic.*;
-
 public class Visualisor extends Canvas implements Runnable{
 
     private Thread thread;
-    private JFrame frame;
-    private static String title = "3D Render";
-    public static final int WIDTH = 800;
-    public static final int HEIGTH = 600;
     private static boolean running = false;
 
-    private int timeToTake;
-    private int triesToTake;
+    private JFrame frame;                           //our main frame onto which 3d shape will be projected
+    private static String title = "3D Render";      //JFrames title and size
+    public static final int WIDTH = 800;
+    public static final int HEIGTH = 600;
+
+
+    private int timeToTake, triesToTake;            //values to be used for Dancing links algorithm
     private boolean isBoxes;
-    private int lPackages;
-    private int pPackages;
-    private int tPackages;
-    private int lValues;
-    private int pValues;
-    private int tValues;
 
-    private AlgorithmsTypes algorithm;
+    private int lPackages, pPackages, tPackages;    //values to be used for heuristics algorithm
+    private int lValues, pValues, tValues;
 
-    private EntityManager entityManager;
+    private AlgorithmsTypes algorithm;              //variable to track which algortihm was selected by the user
+
+    private EntityManager entityManager;            //object to render the shape
 
     private Mouse mouse;
 
+    /**
+     * Object initializer for Dancing links algorithm and which also creates a new frame and adding mouse listeners
+     * @param timeToTake - stores time for Dancing links algorithm to take for a certain branch
+     * @param triesToTake   - stores how many branches of tree it accesses in Dancing Links
+     * @param isBoxes - stores if we want solution to be found by Monte Carlo method
+     * @param algorithm - stores which algorithm it is
+     */
     public Visualisor(int timeToTake, int triesToTake, boolean isBoxes, AlgorithmsTypes algorithm){
         this.timeToTake = timeToTake;
         this.triesToTake = triesToTake;
@@ -55,6 +58,16 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
+    /**
+     * Object initializer for Dancing links algorithm and which also creates a new frame and adding mouse listeners
+     * @param lPackages - amount of "L" type packages
+     * @param pPackages - amount of "P" type packages
+     * @param tPackages - amount of "T" type packages
+     * @param lValues - values of "L" type packages
+     * @param pValues - values of "P" type packages
+     * @param tValues - values of "T" type packages
+     * @param algorithm - stores which algorithm it is
+     */
     public Visualisor(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
         this.lPackages = lPackages;
         this.pPackages = pPackages;
@@ -78,6 +91,13 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
+    /**
+     * Method which will be called after user clicks generate and which will initialize display frame and store values
+     * @param timeToTake - stores time for Dancing links algorithm to take for a certain branch
+     * @param triesToTake - stores how many branches of tree it accesses in Dancing Links
+     * @param isBoxes - stores if we want solution to be found by Monte Carlo method
+     * @param algorithm - stores which algorithm it is
+     */
     public static void init(int timeToTake, int triesToTake, boolean isBoxes, AlgorithmsTypes algorithm){
         Visualisor visualise = new Visualisor(timeToTake, triesToTake, isBoxes, algorithm);
 
@@ -90,6 +110,17 @@ public class Visualisor extends Canvas implements Runnable{
 
         visualise.start();
     }
+
+    /**
+     * Method which will be called after user clicks generate and which will initialize display frame and store values
+     * @param lPackages - amount of "L" type packages
+     * @param pPackages - amount of "P" type packages
+     * @param tPackages - amount of "T" type packages
+     * @param lValues - values of "L" type packages
+     * @param pValues - values of "P" type packages
+     * @param tValues - values of "T" type packages
+     * @param algorithm - stores which algorithm it is
+     */
     public static void init(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
         Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, lValues, pValues, tValues, algorithm);
 
@@ -103,6 +134,9 @@ public class Visualisor extends Canvas implements Runnable{
         visualise.start();
     }
 
+    /**
+     * Method for multithreading
+     */
     public synchronized void start(){
         running = true;
         this.thread = new Thread(this,"renderer.Visualisor");
@@ -118,21 +152,25 @@ public class Visualisor extends Canvas implements Runnable{
         }
     }
 
+    /**
+     * Main loop for the rendering of the shape
+     */
     @Override
     public void run() {
-        long lastTime = System.nanoTime();
+        long lastTime = System.nanoTime();  //variables to count how much time has passed
         final double ns = 1000000000/ 60;
         double delta = 0;
-        int[][][] arr;
 
-        if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
-        else arr = heuristic.finaresult(lPackages, pPackages, tPackages, lValues, tValues, pValues);
+        int[][][] shapeLayout;
+
+        if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) shapeLayout = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);    //goes through the specified algorithm and assigns it to local variable
+        else shapeLayout = heuristic.finaresult(lPackages, pPackages, tPackages);
 
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
-        this.entityManager.init(arr, algorithm);
+        this.entityManager.init(shapeLayout, algorithm);                //run through the decoding of each array to the cubes
 
-        while(running){
+        while(running){                                                 //loop to display the final image and let the user look into the shape
             long now = System.nanoTime();
             delta += (now-lastTime)/ns;
             lastTime = now;
@@ -144,6 +182,9 @@ public class Visualisor extends Canvas implements Runnable{
         }
     }
 
+    /**
+     * Method to display the finished shape
+     */
     private void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -162,6 +203,9 @@ public class Visualisor extends Canvas implements Runnable{
 
     }
 
+    /**
+     * MouseListener method that update the image based on the mouse commands
+     */
     private void update() {
         this.entityManager.update(this.mouse);
     }
