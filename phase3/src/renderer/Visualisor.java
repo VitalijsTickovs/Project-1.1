@@ -126,7 +126,7 @@ public class Visualisor extends Canvas implements Runnable{
         int[][][] arr;
 
         if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
-        else arr = heuristic.finaresult(lPackages, pPackages, tPackages, lValues, tValues, pValues);
+        else arr = heuristic.finaresult(lPackages, pPackages, tPackages);
 
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
