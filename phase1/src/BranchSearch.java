@@ -118,7 +118,7 @@ public class BranchSearch {
 	/**
 	 * This is the branching method, which is recursive, non-deterministic, depth-first, backtracking algorithm
 	 * @param field is matrix to fill in with pentominoes
-	 * @param userInput letters that are inputed by the user
+	 * @param userInput letters that are inputted by the user
 	 * @param mutation keeps track on which mutation we are
 	 * @return if true returns visual representation of the filled table || returns a text where that there is no solution
 	 */

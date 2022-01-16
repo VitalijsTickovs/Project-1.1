@@ -4,17 +4,22 @@ import renderer.Visualisor;
 import java.awt.*;
 
 public class Converter {
-    private static double scale = 1;
+    private static double scale = 1;                    //variables for the shape size
     private static final double zoomFactor = 1.1;
 
     public static void zoomIn(){
         scale *= zoomFactor;
-    }
+    }   //Method to increase the scaling
 
     public static void zoomOut(){
         scale /= zoomFactor;
-    }
+    }   //Method to decrease scaling
 
+    /**
+     * Converts 3d points in to 2d frame
+     * @param point3d - 3d coordinate
+     * @return adjusted 2d point
+     */
     public static Point convertPoint(Points point3d){
         double x3d = point3d.y * scale;
         double y3d = point3d.z * scale;
@@ -28,6 +33,13 @@ public class Converter {
         return point2d;
     }
 
+    /**
+     * Method to scale the shape
+     * @param x3d - coordinate form 3d array
+     * @param y3d - coordinate form 3d array
+     * @param depth - coordinate form 3d array
+     * @return adjusted x and y
+     */
     private static double[] scale(double x3d, double y3d, double depth){
         double dist = Math.sqrt(x3d*x3d + y3d*y3d);
         double theta = Math.atan2(y3d, x3d);
@@ -43,6 +55,12 @@ public class Converter {
         return newVal;
     }
 
+    /**
+     * Method to rotate the shape on the x-axis
+     * @param p - 3d point
+     * @param CW - boolean for clockwise rotation
+     * @param degrees - degrees that it should be rotated
+     */
     public static void rotateAxisX(Points p, boolean CW, double degrees){
         double radius = Math.sqrt(p.y*p.y + p.z*p.z);
         double theta = Math.atan2(p.z, p.y);
@@ -51,6 +69,12 @@ public class Converter {
         p.z = radius * Math.sin(theta);
     }
 
+    /**
+     * Method to rotate the shape on the y-axis
+     * @param p - 3d point
+     * @param CW - boolean for clockwise rotation
+     * @param degrees - degrees that it should be rotated
+     */
     public static void rotateAxisY(Points p, boolean CW, double degrees){
         double radius = Math.sqrt(p.x*p.x + p.z*p.z);
         double theta = Math.atan2(p.x, p.z);
@@ -59,6 +83,12 @@ public class Converter {
         p.z = radius * Math.cos(theta);
     }
 
+    /**
+     * Method to rotate the shape on the z-axis
+     * @param p - 3d point
+     * @param CW - boolean for clockwise rotation
+     * @param degrees - degrees that it should be rotated
+     */
     public static void rotateAxisZ(Points p, boolean CW, double degrees){
         double radius = Math.sqrt(p.x*p.x + p.y*p.y);
         double theta = Math.atan2(p.y, p.x);
