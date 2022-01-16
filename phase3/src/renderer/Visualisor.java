@@ -25,6 +25,9 @@ public class Visualisor extends Canvas implements Runnable{
     private int lPackages;
     private int pPackages;
     private int tPackages;
+    private int lValues;
+    private int pValues;
+    private int tValues;
 
     private AlgorithmsTypes algorithm;
 
@@ -52,10 +55,13 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
-    public Visualisor(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
+    public Visualisor(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
         this.lPackages = lPackages;
         this.pPackages = pPackages;
         this.tPackages = tPackages;
+        this.lValues = lValues;
+        this.pValues = pValues;
+        this.tValues = tValues;
         this.algorithm = algorithm;
 
         this.frame = new JFrame(title);
@@ -84,8 +90,8 @@ public class Visualisor extends Canvas implements Runnable{
 
         visualise.start();
     }
-    public static void init(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
-        Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, algorithm);
+    public static void init(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
+        Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, lValues, pValues, tValues, algorithm);
 
         visualise.frame.add(visualise);
         visualise.frame.pack();
