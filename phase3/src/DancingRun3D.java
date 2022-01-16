@@ -12,9 +12,12 @@ public class DancingRun3D {
      * @param boxes boolean that determines wether we try boxes, or pentominos (true for boxes, false for pentominos)
 	 * @return	a 3d int array with each layer representing the coordinates filled in by a piece
 	 */
-   public static int[][][] getSolution(int timeGiven,int tries,boolean boxes) {
+   public static void main(String[] args) {
 
 
+    int timeGiven = 200;
+    int tries = 100;
+    boolean boxes = true; 
     int[] input = {1,1,1};
 
     int height = 8;
@@ -46,7 +49,7 @@ public class DancingRun3D {
     if(testTable.length==0){
         System.out.println("impossible (not enough physical space)");
         int[][][] r = {{{}}};
-        return r;
+        //return r;
 
 
 
@@ -103,11 +106,11 @@ public class DancingRun3D {
     System.out.println("best score : " + score);
     System.out.println();
 
-    /*for (int i = 0; i < maximums.length; i++) {
+    for (int i = 0; i < maximums.length; i++) {
         if(maximums[i]>0){
             System.out.println(i + ": " + maximums[i]);
         }
-    }*/
+    }
 
     
    
@@ -200,7 +203,7 @@ public class DancingRun3D {
             result[k] = solutionArrays.get(k);
         }
         //result = solutionArrays.toArray(result);
-    return result;
+    //return result;
 
 
 

@@ -8,6 +8,7 @@ public class DancingListOpt {
     public int Ascore = 3;
     public int Bscore = 4;
     public int Cscore = 5;
+    
 
     public Square h;
 
@@ -29,11 +30,36 @@ public class DancingListOpt {
     public boolean search(int k,int timeAllowed,long timeStart,boolean boxes){
         if(h.R.equals(h) ){
             //System.out.println("solution found with n of pieces: " + Os.size());
-            maxOs.clear();
-                for (Square square : Os) {
-                    maxOs.add(square);
+            int score = 0;
+            
+            for (Square squa : Os) {
+                int RowSize = 1;
+                Square i = squa.L;
+                while(!i.equals(squa)){
+                    RowSize++;
+                    i = i.L;
                 }
-
+                if((boxes && RowSize == 16)||(!boxes && squa.row < 13968)){
+                    score+=Ascore;
+                }else{
+                    if ((boxes && RowSize == 24)||(!boxes && squa.row < 30088)) {
+                        score+=Bscore;
+                    } else {
+                        if ((boxes && RowSize == 27)||(!boxes && squa.row < 37144)){
+                            score+=Cscore;
+                        } else {
+                            System.out.println("shape of size " + RowSize + "??");
+                        }
+                    }
+                }
+            }
+            if(score>maxScore){
+                	maxOs.clear();
+                    for (Square square : Os) {
+                        maxOs.add(square);
+                    }
+                    maxScore = score;
+            }
             timeTaken = (int) (timeStart - System.currentTimeMillis());
             return true;
 
@@ -98,7 +124,15 @@ public class DancingListOpt {
                     maxOs.add(square);
                 }
             }
-            //return false;
+            int columns = 0;
+            for(Square x = h.R;!x.equals(h);x = x.R){
+                columns++;
+            }
+            if((boxes&&(maxScore>score+columns*0.1875))||((!boxes)&&(maxScore>score+columns))){
+                //System.out.println("gonna be a dead end");
+                return false;
+            }
+
 
         }
 
