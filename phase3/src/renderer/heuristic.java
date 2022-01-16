@@ -302,13 +302,15 @@ public static int[][][] takebest(int[][][][] array,int[][][][] matrix,int[][][][
 public static int numberOfL=0;
 public static int numberOfT=0;
 public static int numberOfI=0;
-    
+public static int value(int a,int b,int c){
+    return a*numberOfL+b*numberOfT+c*numberOfI;
+} 
 public static int[][][] finaresult(){
     int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
     int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
     int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
     int[][][] field=new int[33][5][8];
-     for(int kl=0;kl<197;kl++){
+     for(int kl=0;kl<500;kl++){
         int[][][][] result1 = allposibillities(field, L);
         int[][][][] result2 = allposibillities(field, T);
         int[][][][] result3 = allposibillities(field, I);
