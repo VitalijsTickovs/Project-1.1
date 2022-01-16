@@ -25,6 +25,9 @@ public class Visualisor extends Canvas implements Runnable{
     private int lPackages;
     private int pPackages;
     private int tPackages;
+    private int lValues;
+    private int pValues;
+    private int tValues;
 
     private AlgorithmsTypes algorithm;
 
@@ -52,10 +55,13 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
-    public Visualisor(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
+    public Visualisor(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
         this.lPackages = lPackages;
         this.pPackages = pPackages;
         this.tPackages = tPackages;
+        this.lValues = lValues;
+        this.pValues = pValues;
+        this.tValues = tValues;
         this.algorithm = algorithm;
 
         this.frame = new JFrame(title);
@@ -84,8 +90,8 @@ public class Visualisor extends Canvas implements Runnable{
 
         visualise.start();
     }
-    public static void init(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
-        Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, algorithm);
+    public static void init(int lPackages, int pPackages, int tPackages, int lValues, int pValues, int tValues, AlgorithmsTypes algorithm){
+        Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, lValues, pValues, tValues, algorithm);
 
         visualise.frame.add(visualise);
         visualise.frame.pack();
@@ -117,43 +123,11 @@ public class Visualisor extends Canvas implements Runnable{
         long lastTime = System.nanoTime();
         final double ns = 1000000000/ 60;
         double delta = 0;
-        int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-        int[][] L={  {1,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}};
-        int[][] I={  {1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0}};
-        int[][][] field=new int[33][5][8];
-        for(int kl=0;kl<197;kl++){
-            int[][][][] result1 = allposibillities(field, L);
-            int[][][][] result2 = allposibillities(field, T);
-            int[][][][] result3 = allposibillities(field, I);
-            if(result1.length==0 && result2.length==0 && result3.length==0 ){
-                System.out.println("oh-oh,too much "+kl);
-                break;
-            }
-            else if(result1.length==0 && result2.length==0){
-                field=takebest(result3, result3,numberOfI,numberOfI);
-            }
-            else if(result1.length==0 && result3.length==0){
-                field=takebest(result2, result2,numberOfT,numberOfT);
-            }
-            else if(result2.length==0 && result3.length==0){
-                field=takebest(result1, result1,numberOfL,numberOfL);
-            }
-            else if(result1.length==0 ){
-                field=takebest(result2, result3,numberOfT,numberOfI);
-            }
-            else if(result2.length==0){
-                field=takebest(result1, result3,numberOfL,numberOfT);
-            }
-            else if(result3.length==0){
-                field=takebest(result1, result2,numberOfL,numberOfI);
-            }
-            else{
-                field=takebest(result1, result2, result3);
-            }
-        }
         int[][][] arr;
+
         if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
-        else arr = heuristic.finaresult();
+        else arr = heuristic.finaresult(lPackages, pPackages, tPackages, lValues, tValues, pValues);
+
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
         this.entityManager.init(arr, algorithm);

@@ -6,7 +6,11 @@ import java.util.function.IntPredicate;
 public class TableToList {
 
 
-
+    /**
+     * turns a 2D boolean array into the doubly linked structure made of squares and headers, used in "dancing list"
+     * @param input: 2d matrix to be turned into the structure
+     * @return the root square h that points to the structure
+     */
     public static  Square ToList(boolean[][] input){
         Square h = new Square();
 

@@ -139,8 +139,8 @@ public class MenuRun{
                         Visualisor.init(Integer.parseInt(timeToTake.getText()), Integer.parseInt(triesToTake.getText()), isBoxes.isSelected(), AlgorithmsTypes.DancingLinksAlgorithm);
                     }
                 }else{
-                    if(!lPackage.getText().equals("") && !pPackage.getText().equals("") && !tPackage.getText().equals("")){
-                        Visualisor.init(Integer.parseInt(lPackage.getText()), Integer.parseInt(lPackage.getText()), Integer.parseInt(lPackage.getText()), AlgorithmsTypes.HeuristicAlgorithm);
+                    if(!lPackage.getText().equals("") && !pPackage.getText().equals("") && !tPackage.getText().equals("") && !lValues.getText().equals("") && !pValues.getText().equals("") && !tValues.getText().equals("")){
+                        Visualisor.init(Integer.parseInt(lPackage.getText()), Integer.parseInt(pPackage.getText()), Integer.parseInt(tPackage.getText()), Integer.parseInt(lValues.getText()), Integer.parseInt(pValues.getText()), Integer.parseInt(tValues.getText()), AlgorithmsTypes.HeuristicAlgorithm);
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package renderer;
 
 public class Header extends Square {
+    //class that represents a header in the doubly linked structure used by "dancing list"
     public String N;
     public int S = 0;
 
