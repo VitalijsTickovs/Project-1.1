@@ -19,6 +19,10 @@ public class MenuRun{
     private static JTextField lPackage;
     private static JTextField pPackage;
     private static JTextField tPackage;
+    private static JTextField lValues;
+    private static JTextField pValues;
+    private static JTextField tValues;
+
 
     private static JFrame frame;
 
@@ -48,6 +52,7 @@ public class MenuRun{
 
     public static JPanel createHeuristic(){
         JPanel pan = new JPanel();
+
         JLabel LText = new JLabel("How much L packages?");
         lPackage = new JTextField(6);
 
@@ -57,14 +62,29 @@ public class MenuRun{
         JLabel TText = new JLabel("How much T packages?");
         tPackage = new JTextField(6);
 
+        JLabel ValLText = new JLabel("What is the value of L packages?");
+        lValues = new JTextField(6);
+
+        JLabel ValPText = new JLabel("What is the value of P packages?");
+        pValues = new JTextField(6);
+
+        JLabel ValTText = new JLabel("What is the value of T packages?");
+        tValues = new JTextField(6);
+
         pan.add(LText);
         pan.add(lPackage);
-
         pan.add(PText);
         pan.add(pPackage);
-
         pan.add(TText);
         pan.add(tPackage);
+
+        pan.add(ValLText);
+        pan.add(lValues);
+        pan.add(ValPText);
+        pan.add(pValues);
+        pan.add(ValTText);
+        pan.add(tValues);
+
         return pan;
     }
 
