@@ -1,6 +1,7 @@
 package renderer;
 
 import renderer.mouseInput.Mouse;
+import renderer.shapes.AlgorithmType.AlgorithmsTypes;
 import renderer.shapes.EntityManager;
 
 import javax.swing.*;
@@ -21,15 +22,21 @@ public class Visualisor extends Canvas implements Runnable{
     private int timeToTake;
     private int triesToTake;
     private boolean isBoxes;
+    private int lPackages;
+    private int pPackages;
+    private int tPackages;
+
+    private AlgorithmsTypes algorithm;
 
     private EntityManager entityManager;
 
     private Mouse mouse;
 
-    public Visualisor(int timeToTake, int triesToTake, boolean isBoxes){
+    public Visualisor(int timeToTake, int triesToTake, boolean isBoxes, AlgorithmsTypes algorithm){
         this.timeToTake = timeToTake;
         this.triesToTake = triesToTake;
         this.isBoxes = isBoxes;
+        this.algorithm = algorithm;
 
         this.frame = new JFrame(title);
 
@@ -45,8 +52,40 @@ public class Visualisor extends Canvas implements Runnable{
         this.addMouseWheelListener(this.mouse);
     }
 
-    public static void init(int timeToTake, int triesToTake, boolean isBoxes){
-        Visualisor visualise = new Visualisor(timeToTake, triesToTake, isBoxes);
+    public Visualisor(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
+        this.lPackages = lPackages;
+        this.pPackages = pPackages;
+        this.tPackages = tPackages;
+        this.algorithm = algorithm;
+
+        this.frame = new JFrame(title);
+
+        Dimension size = new Dimension(WIDTH, HEIGTH);
+        this.frame.setPreferredSize(size);
+
+        this.mouse = new Mouse();
+
+        this.entityManager = new EntityManager();
+
+        this.addMouseListener(this.mouse);
+        this.addMouseMotionListener(this.mouse);
+        this.addMouseWheelListener(this.mouse);
+    }
+
+    public static void init(int timeToTake, int triesToTake, boolean isBoxes, AlgorithmsTypes algorithm){
+        Visualisor visualise = new Visualisor(timeToTake, triesToTake, isBoxes, algorithm);
+
+        visualise.frame.add(visualise);
+        visualise.frame.pack();
+        visualise.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        visualise.frame.setLocationRelativeTo(null);
+        visualise.frame.setResizable(false);
+        visualise.frame.setVisible(true);
+
+        visualise.start();
+    }
+    public static void init(int lPackages, int pPackages, int tPackages, AlgorithmsTypes algorithm){
+        Visualisor visualise = new Visualisor(lPackages, pPackages, tPackages, algorithm);
 
         visualise.frame.add(visualise);
         visualise.frame.pack();
@@ -118,7 +157,7 @@ public class Visualisor extends Canvas implements Runnable{
         int[][][] arr = heuristic.finaresult();
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
-        this.entityManager.init(arr);
+        this.entityManager.init(arr, algorithm);
 
         while(running){
             long now = System.nanoTime();

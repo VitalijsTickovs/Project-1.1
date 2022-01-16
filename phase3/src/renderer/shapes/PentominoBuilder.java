@@ -1,6 +1,7 @@
 package renderer.shapes;
 
 import renderer.point.Points;
+import renderer.shapes.AlgorithmType.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,10 +25,11 @@ public class PentominoBuilder {
         }
     }
 
-    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ, int[][][] arr){
+    public static Entity createPentominos(double size, double centerX, double centerY, double centerZ, int[][][] arr, AlgorithmsTypes alg){
         List<Tetrahedron> tetras = new ArrayList<Tetrahedron>();
 
-        heuristicAlgorithm(arr);
+        if(alg == AlgorithmsTypes.HeuristicAlgorithm) heuristicAlgorithm(arr);
+        else dancingLinksAlgorithm(arr);
 
         int cubeSpacing = 2;
         for(int i=-2; i < 3; i++) {
