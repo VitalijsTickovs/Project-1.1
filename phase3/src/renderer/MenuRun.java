@@ -140,7 +140,7 @@ public class MenuRun{
                     }
                 }else{
                     if(!lPackage.getText().equals("") && !pPackage.getText().equals("") && !tPackage.getText().equals("") && !lValues.getText().equals("") && !pValues.getText().equals("") && !tValues.getText().equals("")){
-                        Visualisor.init(Integer.parseInt(lPackage.getText()), Integer.parseInt(lPackage.getText()), Integer.parseInt(lPackage.getText()), Integer.parseInt(lValues.getText()), Integer.parseInt(pValues.getText()), Integer.parseInt(tValues.getText()), AlgorithmsTypes.HeuristicAlgorithm);
+                        Visualisor.init(Integer.parseInt(lPackage.getText()), Integer.parseInt(pPackage.getText()), Integer.parseInt(tPackage.getText()), Integer.parseInt(lValues.getText()), Integer.parseInt(pValues.getText()), Integer.parseInt(tValues.getText()), AlgorithmsTypes.HeuristicAlgorithm);
                     }
                 }
             }

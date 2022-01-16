@@ -1,7 +1,5 @@
 package renderer;
-import java.util.Arrays;
 import java.lang.Math;
-import java.lang.reflect.Field;
 public class heuristic{
     public static  int getHeight( int[][][] array,int width,int length){
         int height =0;
@@ -305,82 +303,44 @@ public static int numberOfI=0;
 public static int value(int a,int b,int c){
     return a*numberOfL+b*numberOfT+c*numberOfI;
 } 
-public static int[][][] test(int b,int a,int c){
-    int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-    int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
-    int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
-    int[][][] field=new int[33][5][8];
-    for(int kl=0;kl<a+b+c;kl++){
-        int[][][][] result1 = allposibillities(field, L);
-        int[][][][] result2 = allposibillities(field, T);
-        int[][][][] result3 = allposibillities(field, I);
-        if(result1.length==0 && result2.length==0 && result3.length==0 && numberOfL<=a && numberOfT<=b && numberOfI<=c ){
-            System.out.println("oh-oh,too much "+kl);
-            break;
-         }
-        else if(result1.length==0 && result2.length==0 && numberOfL<=a && numberOfT<=b ){
-            field=takebest(result3, result3,numberOfI,numberOfI);
-         }
-         else if(result1.length==0 && result3.length==0 && numberOfL<=a && numberOfI<=c){
-            field=takebest(result2, result2,numberOfT,numberOfT);
-         }
-         else if(result2.length==0 && result3.length==0 &&  numberOfT<=b && numberOfI<=c){
-            field=takebest(result1, result1,numberOfL,numberOfL);
-         }
-        else if(result1.length==0 && numberOfL<=a){
-           field=takebest(result2, result3,numberOfT,numberOfI);
-        }
-        else if(result2.length==0 &&  numberOfT<=b){
-            field=takebest(result1, result3,numberOfL,numberOfT);
-        }
-        else if(result3.length==0 &&  numberOfI<=c){
-            field=takebest(result1, result2,numberOfL,numberOfI);
-        }
-        else if( numberOfL<=a && numberOfT<=b && numberOfI<=c){       
-            return field=takebest(result1, result2, result3);
 
+public static int[][][] finaresult(int a,int b,int c, int ValueA, int ValueB, int ValueC){
+        int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
+        int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
+        int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
+        int[][][] field=new int[33][5][8];
+        for(int kl=0;kl<a+b+c;kl++){
+            int[][][][] result1 = allposibillities(field, L);
+            int[][][][] result2 = allposibillities(field, T);
+            int[][][][] result3 = allposibillities(field, I);
+            if(result1.length==0 && result2.length==0 && result3.length==0 && numberOfL<=a && numberOfT<=b && numberOfI<=c ){
+                System.out.println("oh-oh,too much "+kl);
+                int[][][] newField = new int[33][5][8];
+                return newField;
+            }
+            else if(result1.length==0 && result2.length==0 && numberOfL<=a && numberOfT<=b ){
+                field=takebest(result3, result3,numberOfI,numberOfI);
+            }
+            else if(result1.length==0 && result3.length==0 && numberOfL<=a && numberOfI<=c){
+                field=takebest(result2, result2,numberOfT,numberOfT);
+            }
+            else if(result2.length==0 && result3.length==0 &&  numberOfT<=b && numberOfI<=c){
+                field=takebest(result1, result1,numberOfL,numberOfL);
+            }
+            else if(result1.length==0 && numberOfL<=a){
+                field=takebest(result2, result3,numberOfT,numberOfI);
+            }
+            else if(result2.length==0 &&  numberOfT<=b){
+                field=takebest(result1, result3,numberOfL,numberOfT);
+            }
+            else if(result3.length==0 &&  numberOfI<=c){
+                field=takebest(result1, result2,numberOfL,numberOfI);
+            }
+            else if( numberOfL<=a && numberOfT<=b && numberOfI<=c){
+                System.out.println(value(ValueA, ValueB, ValueC));
+                return field=takebest(result1, result2, result3);
+            }
         }
-        
-     }
-     return field;
-  }
-public static int[][][] finaresult(int a,int b,int c){
-    int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-    int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
-    int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
-    int[][][] field=new int[33][5][8];
-    for(int kl=0;kl<a+b+c;kl++){
-        int[][][][] result1 = allposibillities(field, L);
-        int[][][][] result2 = allposibillities(field, T);
-        int[][][][] result3 = allposibillities(field, I);
-        if(result1.length==0 && result2.length==0 && result3.length==0 && numberOfL<=a && numberOfT<=b && numberOfI<=c ){
-            System.out.println("oh-oh,too much "+kl);
-            break;
-         }
-        else if(result1.length==0 && result2.length==0 && numberOfL<=a && numberOfT<=b ){
-            field=takebest(result3, result3,numberOfI,numberOfI);
-         }
-         else if(result1.length==0 && result3.length==0 && numberOfL<=a && numberOfI<=c){
-            field=takebest(result2, result2,numberOfT,numberOfT);
-         }
-         else if(result2.length==0 && result3.length==0 &&  numberOfT<=b && numberOfI<=c){
-            field=takebest(result1, result1,numberOfL,numberOfL);
-         }
-        else if(result1.length==0 && numberOfL<=a){
-           field=takebest(result2, result3,numberOfT,numberOfI);
-        }
-        else if(result2.length==0 &&  numberOfT<=b){
-            field=takebest(result1, result3,numberOfL,numberOfT);
-        }
-        else if(result3.length==0 &&  numberOfI<=c){
-            field=takebest(result1, result2,numberOfL,numberOfI);
-        }
-        else if( numberOfL<=a && numberOfT<=b && numberOfI<=c){       
-            return field=takebest(result1, result2, result3);
-
-        }
-        
-     }
-     return field;
-  }
+        return field;
+    }
 }
