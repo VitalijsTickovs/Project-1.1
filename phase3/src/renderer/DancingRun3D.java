@@ -3,7 +3,6 @@ package renderer;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class DancingRun3D {
 
@@ -15,13 +14,16 @@ public class DancingRun3D {
 	 * @return	a 3d int array with each layer representing the coordinates filled in by a piece
 	 */
    public static int[][][] getSolution(int timeGiven,int tries,boolean boxes) {
+    
 
+    int[] counts = {0,0,0};
 
     int[] input = {1,1,1};
 
     int height = 8;
     int width = 5;
     int length = 33;
+    
 
     long firsttime = System.currentTimeMillis();
     int[][][] field = new int[height][width][length];
@@ -77,25 +79,25 @@ public class DancingRun3D {
 
 
     for (int i = 0; i < tries ; i++) {
-    DancingListOpt test = new DancingListOpt(TableToList.ToList(testTable));    
-    
-    if(test.search(0,timeGiven,System.currentTimeMillis(),boxes)){
-        solved = true;
-    }
-    System.out.println(i + ": " + solved);
-    maximums[test.maxScore]++;
-    
-    if(test.maxScore > score){
-        solution.clear();
-        for (Square square : test.maxOs) {
-            solution.add(square);
-        }
-        score = test.maxScore;
+        DancingListOpt test = new DancingListOpt(TableToList.ToList(testTable));    
         
-    }
+        if(test.search(0,timeGiven,System.currentTimeMillis(),boxes)){
+            solved = true;
+        }
+        System.out.println("try " + i + ", perfect solution found: " + solved);
+        maximums[test.maxScore]++;
+        
+        if(test.maxScore > score){
+            solution.clear();
+            for (Square square : test.maxOs) {
+                solution.add(square);
+            }
+            score = test.maxScore;
+            
+        }
 
-    
-    shuffle(testTable);
+        
+        shuffle(testTable);
 
     }   
 
@@ -121,6 +123,18 @@ public class DancingRun3D {
     ArrayList<int[][]> solutionArrays = new ArrayList<>();
 
     for (Square i : solution) {
+        if(!boxes){
+            if(i.row<13968){
+                counts[0]++;
+            }else{
+                if(i.row<30088){
+                    counts[1]++;
+                }else{
+                    counts[2]++;
+                }
+            }
+        }
+        
         
         int ii = Integer.parseInt(i.C.N)-1;
         //System.out.print("("+ (ii%165)/33 + ", " + ii/165 + ", " + (ii%165)%33 + ") ");
@@ -134,6 +148,19 @@ public class DancingRun3D {
         int count = 1;
         for(Square k = i.R;!k.equals(i);k=k.R){
             count++;
+        }
+    
+        if(count == 16){
+            counts[0]++;
+        }else{
+            if(count == 24){
+                counts[1]++;
+
+            }else{
+                if(count == 27){
+                    counts[2]++;
+                }
+            }
         }
 
         int[][] piece = new int[count][3];
@@ -187,7 +214,9 @@ public class DancingRun3D {
 
     }
 
-
+    System.out.println("P/A pieces used : " + counts[0]);
+    System.out.println("L/B pieces used : " + counts[1]);
+    System.out.println("T/C pieces used : " + counts[2]);
     boolean done = true;
         for (int k = 0; k < cells.length; k++) {
             if(!cells[k]){

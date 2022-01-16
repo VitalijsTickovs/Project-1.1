@@ -28,13 +28,13 @@ public class DancingTable3DUnlimited {
         //55*B
         	
         //making a 1 unit large box to fill all the empty spaces
-        int[] Ddims = {1,1,1};  
+        
 
         int Amutations = 3;
         int Bmutations = 6;
         int Cmutations = 1;
 
-        int Dmutations = 1;
+        
 
 
         //making a new input that adds the D boxes
@@ -64,16 +64,13 @@ public class DancingTable3DUnlimited {
                     Shape = Bdims;
                     ShapeMutations = Bmutations;
                 }else{
-                    if (s<input[2]+input[1]+input[0]) {
-                        Shape = Cdims;
-                        ShapeMutations = Cmutations;
-                    } else {
-                        Shape = Ddims;
-                        ShapeMutations = Dmutations;
-                    }
+                    
+                    Shape = Cdims;
+                    ShapeMutations = Cmutations;
+                    
                 }
             }
-
+            
 
 
             for (int mutation = 0;mutation < ShapeMutations;mutation++) {
@@ -103,6 +100,7 @@ public class DancingTable3DUnlimited {
                     }
                 }
             }
+            System.out.println("number of rows : " + tempTable.size() + "  " + ShapeMutations);
             
 
         }
@@ -245,5 +243,3 @@ public class DancingTable3DUnlimited {
 
 }
 
-
-///hsgciuyeycve
