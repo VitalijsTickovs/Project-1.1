@@ -115,10 +115,8 @@ public class Visualisor extends Canvas implements Runnable{
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
         final double ns = 1000000000/ 60;
         double delta = 0;
-        int frames = 0;
         int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
         int[][] L={  {1,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}};
         int[][] I={  {1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0}};
@@ -153,8 +151,9 @@ public class Visualisor extends Canvas implements Runnable{
                 field=takebest(result1, result2, result3);
             }
         }
-        //int[][][] arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
-        int[][][] arr = heuristic.finaresult();
+        int[][][] arr;
+        if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
+        else arr = heuristic.finaresult();
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
         this.entityManager.init(arr, algorithm);
@@ -166,7 +165,6 @@ public class Visualisor extends Canvas implements Runnable{
             if(delta >= 1){
                 update();
                 render();
-                frames++;
                 delta--;
             }
         }
