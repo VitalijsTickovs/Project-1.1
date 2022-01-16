@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuRun{
-
     public static final int WIDTH = 800;
     public static final int HEIGTH = 600;
 

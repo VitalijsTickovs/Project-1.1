@@ -2,7 +2,6 @@ package renderer.shapes;
 
 import renderer.mouseInput.Mouse;
 import renderer.point.Converter;
-import renderer.shapes.builder.PentominoBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;

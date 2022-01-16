@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Visualisor extends Canvas implements Runnable{
-
     private Thread thread;
     private JFrame frame;
     private static String title = "3D Render";
@@ -74,10 +73,8 @@ public class Visualisor extends Canvas implements Runnable{
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
         final double ns = 1000000000/ 60;
         double delta = 0;
-        int frames = 0;
 
         int[][][] arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
@@ -91,7 +88,6 @@ public class Visualisor extends Canvas implements Runnable{
             if(delta >= 1){
                 update();
                 render();
-                frames++;
                 delta--;
             }
         }
