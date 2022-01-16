@@ -78,7 +78,42 @@ public class Visualisor extends Canvas implements Runnable{
         final double ns = 1000000000/ 60;
         double delta = 0;
         int frames = 0;
+        int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
+    int[][] L={  {1,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}};
+    int[][] I={  {1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0}};      
+    int[][][] field=new int[33][5][8];
+     for(int kl=0;kl<197;kl++){
+        int[][][][] result1 = allposibillities(field, L);
+        int[][][][] result2 = allposibillities(field, T);
+        int[][][][] result3 = allposibillities(field, I);
+        if(result1.length==0 && result2.length==0 && result3.length==0 ){
+            System.out.println("oh-oh,too much "+kl);
+            break;
+         }
+        else if(result1.length==0 && result2.length==0){
+            field=takebest(result3, result3,numberOfI,numberOfI);
+         }
+         else if(result1.length==0 && result3.length==0){
+            field=takebest(result2, result2,numberOfT,numberOfT);
+         }
+         else if(result2.length==0 && result3.length==0){
+            field=takebest(result1, result1,numberOfL,numberOfL);
+         }
+        else if(result1.length==0 ){
+           field=takebest(result2, result3,numberOfT,numberOfI);
+        }
+        else if(result2.length==0){
+            field=takebest(result1, result3,numberOfL,numberOfT);
+        }
+        else if(result3.length==0){
+            field=takebest(result1, result2,numberOfL,numberOfI);
+        }
+        else{       
+            field=takebest(result1, result2, result3, numberOfL,numberOfT,numberOfI);
 
+        }
+        
+     }
         int[][][] arr = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
