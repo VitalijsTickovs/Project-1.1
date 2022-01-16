@@ -1,5 +1,5 @@
 package renderer;
-import java.util.Arrays; 
+import java.util.Arrays;
 import java.lang.Math;
 import java.lang.reflect.Field;
 public class heuristic{
@@ -305,8 +305,8 @@ public static int numberOfI=0;
     
 public static int[][][] finaresult(){
     int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-    int[][] L={  {1,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}};
-    int[][] I={  {1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0}};      
+    int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
+    int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
     int[][][] field=new int[33][5][8];
      for(int kl=0;kl<197;kl++){
         int[][][][] result1 = allposibillities(field, L);

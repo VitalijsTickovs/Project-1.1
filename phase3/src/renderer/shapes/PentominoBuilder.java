@@ -83,7 +83,7 @@ public class PentominoBuilder {
         for(int i=0; i<arr.length; i++){
             for(int j=0; j<arr[i].length; j++){
                 for(int k=0; k<arr[i][j].length; k++){
-                    pentominoLayout[i][j][k] = arr[i][j][k];
+                    pentominoLayout[j][k][i] = arr[i][j][k];
                 }
             }
         }
