@@ -1,4 +1,4 @@
-package renderer;
+//package renderer;
 import java.lang.Math;
 public class heuristic{
     public static  int getHeight( int[][][] array,int width,int length){
@@ -10,14 +10,19 @@ public class heuristic{
         }
         return height;
     }
-    public static  int getHoles(int[][][] array){
+    public static int getHoles(int[][][] array){
         int holes =0;
-        for(int i=0;i<array.length;i++){
-            for(int j=0;j<array[0].length;j++){
-                for(int k=0;k<array[0][0].length;k++){
-                    if(array[i][j][k]==0)
+        for(int i=1;i<array.length-1;i++){
+            for(int j=1;j<array[0].length-1;j++){
+                for(int k=1;k<array[0][0].length-1;k++){
+                    if(array[i][j][k]==0 && array[i+1][j][k]!=0 && array[i-1][j][k]!=0 )
                         holes++;
-                }
+                    else if(array[i][j][k]==0 && array[i][j+1][k]!=0 && array[i][j-1][k]!=0 )
+                        holes++;
+                    else if(array[i][j][k]==0 && array[i][j][k+1]!=0 && array[i][j][k-1]!=0 )
+                        holes++;
+        
+        }
             }
         }
         return holes;
@@ -39,7 +44,7 @@ public class heuristic{
     public static int score(int[][][] array){
         int score =0;
         for(int j=0;j<array.length;j++){
-            score += -Aggregate_Height(array,j)-bumpiness(array,j);
+            score += -Aggregate_Height(array,j)-getHoles(array)-bumpiness(array,j);
         }
         return score;
    }
@@ -358,172 +363,56 @@ public static int[][][] takebest(int[][][][] array,int[][][][] matrix,int[][][][
     }  
     return Fresult;
 }
+
 public static int numberOfL=0;
 public static int numberOfT=0;
 public static int numberOfP=0;
 public static int value(int a,int b,int c){
     return a*numberOfL+b*numberOfT+c*numberOfP;
 } 
-/** 
-public static int[][][] finaresult(int a,int b,int c){
-    int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-    int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
-    int[][] I={  {3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0},{3,0,0,0,0}};
-    int[][][] field=new int[33][5][8];
-    for(int kl=0;kl<a+b+c;kl++){
-        int[][][][] result1 = allposibillities(field, L);
-        int[][][][] result2 = allposibillities(field, T);
-        int[][][][] result3 = allposibillities(field, I);
-        if(result1.length==0 && result2.length==0 && result3.length==0  ){
-            System.out.println("oh-oh,too much "+kl);
-            break;
-         }
-        else if(result1.length==0 && result2.length==0 && numberOfP<=c){
-            field=takebest(result3, result3,numberOfP,numberOfP);
-            System.out.println(numberOfP);
-         }
-         else if(result1.length==0 && result3.length==0 && numberOfT<=b){
-            field=takebest(result2, result2,numberOfT,numberOfT);
-            System.out.println(numberOfT);
-         }
-         else if(result2.length==0 && result3.length==0 &&  numberOfL<=a){
-            field=takebest(result1, result1,numberOfL,numberOfL);
-         }
-        else if(result1.length==0 && numberOfT<=b && numberOfP<=c){
-           field=takebest(result2, result3,numberOfT,numberOfP);
-        }
-        else if(result2.length==0 &&  numberOfL<=a && numberOfP<=c){
-            field=takebest(result1, result3,numberOfL,numberOfT);
-        }
-        else if(result3.length==0 &&  numberOfL<=a && numberOfT<=b){
-            field=takebest(result1, result2,numberOfL,numberOfP);
-        }
-        else if( numberOfL<=a && numberOfT<=b && numberOfP<=c){    
-            field=takebest(result1, result2, result3);
-        }  
-     }
-     return field;
-  }
-  */
-  public static int[][][] finaresult(int a,int b,int c){
-    int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
-    int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
-    int[][] P={  {3,3,0,0,0},{3,3,0,0,0},{3,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
-    int[][][] field=new int[33][5][8];
-    for(int kl=0;kl<a+b+c;kl++){
-        int[][][][] result1 = allposibillities(field, L);
-        int[][][][] result2 = allposibillities(field, T);
-        int[][][][] result3 = allposibillities(field, P);
-        System.out.println(numberOfL+" "+numberOfT+" "+numberOfP);
-        if(result1.length==0 && result2.length==0 && result3.length==0  ){
-            System.out.println("oh-oh,too much "+kl);
-            break;
-         }
-         if(numberOfL<=a && numberOfT<=b && numberOfP<=c){
-            if(result1.length==0 && result2.length==0)
-                field=takebest13(result3, result3,numberOfP,numberOfP);
-            else if(result1.length==0 && result3.length==0)
-                field=takebest12(result2, result2,numberOfT,numberOfT);
-            else if(result2.length==0 && result3.length==0)
-                field=takebest12(result1, result1,numberOfL,numberOfL);
-            else if(result1.length==0)
-                field=takebest23(result2, result3,numberOfT,numberOfP);
-            else if(result2.length==0)
-                field=takebest13(result1, result3,numberOfL,numberOfP);
-            else if(result3.length==0)
-                field=takebest12(result1, result2,numberOfL,numberOfT);
-            else 
-                field=takebest(result1, result2, result3);
-            System.out.println(numberOfL+" "+numberOfT+" "+numberOfP);
-         }
-         else if(numberOfL>=a && numberOfT>=b && numberOfP>=c){
-            return field;
-        }
-         else if(numberOfL>=a && numberOfT>=b ){
-            if(result3.length==0){
-                return field;
+    public static int[][][] finaresult(int a,int b,int c){
+        int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
+        int[][] L={  {2,0,0,0},{2,0,0,0},{2,2,2,0},{0,0,0,0}};
+        int[][] P={  {3,3,0,0},{3,3,0,0},{3,0,0,0},{0,0,0,0}};
+        System.out.println(a+b+c);
+        int h=0;
+        int k=0;
+        int[][][] field=new int[33][5][8];
+        for(int kl=0;kl<a;kl++){
+            int[][][][] result1 = allposibillities(field, T);
+            if(result1.length==0)
+                break;
+            for(int i=0;i<result1.length;i++){
+            if(score(result1[i])>k){
+                k=score(result1[i]);
+                h=i;
+                }
             }
-            else
-                field=takebest13(result3, result3,numberOfP,numberOfP);
+            field=result1[h];
         }
-        else if(numberOfL>=a && numberOfP>=c ){
-            if(result2.length==0){
-                return field;
+        for(int kl=0;kl<b;kl++){
+            int[][][][] result1 = allposibillities(field, L);
+            if(result1.length==0)
+                break;
+            for(int i=0;i<result1.length;i++){
+            if(score(result1[i])>k){
+                k=score(result1[i]);
+                h=i;
+                }
             }
-            else
-                field=takebest12(result2, result2,numberOfT,numberOfT);
-        }
-        else if(numberOfT>=b && numberOfP>=c ){
-            if(result1.length==0){
-                return field;
+            field=result1[h];
+        } for(int kl=0;kl<c;kl++){
+            int[][][][] result1 = allposibillities(field, P);
+            if(result1.length==0)
+                break;
+            for(int i=0;i<result1.length;i++){
+            if(score(result1[i])>k){
+                k=score(result1[i]);
+                h=i;
+                }
             }
-            else
-                field=takebest12(result1, result1,numberOfL,numberOfL);
+            field=result1[h];
         }
-        if(numberOfL>=a){
-            if(result2.length==0 && result3.length==0)
-                return field;
-            else if(result2.length==0){
-                field=takebest13(result3, result3,numberOfP,numberOfP);
-            }
-            else if(result3.length==0)
-                field=takebest12(result2, result2,numberOfT,numberOfT);
-            else
-                field=takebest23(result2, result3,numberOfT,numberOfP);
-        }
-        else if(numberOfT>=b){
-            if(result1.length==0 && result3.length==0)
-                return field;
-            else if(result1.length==0){
-                field=takebest13(result3, result3,numberOfP,numberOfP);
-            }
-            else if(result3.length==0){
-                field=takebest12(result1, result1,numberOfL,numberOfL);
-            }
-            else
-                field=takebest13(result1, result3,numberOfL,numberOfP);
-        }
-        else if(numberOfP>=c){
-            if(result1.length==0 && result2.length==0)
-                return field;
-            else if(result1.length==0){
-                field=takebest12(result2, result2,numberOfT,numberOfT);
-            }
-            else if(result2.length==0){
-                field=takebest12(result1, result1,numberOfL,numberOfL);
-            }
-            else
-                field=takebest13(result1, result3,numberOfL,numberOfP);
-        }
-        
-    }
-    return field;
-}
-        /** 
-        else if(result1.length==0 && result2.length==0 && numberOfP<=c){
-            field=takebest(result3, result3,numberOfP,numberOfP);
-            System.out.println(numberOfP);
-         }
-         else if(result1.length==0 && result3.length==0 && numberOfT<=b){
-            field=takebest(result2, result2,numberOfT,numberOfT);
-            System.out.println(numberOfT);
-         }
-         else if(result2.length==0 && result3.length==0 &&  numberOfL<=a){
-            field=takebest(result1, result1,numberOfL,numberOfL);
-         }
-        else if(result1.length==0 && numberOfT<=b && numberOfP<=c){
-           field=takebest(result2, result3,numberOfT,numberOfP);
-        }
-        else if(result2.length==0 &&  numberOfL<=a && numberOfP<=c){
-            field=takebest(result1, result3,numberOfL,numberOfT);
-        }
-        else if(result3.length==0 &&  numberOfL<=a && numberOfT<=b){
-            field=takebest(result1, result2,numberOfL,numberOfP);
-        }
-        else if( numberOfL<=a && numberOfT<=b && numberOfP<=c){    
-            field=takebest(result1, result2, result3);
-        }  
-     }
-     */
-
+        return field;
+    }    
 }
