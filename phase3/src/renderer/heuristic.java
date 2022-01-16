@@ -1,93 +1,8 @@
+package renderer;
 import java.util.Arrays; 
 import java.lang.Math;
 import java.lang.reflect.Field;
 public class heuristic{
-    public static void sort(int[] array){
-        Arrays.sort(array); 
-    }
-    public static int[] Sortedratio(int[] size,int[] value){
-        int[] result =new int[size.length];
-        for(int i=0;i<result.length;i++){
-            result[i]=value[i]/size[i];
-        }
-        Arrays.sort(result);
-        return result;
-    }
-    public static int[] tryfit(int max,int[] size,int[] value){
-        int[] result= new int[size.length];
-        int[] arratio=Sortedratio(size,value);
-        int a=0;
-        int b=0;
-        int c=0;
-        int actual_size=0;
-        int a_position=0;
-        int b_position=0;
-        int c_position=0;
-        for(int i=0;i<arratio.length;i++){
-            if(arratio[i]==value[0]/size[0]){
-                a_position=i;
-                continue;
-            }
-            if(arratio[i]==value[1]/size[1]){
-                b_position=i;
-                continue;
-            }
-            if(arratio[i]==value[2]/size[2]){
-                c_position=i;
-                continue;
-            }
-        }
-        while(actual_size<=max-31){
-            System.out.println("Hello World"+ actual_size);
-            if(a_position==0 && actual_size+size[0]<=max){
-                a++;
-                actual_size+=size[0];
-            }
-            if(b_position==0 && actual_size+size[1]<=max){
-                b++;
-                actual_size+=size[1];
-            }
-            if(c_position==0 && actual_size+size[2]<=max){
-                c++;
-                actual_size+=size[2];
-            } 
-        }
-        while(actual_size<=max-31){
-            if(a_position==1 && actual_size+size[0]<=max){
-                a++;
-                actual_size+=size[0];
-            }
-            if(b_position==1 && actual_size+size[1]<=max){
-                b++;
-                actual_size+=size[1];
-            }
-            if(c_position==1 && actual_size+size[2]<=max){
-                c++;
-                actual_size+=size[2];
-            } 
-        }
-        while(actual_size<=max-31){
-            if(a_position==2 && actual_size+size[0]<=max){
-                a++;
-                actual_size+=size[0];
-            }
-            if(b_position==2 && actual_size+size[1]<=max){
-                b++;
-                actual_size+=size[1];
-            }
-            if(c_position==2 && actual_size+size[2]<=max){
-                c++;
-                actual_size+=size[2];
-            } 
-        }
-        result[0]=a;
-        result[1]=b;
-        result[2]=c;
-        return result;
-    }
-
-// widht,height,length
-    
     public static  int getHeight( int[][][] array,int width,int length){
         int height =0;
         for(int i=0;i<array[0].length;i++){
@@ -126,7 +41,7 @@ public class heuristic{
     public static int score(int[][][] array){
         int score =0;
         for(int j=0;j<array.length;j++){
-            score += -Aggregate_Height(array,j)-getHoles(array)-bumpiness(array,j);
+            score += -Aggregate_Height(array,j)-bumpiness(array,j);
         }
         return score;
    }
@@ -301,48 +216,131 @@ public static int[][] flip(int[][] theArray){
     }
     return theArray;
 }
-/** 
-public static void main(String[] args){
+public static int[][][] takebest(int[][][][] array,int[][][][] matrix,int num1,int num2){
+    int position1=0;
+    int BestScore1=-999999999;
+    int[][][] result1=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int[][][] result2=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int position2=0;
+    int BestScore2=-999999999;
+    for(int l=0;l<array.length;l++){
+        if(score(array[l])>BestScore1){
+            BestScore1=score(array[l]);
+            position1=l;
+        }
+    }
+    result1=array[position1];
+    for(int l=0;l<matrix.length;l++){
+        if(score(matrix[l])>BestScore2){
+            BestScore2=score(matrix[l]);
+            position2=l;
+        }
+    }
+    result2=matrix[position2];
+    if(BestScore1>BestScore2){
+        num1++;
+        return result1;
+    }
+    num2++;
+    return result2;    
+
+}
+public static int[][][] takebest(int[][][][] array,int[][][][] matrix,int[][][][] list){
+    int position1=0;
+    int BestScore1=-999999999;
+    int[][][] result1=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int[][][] result2=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int[][][] result3=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int[][][] Fresult=new int[array[0].length][array[0][0].length][array[0][0][0].length];
+    int position2=0;
+    int BestScore2=-999999999;
+    int position3=0;
+    int BestScore3=-999999999;
+    for(int l=0;l<array.length;l++){
+        if(score(array[l])>BestScore1){
+            BestScore1=score(array[l]);
+            position1=l;
+        }
+    }
+    result1=array[position1];
+    for(int l=0;l<matrix.length;l++){
+        if(score(matrix[l])>BestScore2){
+            BestScore2=score(matrix[l]);
+            position2=l;
+        }
+    }
+    result2=matrix[position2];
+    for(int l=0;l<list.length;l++){
+        if(score(list[l])>BestScore3){
+            BestScore3=score(list[l]);
+            position3=l;
+        }
+    }
+    result3=list[position3];
+    if(BestScore1>=BestScore2){
+        if(BestScore1>=BestScore3){
+            numberOfL++;
+            return result1;
+        }
+        else{
+            numberOfI++;
+            return result3;
+        }
+    }
+    if(BestScore2>=BestScore1){
+        if(BestScore2>=BestScore3){
+            numberOfT++;
+            return result2;
+        }
+        else{
+            numberOfI++;
+            return result3;
+        }
+    }  
+    return Fresult;
+}
+public static int numberOfL=0;
+public static int numberOfT=0;
+public static int numberOfI=0;
+    
+public static int[][][] finaresult(){
     int[][] T={  {1,1,1,0},{0,1,0,0},{0,1,0,0},{0,0,0,0} };
     int[][] L={  {1,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}};
     int[][] I={  {1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0},{1,0,0,0,0}};      
     int[][][] field=new int[33][5][8];
-    int position=0;
-    int BestScore=-999999999;
-     for(int kl=0;kl<130;kl++){
-         position=0;
-         BestScore=-999999999;
-        int[][][][] result = allposibillities(field, T);
-        //System.out.print(result.length+" ");
-        for(int l=0;l<result.length;l++){
-            if(score(result[l])>BestScore){
-                BestScore=score(result[l]);
-                position=l;
-            }
+     for(int kl=0;kl<197;kl++){
+        int[][][][] result1 = allposibillities(field, L);
+        int[][][][] result2 = allposibillities(field, T);
+        int[][][][] result3 = allposibillities(field, I);
+        if(result1.length==0 && result2.length==0 && result3.length==0 ){
+            System.out.println("oh-oh,too much "+kl);
+            break;
+         }
+        else if(result1.length==0 && result2.length==0){
+            field=takebest(result3, result3,numberOfI,numberOfI);
+         }
+         else if(result1.length==0 && result3.length==0){
+            field=takebest(result2, result2,numberOfT,numberOfT);
+         }
+         else if(result2.length==0 && result3.length==0){
+            field=takebest(result1, result1,numberOfL,numberOfL);
+         }
+        else if(result1.length==0 ){
+           field=takebest(result2, result3,numberOfT,numberOfI);
         }
-           
-                
-            field=result[position];
+        else if(result2.length==0){
+            field=takebest(result1, result3,numberOfL,numberOfT);
+        }
+        else if(result3.length==0){
+            field=takebest(result1, result2,numberOfL,numberOfI);
+        }
+        else{       
+            field=takebest(result1, result2, result3);
+
+        }
+        
      }
-     /** 
-     for(int kl=0;kl<80;kl++){
-        BestScore=-999999999;
-        position=0;
-        int[][][][] result = allposibillities(field, I);
-        for(int l=0;l<result.length;l++){
-            if(score(result[l])>BestScore){
-                BestScore=score(result[l]);
-                position=l;
-            }
-            }
-            field=result[position];
-            //System.out.print(position+" "+BestScore+" next ");
-     }
-     
-     print(field);
-    
-  
-    System.out.println(BestScore);
+     return field;
     }
-*/
+
 }
