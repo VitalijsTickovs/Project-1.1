@@ -27,16 +27,7 @@ public class PentominoBuilder {
     public static Entity createPentominos(double size, double centerX, double centerY, double centerZ, int[][][] arr){
         List<Tetrahedron> tetras = new ArrayList<Tetrahedron>();
 
-        int colorCount = 0;
-        for(int pentPiece=0; pentPiece < arr.length; pentPiece++){
-            if(pentPiece % 5 ==0){
-                if(colorCount<3) colorCount++;
-                else colorCount = 1;
-            }
-            for(int cube=0; cube < arr[pentPiece].length; cube++) {
-                pentominoLayout[arr[pentPiece][cube][0]][arr[pentPiece][cube][1]][arr[pentPiece][cube][2]] = colorCount;
-            }
-        }
+        heuristicAlgorithm(arr);
 
         int cubeSpacing = 2;
         for(int i=-2; i < 3; i++) {
@@ -73,5 +64,28 @@ public class PentominoBuilder {
             }
         }
         return new Entity(tetras);
+    }
+
+    public static void dancingLinksAlgorithm(int [][][] arr){
+        int colorCount = 0;
+        for(int pentPiece=0; pentPiece < arr.length; pentPiece++){
+            if(pentPiece % 5 ==0){
+                if(colorCount<3) colorCount++;
+                else colorCount = 1;
+            }
+            for(int cube=0; cube < arr[pentPiece].length; cube++) {
+                pentominoLayout[arr[pentPiece][cube][0]][arr[pentPiece][cube][1]][arr[pentPiece][cube][2]] = colorCount;
+            }
+        }
+    }
+
+    public static void heuristicAlgorithm(int[][][] arr){
+        for(int i=0; i<arr.length; i++){
+            for(int j=0; j<arr[i].length; j++){
+                for(int k=0; k<arr[i][j].length; k++){
+                    pentominoLayout[i][j][k] = arr[i][j][k];
+                }
+            }
+        }
     }
 }
