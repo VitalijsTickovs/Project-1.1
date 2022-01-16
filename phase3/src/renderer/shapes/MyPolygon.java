@@ -20,15 +20,6 @@ public class MyPolygon {
         }
     }
 
-    public MyPolygon(Points... points){
-        this.color = Color.WHITE;
-        this.points = new Points[points.length];
-        for(int i=0; i < points.length; i++){
-            Points p = points[i];
-            this.points[i] = new Points(p.x, p.y, p.z);
-        }
-    }
-
     public void render(Graphics g){
         Polygon poly = new Polygon();
         for(int i=0; i < this.points.length; i++){
@@ -45,11 +36,6 @@ public class MyPolygon {
             Converter.rotateAxisY(p, CW, yDegrees);
             Converter.rotateAxisZ(p, CW, zDegrees);
         }
-
-    }
-
-    public void setColor(Color color){
-        this.color = color;
     }
 
     public double getAVGX(){

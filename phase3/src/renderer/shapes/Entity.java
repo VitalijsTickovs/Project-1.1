@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Entity {
-    private List<TetraHedron> tetrahedrons;
+    private List<Tetrahedron> tetrahedra;
     private MyPolygon[] polygons;
 
-    public Entity(List<TetraHedron> tetrahedrons){
-        this.tetrahedrons = tetrahedrons;
+    public Entity(List<Tetrahedron> tetrahedra){
+        this.tetrahedra = tetrahedra;
         List<MyPolygon> tempList = new ArrayList<MyPolygon>();
-        for(TetraHedron tetra : this.tetrahedrons){
+        for(Tetrahedron tetra : this.tetrahedra){
             tempList.addAll(Arrays.asList(tetra.getPolygons()));
         }
         this.polygons = new MyPolygon[tempList.size()];
@@ -27,7 +27,7 @@ public class Entity {
     }
 
     public void rotate(boolean CW, double xDegrees, double yDegrees, double zDegrees){
-        for(TetraHedron p: this.tetrahedrons){
+        for(Tetrahedron p: this.tetrahedra){
             p.rotate(CW, xDegrees, yDegrees, zDegrees);
         }
         this.sortPolygons();

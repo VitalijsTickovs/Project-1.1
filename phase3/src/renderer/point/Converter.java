@@ -31,8 +31,8 @@ public class Converter {
     private static double[] scale(double x3d, double y3d, double depth){
         double dist = Math.sqrt(x3d*x3d + y3d*y3d);
         double theta = Math.atan2(y3d, x3d);
-        double depth2 = 15 - depth;
-        double localScale = Math.abs(1400/ (depth2+1400));
+        depth = 15 - depth;
+        double localScale = Math.abs(1400/ (depth+1400));
 
         dist *= localScale;
 

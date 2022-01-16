@@ -1,31 +1,15 @@
 package renderer.shapes;
 
-import renderer.point.Converter;
-import renderer.point.Points;
-
 import java.awt.*;
 
-public class TetraHedron {
+public class Tetrahedron {
     private MyPolygon[] poly;
     private Color color;
 
-    public TetraHedron(Color color, MyPolygon... poly){
-        this.color = color;
-        this.poly = poly;
-        this.setPolygonColor();
-        this.sortPolygons();
-    }
-
-    public TetraHedron(MyPolygon... poly){
+    public Tetrahedron(MyPolygon... poly){
         this.color = Color.WHITE;
         this.poly = poly;
         this.sortPolygons();
-    }
-
-    public void render(Graphics g){
-        for(MyPolygon i: this.poly){
-            i.render(g);
-        }
     }
 
     public MyPolygon[] getPolygons(){
@@ -41,11 +25,5 @@ public class TetraHedron {
 
     private void sortPolygons(){
         MyPolygon.sortPolygons(this.poly);
-    }
-
-    private void setPolygonColor(){
-        for(MyPolygon i: this.poly){
-            i.setColor(this.color);
-        }
     }
 }
