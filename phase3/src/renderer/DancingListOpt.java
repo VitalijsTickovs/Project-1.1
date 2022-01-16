@@ -20,13 +20,23 @@ public class DancingListOpt {
 
     public ArrayList<Square> maxOs = new ArrayList<>();
 
-
+    /**
+     * constructor for the class
+     * @param h start head of the doubly linked structure
+     */
     public DancingListOpt(Square h){
         this.h = h;
     }
 
 
-
+    /**
+     * recusive method that seafches for the best score for a set amount of time
+     * @param k: indicator of what layer we are on, starts at 0, incremented each recursion
+     * @param timeAllowed: time in ms given for it to run
+     * @param timeStart: the time the algorithm is started
+     * @param boxes: boolean that determines wether we are using boxes, or pentominoes
+     * @return boolean that specifies if a solution (complete cover) has been found
+     */
     public boolean search(int k,int timeAllowed,long timeStart,boolean boxes){
         if(h.R.equals(h) ){
             //System.out.println("solution found with n of pieces: " + Os.size());

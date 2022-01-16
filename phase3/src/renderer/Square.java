@@ -1,6 +1,7 @@
 package renderer;
 
 public class Square {
+    //class that represents an object in the doubly linked structure used in "dancing list"
     public Square L = this;
     public Square R = this;
     public Square U = this;

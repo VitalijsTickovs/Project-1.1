@@ -10,7 +10,7 @@ public class DancingTable3DUnlimited {
 
 
     /**
-     * Method to make boolean tables for dancing links
+     * Method to make boolean tables for dancing links assuming we have unlimited of each piece in input
      * @param emptyField emty 3D space to be filled
      * @param input array determining how many of each box (input[0] = number of A boxes etc)
      * @return table that represents each possible placement of each box, that, when solved with dancing links returns a solution
