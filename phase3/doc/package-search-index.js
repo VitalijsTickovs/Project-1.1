@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"dancingLinks"},{"l":"heuristicAlgorithm"},{"l":"renderer"},{"l":"renderer.mouseInput"},{"l":"renderer.point"},{"l":"renderer.shapes"},{"l":"renderer.shapes.AlgorithmType"}];updateSearchResults();

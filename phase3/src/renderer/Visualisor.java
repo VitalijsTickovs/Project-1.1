@@ -1,5 +1,7 @@
 package renderer;
 
+import dancingLinks.DancingRun3D;
+import heuristicAlgorithm.heuristic;
 import renderer.mouseInput.Mouse;
 import renderer.shapes.AlgorithmType.AlgorithmsTypes;
 import renderer.shapes.EntityManager;
@@ -163,11 +165,11 @@ public class Visualisor extends Canvas implements Runnable{
 
         int[][][] shapeLayout;
 
-        if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) shapeLayout = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);    //goes through the specified algorithm and assigns it to local variable
-        else shapeLayout = heuristic.finaresult(lPackages,tPackages,pPackages);
-
         // first parameter is number of milliseconds per search, second parameter is number of tries to search
         //third parameter is true if boxes, false if pentominoes.
+        if(algorithm == AlgorithmsTypes.DancingLinksAlgorithm) shapeLayout = DancingRun3D.getSolution(timeToTake, triesToTake, isBoxes);    //goes through the specified algorithm and assigns it to local variable
+        else shapeLayout = heuristic.finaresult(lPackages,tPackages,pPackages, lValues, pValues, tValues);
+
         this.entityManager.init(shapeLayout, algorithm);                //run through the decoding of each array to the cubes
 
         while(running){                                                 //loop to display the final image and let the user look into the shape
